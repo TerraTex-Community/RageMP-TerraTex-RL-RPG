@@ -6,7 +6,6 @@ module.exports = function(grunt) {
             clientpackages_install: {
                 options: {
                     cmd: 'install',
-                    args: ['--production'],
                     cwd: '../client-packages'
                 }
             },
@@ -14,7 +13,6 @@ module.exports = function(grunt) {
             serverpackages_install: {
                 options: {
                     cmd: 'install',
-                    args: ['--production'],
                     cwd: '../server-packages'
                 }
             },
@@ -22,7 +20,6 @@ module.exports = function(grunt) {
             ui_install: {
                 options: {
                     cmd: 'install',
-                    args: ['--production'],
                     cwd: '../Client-UI'
                 }
             },
