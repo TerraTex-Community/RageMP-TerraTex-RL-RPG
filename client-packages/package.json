@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/ragemp-c": "github:CocaColaBear/types-ragemp-c#master"

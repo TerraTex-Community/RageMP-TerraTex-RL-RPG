@@ -2,8 +2,7 @@
     "name": "server-packages",
     "version": "0.0.0",
     "private": true,
-    "scripts": {
-    },
+    "scripts": {},
     "dependencies": {
         "ts-node": "^7.0.1",
         "typescript": "^3.2.2"
