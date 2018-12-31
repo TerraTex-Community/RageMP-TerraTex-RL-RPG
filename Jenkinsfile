@@ -26,7 +26,7 @@ gitlabCommitStatus {
 
         stage('Deploy') {
             if (env.BRANCH_NAME == 'master') {
-                bat 'cd Build-stuff && grunt deploy --path=D:\TerraTex\Spiele\TerraTex-RageMP-V2\develop\server-files'
+                bat 'cd Build-stuff && grunt deploy --path=D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2\\develop\\server-files'
             // } else if (env.BRANCH_NAME == 'develop') {
             }
         }

@@ -77,6 +77,7 @@ module.exports = function(grunt) {
         }
     });
 
+    // @todo: add clean up of deploy directory + logs save?
 
     grunt.loadNpmTasks('grunt-npm-command');
     grunt.loadNpmTasks('grunt-mkdir');
