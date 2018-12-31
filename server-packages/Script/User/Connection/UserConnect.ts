@@ -8,13 +8,13 @@ async function checkBans(player: PlayerMp): Promise<boolean> {
     console.log(`Checks Bans of ${player.name}!`);
 
     // @ts-ignore
-    const serial = player["serial"];
+    const serial = player.serial;
     const name = player.name;
 
     const user = await DbUser.findAndCount({
         where: {
             nickname: name
-        },
+        }
     });
 
     if (user[1] !== 0) {
@@ -22,6 +22,7 @@ async function checkBans(player: PlayerMp): Promise<boolean> {
             player.outputChatBox("!{#ff0000} You are banned from this server.");
             console.error(`${player.name} is already banned.`);
             player.kick("You are banned from this server.");
+
             return false;
         }
     }
@@ -46,7 +47,12 @@ async function checkBans(player: PlayerMp): Promise<boolean> {
  * Player Connected => show Register or Login
  */
 mp.events.add(RageEnums.EventKey.PLAYER_READY, async (player: PlayerMp) => {
-    if (!await checkBans(player)) { return; }
+    // hide player
+    player.alpha = 0;
+    player.position = new mp.Vector3(0,0,200);
+    player.dimension = 1;
+
+    if (!(await checkBans(player))) { return; }
 
     const playerName = player.name;
 

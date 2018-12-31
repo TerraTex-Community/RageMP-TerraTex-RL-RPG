@@ -2,7 +2,7 @@ import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColu
 import {DbUser} from './DbUser';
 
 @Entity({
-    name: 'Admin_Bans'
+    name: 'admin_bans'
 })
 export class DbAdminBans extends BaseEntity {
     @PrimaryGeneratedColumn()
