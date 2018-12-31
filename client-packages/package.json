@@ -1,0 +1,10 @@
+{
+  "name": "client-packages",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+  },
+  "devDependencies": {
+    "@types/ragemp-c": "github:CocaColaBear/types-ragemp-c#master"
+  }
+}
