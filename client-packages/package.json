@@ -6,6 +6,7 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "@types/ragemp-c": "github:CocaColaBear/types-ragemp-c#master"
+    "@types/ragemp-c": "github:CocaColaBear/types-ragemp-c#master",
+    "typescript": "^3.2.2"
   }
 }
