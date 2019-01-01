@@ -52,7 +52,14 @@ mp.events.add(RageEnums.EventKey.PLAYER_READY, async (player: PlayerMp) => {
     player.position = new mp.Vector3(0,0,200);
     player.dimension = 1;
 
-    if (!(await checkBans(player))) { return; }
+    try {
+        const result = await checkBans(player);
+        if (!result) {
+            return false;
+        }
+    } catch (e) {
+        console.error(e);
+    }
 
     const playerName = player.name;
 
@@ -64,9 +71,5 @@ mp.events.add(RageEnums.EventKey.PLAYER_READY, async (player: PlayerMp) => {
         }
     });
 
-    if (user[1] === 0) {
-        // @todo: start register
-    } else {
-        // @todo: start login
-    }
+    player.call("startLoginProcess", user[1] > 0);
 });

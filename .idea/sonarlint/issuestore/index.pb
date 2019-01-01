@@ -13,18 +13,6 @@ M
 server-packages/tsconfig.json,7\4\74a8cf16ddae8a9c5371d518e8a8770ce48f1b86
 F
 Client-UI/package.json,3\b\3b076f08a6795d6c13c8a02142a8fde1b82e1e3b
-J
-Client-UI/src/polyfills.ts,d\0\d0cf531830b4b81a347b0b04a2c6fa901c817ecc
-E
-Client-UI/src/main.ts,0\7\076cf324936098c0b560500fa55af29a040f712a
-O
-Client-UI/src/app/app.module.ts,c\b\cb8b5681d0374a8fc612d490daec976030080536
-R
-"Client-UI/src/app/app.component.ts,1\1\11239bfc1b53f4df04f9b98b0f74f866a9ed0fca
-W
-'Client-UI/src/app/app-routing.module.ts,7\1\71fb83d39d7e993a303ef55dbab63904d975ff23
-F
-Client-UI/angular.json,e\3\e34ea3b9af54683b9d68e64d333cc9a7294fc04c
 L
 client-packages/src/index.ts,e\3\e3af0715f910c797116ec157ca99422ccbc5531c
 H

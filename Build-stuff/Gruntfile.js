@@ -41,7 +41,6 @@ module.exports = function(grunt) {
         'mkdir': {
             all: {
                 options: {
-                    mode: 0777,
                     create: ['dist', 'dist/client_packages', 'dist/client_packages/ui', 'dist/packages']
                 }
             }
@@ -50,7 +49,7 @@ module.exports = function(grunt) {
             ui: {
                 expand: true,
                 src: '**/*',
-                cwd: '../Client-UI/dist/',
+                cwd: '../Client-UI/src/',
                 dest: './dist/client_packages/ui'
             },
             client: {

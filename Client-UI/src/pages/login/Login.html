@@ -1,0 +1,53 @@
+﻿<div style="display: flex; height:100%; width:100%; align-items: center; justify-content: center;">
+    <div style="align-self: flex-start"></div>
+    <div style="width: 690px; max-width: 100%; height: 390px; max-height: 100%;">
+        <div class="container-fluid">
+            <form role="form" onsubmit="executeFormCheck(); return false;">
+                <div class="form-control">
+                    <h3>Willkommen auf dem<br/>TerraTex Reallife Roleplay Game Server</h3>
+                    <img src="images/general/logo.png" class="register-image-logo" alt=""/>Willkommen auf dem Server.
+                    Unter deinem Pseudonym <b>"<span data-insert="nickname">${nickname}</span>"</b> wurde ein Account
+                    gefunden.
+                    Bitte Authentifiziere dich mit deinem Passwort. Solltest du dein Passwort vergessen haben, kannst du
+                    dich im Forum unter <a href="https://forum.terratex.eu" class="web">https://forum.terratex.eu</a> oder
+                    unter der E-Mail <a href="support@terratex.eu" class="web">support@terratex.eu</a>
+                    melden.
+                    <div class="clear"></div>
+                </div>
+                <div class="form-control">
+                    <div class="form-group">
+                        <label for="password" class="font-weight-bold">Passwort</label>
+                        <input type="password" class="form-control" id="password" placeholder="Passwort" required>
+                    </div>
+                </div>
+                <div class="form-control">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <!--<button type="button" class="btn btn-warning" onclick="openPasswordForgotten()">Passwort-->
+                        <!--vergessen-->
+                    <!--</button>-->
+                </div>
+            </form>
+
+            <script>
+
+                $(document).ready(function () {
+                    mp.trigger('browser_login_sendMeNickname');
+                });
+
+                function setPlayerNickname(nickname) {
+                    $("span[data-insert=nickname]").html(nickname);
+                }
+
+                function openPasswordForgotten() {
+                    mp.trigger("browser_login_openPasswordForgotten");
+                }
+
+                function executeFormCheck() {
+                    //check password
+                    mp.trigger("browser_login_Login", $("#password").val());
+                }
+            </script>
+        </div>
+    </div>
+    <div style="align-self: flex-end"></div>
+</div>
