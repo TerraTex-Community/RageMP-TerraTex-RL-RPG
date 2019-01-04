@@ -1,14 +1,18 @@
 {
-    "type": "mysql",
+    "type": "mariadb",
     "host": "localhost",
     "port": 3306,
     "username": "root",
+    "cache": false,
     "password": "test",
     "database": "dev_tt_ragemp",
     "logging": "all",
     "synchronize": true,
+    "maxQueryExecutionTime": 1000,
+    "logger": "advanced-console",
     "entities": [
-        "packages/TerraTex/DB/entities/**/*.ts"
+        "packages/TerraTex/DB/entities/**/*.ts",
+        "DB/entities/**/*.ts"
     ],
     "migrations": [
         "packages/TerraTex/DB/migrations/**/*.ts"

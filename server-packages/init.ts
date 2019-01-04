@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import {initDb} from './Lib/Data/Database';
-import './Script/User/Connection/UserConnect';
+import './Script/User/Connection/LoginEvents';
 import {DbUser} from './DB/entities/DbUser';
 
 async function initGameMode() {

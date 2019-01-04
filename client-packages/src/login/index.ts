@@ -1,6 +1,9 @@
 let loginProcessBrowser :BrowserMp|null = null;
 
-mp.events.add("startLoginProcess", (isLogin:boolean) => {
+mp.events.add("login_startLoginProcess", (...args) => {
+    const isLogin = false;
+    mp.gui.chat.push(JSON.stringify(args));
+
     mp.gui.chat.show(false);
     mp.gui.cursor.show(true, true);
     if (isLogin) {
@@ -17,11 +20,21 @@ mp.events.add("browser_login_sendMeNickname", () => {
 });
 
 mp.events.add("browser_login_register", jsonData => {
-    console.log(jsonData);
-    mp.gui.chat.push(jsonData);
+    if (!loginProcessBrowser) return;
+    mp.events.callRemote("execute_login_register", jsonData);
+    mp.gui.cursor.show(false, false);
+    mp.gui.chat.show(true);
+    loginProcessBrowser.destroy();
+});
+
+mp.events.add("browser_login_openPasswordForgotten", () => {
+    if (!loginProcessBrowser) return;
+    loginProcessBrowser.url = "package://ui/index.html?page=pages/login/PasswordForgotten.html";
+// @todo: browser_login_openPasswordForgotten part
     mp.gui.chat.show(true);
 });
 
+
+
 // @todo: browser_login_Login
 // @todo: browser_login_register
-// @todo: browser_login_openPasswordForgotten

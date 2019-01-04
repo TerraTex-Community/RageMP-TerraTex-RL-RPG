@@ -70,6 +70,16 @@ module.exports = function(grunt) {
                 dest: deployPath,
                 cwd: './dist'
             }
+        },
+        'clean': {
+
+            'pre': ['./dist'],
+            'deploy': {
+                options: {
+                    force: true,
+                },
+                src: [deployPath + '/packages', deployPath + '/client_packages']
+            }
         }
     });
 
@@ -78,13 +88,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-npm-command');
     grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
-
+    grunt.registerTask('pre', ['clean:pre']);
     grunt.registerTask('install', ['npm-command:ui_install','npm-command:serverpackages_install','npm-command:clientpackages_install']);
     grunt.registerTask('build', ['npm-command:ui_build', 'npm-command:clientpackages_build']);
     grunt.registerTask('publish', ['mkdir', 'copy:ui', 'copy:client', 'copy:server']);
 
-    grunt.registerTask('default', ['install', 'build', 'publish']);
-    grunt.registerTask('deploy', ['copy:deploy']);
+    grunt.registerTask('default', ['pre', 'install', 'build', 'publish']);
+    grunt.registerTask('deploy', ['clean:deploy', 'copy:deploy']);
 
 };

@@ -46,7 +46,7 @@ async function checkBans(player: PlayerMp): Promise<boolean> {
 /**
  * Player Connected => show Register or Login
  */
-mp.events.add(RageEnums.EventKey.PLAYER_READY, async (player: PlayerMp) => {
+export async function playerConnect(player: PlayerMp) {
     // hide player
     player.alpha = 0;
     player.position = new mp.Vector3(0,0,200);
@@ -71,5 +71,8 @@ mp.events.add(RageEnums.EventKey.PLAYER_READY, async (player: PlayerMp) => {
         }
     });
 
-    player.call("startLoginProcess", user[1] > 0);
-});
+    player.call("login_startLoginProcess", JSON.stringify({
+        isLogin: user[1] > 0
+    }));
+
+}
