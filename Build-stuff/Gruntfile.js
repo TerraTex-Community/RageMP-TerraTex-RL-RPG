@@ -69,6 +69,12 @@ module.exports = function(grunt) {
                 src: '**/*',
                 dest: deployPath,
                 cwd: './dist'
+            },
+            extras: {
+                expand: true,
+                src: '**/*',
+                dest: './dist',
+                cwd: '../Extras'
             }
         },
         'clean': {
@@ -83,8 +89,6 @@ module.exports = function(grunt) {
         }
     });
 
-    // @todo: add clean up of deploy directory + logs save?
-
     grunt.loadNpmTasks('grunt-npm-command');
     grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -93,7 +97,7 @@ module.exports = function(grunt) {
     grunt.registerTask('pre', ['clean:pre']);
     grunt.registerTask('install', ['npm-command:ui_install','npm-command:serverpackages_install','npm-command:clientpackages_install']);
     grunt.registerTask('build', ['npm-command:ui_build', 'npm-command:clientpackages_build']);
-    grunt.registerTask('publish', ['mkdir', 'copy:ui', 'copy:client', 'copy:server']);
+    grunt.registerTask('publish', ['mkdir', 'copy:ui', 'copy:client', 'copy:server', 'copy:extras']);
 
     grunt.registerTask('default', ['pre', 'install', 'build', 'publish']);
     grunt.registerTask('deploy', ['clean:deploy', 'copy:deploy']);

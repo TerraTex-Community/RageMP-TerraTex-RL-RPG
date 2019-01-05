@@ -55,3 +55,4 @@ jspm_packages/
 .DS_Store
 Thumbs.db
 /client-packages/dist/
+!/Extras/packages/_rage-console/node_modules/
