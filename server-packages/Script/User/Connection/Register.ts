@@ -26,14 +26,13 @@ export async function registerPlayer(player: PlayerMp, data: any) {
     newUser.birthday = new Date(parsedData.birthday);
     newUser.history = parsedData.history;
 
-    newUser.save().then((data) => {
+    console.debug("start creating ", newUser);
 
-        console.info(`Account ${newUser.nickname} (${newUser.id}) created.`);
+    const resultData = await newUser.save();
+    console.debug(resultData);
 
-        player.notify(`Dein Account ${player.name} wurde erstellt. Logge dich nun ein.`);
-        player.call("login_startLoginProcess", {
-            isLogin: true
-        });
+    console.info(`Account ${newUser.nickname} (${newUser.id}) created.`);
 
-    }).catch( e => console.error(e));
+    player.notify(`Dein Account ${player.name} wurde erstellt. Logge dich nun ein.`);
+    player.call("login_startLoginProcess", [true]);
 }

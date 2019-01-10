@@ -8,3 +8,4 @@ mp.players.local.alpha = 0;
 mp.players.local.position = new mp.Vector3(0,0,200);
 mp.players.local.dimension = 1;
 
+

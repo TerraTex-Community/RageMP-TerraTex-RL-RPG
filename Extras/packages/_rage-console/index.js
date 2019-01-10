@@ -8,6 +8,7 @@
 ****************************************************************************/
 
 const terminal = new (require('./terminal/TerminalManager'))();
+//@todo: build own version as client not working
 
 const origConsoleObj = {
   log: console.log,

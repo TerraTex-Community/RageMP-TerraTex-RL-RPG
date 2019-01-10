@@ -71,8 +71,6 @@ export async function playerConnect(player: PlayerMp) {
         }
     });
 
-    player.call("login_startLoginProcess", JSON.stringify({
-        isLogin: user[1] > 0
-    }));
+    player.call("login_startLoginProcess", [user[1] > 0]);
 
 }

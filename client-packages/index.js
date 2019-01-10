@@ -1,5 +1,7 @@
 // require external extras:
-require("_rage_console");
+const terminal = require("_rage-console/index");
+
+terminal.active = true;
 
 
 // load TerraTex
