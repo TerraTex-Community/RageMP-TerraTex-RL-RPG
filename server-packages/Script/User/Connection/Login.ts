@@ -1,6 +1,9 @@
 import * as crypto from 'crypto';
 import {DbUser} from '../../../DB/entities/DbUser';
 import {ClientHelper} from '../../Helper/ClientHelper';
+import {DbUserData} from '../../../DB/entities/DbUserData';
+import {DbUserInventory} from '../../../DB/entities/DbUserInventory';
+import {spawnPlayer} from '../Spawn/Spawn';
 
 export async function loginPlayer(player: PlayerMp, password: string) {
     const encryptedPw = crypto.createHash('sha256').update(password).digest('hex');
@@ -28,7 +31,19 @@ export async function loginPlayer(player: PlayerMp, password: string) {
         return false;
     }
 
-    player.data.dbUser = user[0][0];
+    const userObj:DbUser = user[0][0];
 
-    
+    // ensure tables
+    if (userObj.data === null) {
+        await (new DbUserData(userObj)).save();
+    }
+    if (userObj.inventory === null) {
+        await (new DbUserInventory(userObj)).save();
+    }
+
+    await userObj.reload();
+
+    player.setVariable("dbUser", userObj);
+
+    spawnPlayer(player);
 }
