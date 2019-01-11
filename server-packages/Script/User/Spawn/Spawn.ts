@@ -73,7 +73,7 @@ function resetOfflineStats(player: PlayerMp) {
     // }
 }
 
-function getSpawnPosition(player: PlayerMp) : Vector3Mp {
+export function getSpawnPosition(player: PlayerMp) : Vector3Mp {
     // @todo:
 
     // List<Apartment> apartments = (List<Apartment>) player.getData("UserApartments");
