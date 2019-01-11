@@ -1,0 +1,20 @@
+
+ajavascript:S2259¨"DTypeError can be thrown as "action" might be null or undefined here.(‘şáí
+‰javascript:S2583²"lChange this condition so that it does not always evaluate to "true"; some subsequent code is never executed.(ıÂû²
+`'javascript:FunctionDefinitionInsideLoop¿"'Define this function outside of a loop.(ôšÍÿÿÿÿÿ
+ajavascript:S2814Æ"DRename "i" as this name is already used in declaration at line 3003.(À©Üî
+>javascript:S1116è%"Remove this empty statement.(Åñ­õşÿÿÿÿ
+Kjavascript:S1472O"*Make those call arguments start on line 77(À˜½¤øÿÿÿÿ
+„javascript:S1871ã"bEither merge this case with the identical one on line "2219" or change one of the implementations.(ğÂä÷ûÿÿÿÿ
+ejavascript:S3686”"HCorrect the use of this function; on line 1428 it was called with "new".(¼¸Ï
+Zjavascript:UnusedVariableí"4Remove the declaration of the unused 'EOF' variable.(›¶ ®
+_javascript:UnusedVariable¹"4Remove the declaration of the unused 'col' variable.(ğåÕ­üÿÿÿÿ
+Hjavascript:UnusedVariable÷""Remove unused function 'popStack'.(¿¯¤¾
+^javascript:UnusedVariable"8Remove the declaration of the unused 'YYSTATE' variable.(ßªèÀ
+bjavascript:UnusedVariableì"7Remove the declaration of the unused 'TERROR' variable.(Ûó”Ğúÿÿÿÿ
+]javascript:UnusedVariableˆ"2Remove the declaration of the unused 'a' variable.(Î²úÈıÿÿÿÿ
+[javascript:S1854ì"9Remove this useless assignment to local variable "TERROR"(Ûó”Ğúÿÿÿÿ
+Wjavascript:S1854":Remove this useless assignment to local variable "YYSTATE"(ßªèÀ
+[javascript:S1854´""9Remove this useless assignment to local variable "prefix"(°Çİ•øÿÿÿÿ
+{javascript:S2703´"YAdd the "let", "const" or "var" keyword to this declaration of "__e" to make it explicit.(ƒ¶ìùÿÿÿÿ
+ujavascript:S2703­"YAdd the "let", "const" or "var" keyword to this declaration of "__g" to make it explicit.(ÈÔŠz
