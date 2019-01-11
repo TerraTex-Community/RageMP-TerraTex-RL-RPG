@@ -57,3 +57,4 @@ Thumbs.db
 /Client-UI/node_modules/
 /Build-stuff/node_modules/
 /server-packages/node_modules/
+/client-packages/node_modules/
