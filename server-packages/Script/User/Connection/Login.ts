@@ -44,6 +44,7 @@ export async function loginPlayer(player: PlayerMp, password: string) {
     await userObj.reload();
 
     player.setVariable("dbUser", userObj);
+    player.setVariable("loggedIn", true);
 
     spawnPlayer(player);
 }

@@ -21,3 +21,6 @@ mp.events.add('execute_login_login',
 
 mp.events.add(RageEnums.EventKey.PLAYER_READY,
     (player: PlayerMp) => playerConnect(player).catch(console.error));
+
+// additional imports for login/save/disconnect Process
+import './SaveTimer';
