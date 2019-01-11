@@ -28,6 +28,7 @@ export async function loginPlayer(player: PlayerMp, password: string) {
         return false;
     }
 
-    console.log(user[0][0]);
-    // @todo: implement Login and stuff after
+    player.data.dbUser = user[0][0];
+
+    
 }

@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-    var deployPath =  grunt.option('path') || 'dev';
+    var deployPath = grunt.option('path') || 'dev';
 
     grunt.initConfig({
         'npm-command': {

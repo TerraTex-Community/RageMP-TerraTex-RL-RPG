@@ -2,7 +2,9 @@
     "name": "server-packages",
     "version": "0.0.0",
     "private": true,
-    "scripts": {},
+    "scripts": {
+        "sync_schema": "ts-node ./node_modules/typeorm/cli.js schema:sync"
+    },
     "dependencies": {
         "@types/node": "^10.12.18",
         "@types/nodemailer": "^4.6.5",
@@ -15,6 +17,7 @@
         "typescript": "^3.2.2"
     },
     "devDependencies": {
-        "@types/ragemp-s": "github:CocaColaBear/types-ragemp-s#master"
+        "@types/ragemp-s": "github:CocaColaBear/types-ragemp-s#master",
+        "tsconfig-paths": "^3.7.0"
     }
 }
