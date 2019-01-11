@@ -1,14 +1,17 @@
-import {Connection, createConnection} from 'typeorm';
+import {Connection, createConnection, getConnection} from 'typeorm';
 
-let connection: Connection;
 export async function initDb() {
     await createConnection();
 }
 
 export async function getDatabase() {
-    if (!connection) {
+    if (!getConnection()) {
         await initDb();
     }
 
-    return connection;
+    if (!getConnection().isConnected) {
+        await getConnection().connect();
+    }
+
+    return getConnection();
 }

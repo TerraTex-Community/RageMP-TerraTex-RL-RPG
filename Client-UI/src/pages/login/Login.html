@@ -14,6 +14,9 @@
                     melden.
                     <div class="clear"></div>
                 </div>
+                <div class="alert alert-danger hidden" id="pw-error">
+                    Das eingegebene Passwort ist fehlerhaft.
+                </div>
                 <div class="form-control">
                     <div class="form-group">
                         <label for="password" class="font-weight-bold">Passwort</label>
@@ -45,6 +48,10 @@
                 function executeFormCheck() {
                     //check password
                     mp.trigger("browser_login_Login", $("#password").val());
+                }
+
+                function showPasswordError() {
+                    $("#pw-error").toggleClass("hidden", false);
                 }
             </script>
         </div>

@@ -5,7 +5,9 @@
     "scripts": {},
     "dependencies": {
         "@types/node": "^10.12.18",
+        "@types/nodemailer": "^4.6.5",
         "mysql": "2.15.0",
+        "nodemailer": "^5.1.1",
         "reflect-metadata": "^0.1.12",
         "ts-node": "^7.0.1",
         "tslint": "^5.12.0",

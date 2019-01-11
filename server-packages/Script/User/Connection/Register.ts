@@ -1,5 +1,7 @@
 import {DbUser} from '../../../DB/entities/DbUser';
 import * as crypto from "crypto";
+import {getDatabase} from '../../../Lib/Data/Database';
+import {getConnection} from 'typeorm';
 
 export async function registerPlayer(player: PlayerMp, data: any) {
     /**
@@ -25,11 +27,11 @@ export async function registerPlayer(player: PlayerMp, data: any) {
     newUser.nickname = player.name;
     newUser.birthday = new Date(parsedData.birthday);
     newUser.history = parsedData.history;
-
+    //
     console.debug("start creating ", newUser);
 
-    const resultData = await newUser.save();
-    console.debug(resultData);
+    await newUser.save();
+    console.debug(newUser.id);
 
     console.info(`Account ${newUser.nickname} (${newUser.id}) created.`);
 

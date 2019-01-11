@@ -1,0 +1,8 @@
+{
+    "host": "ssl0.ovh.net",
+    "user": "admin@terratex.eu",
+    "sendMail": "server@terratex.eu",
+    "sendName": "TerraTex Reallife RPG Server",
+    "password": "-julien-230392-",
+    "port": 587
+}
