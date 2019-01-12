@@ -2,10 +2,11 @@ import {DbUser} from '../../../DB/entities/DbUser';
 import sendMail from '../../../Lib/Data/EMail';
 import {ClientHelper} from '../../Helper/ClientHelper';
 import * as crypto from "crypto";
+import Player = RageMP.Player;
 
 const mailedCodes: any = {};
 
-export async function getHiddenEMail(player: PlayerMp) {
+export async function getHiddenEMail(player: Player) {
     const user = await DbUser.findOne({
         where: {
             nickname: player.name
@@ -33,7 +34,7 @@ export async function getHiddenEMail(player: PlayerMp) {
     player.call('execute_login_password_forgotten_getEmailHidden_result', [generatedEmail]);
 }
 
-export async function sendEmailCode(player: PlayerMp) {
+export async function sendEmailCode(player: Player) {
     const user = await DbUser.findOne({
         where: {
             nickname: player.name
@@ -57,7 +58,7 @@ export async function sendEmailCode(player: PlayerMp) {
     mailedCodes[player.name] = code;
 }
 
-export async function checkCodeAndSetPassword(player: PlayerMp, pw: string, code: string) {
+export async function checkCodeAndSetPassword(player: Player, pw: string, code: string) {
     if (!mailedCodes[player.name] || mailedCodes[player.name] !== code) {
         player.notify('~r~Der eingegebene Code ist nicht korrekt.');
 

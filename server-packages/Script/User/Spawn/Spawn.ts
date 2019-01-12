@@ -1,14 +1,18 @@
 import {ClientHelper} from '../../Helper/ClientHelper';
+import Vector3 = RageMP.Vector3;
+import Player = RageMP.Player;
+import {DbUser} from '../../../DB/entities/DbUser';
 
-export async function spawnPlayer(player: PlayerMp) {
+
+export async function spawnPlayer(player: Player) {
     ClientHelper.callClientSideFunc(player, "players.local.freezePosition", false);
     player.dimension = 0;
     player.alpha = 255;
 
     setSpawnPlayerSkin(player);
-    const spawnPos: Vector3Mp = getSpawnPosition(player);
+    const spawnPos: Vector3 = getSpawnPosition(player);
 
-    if (player.getVariable("dbUser").data.jailTime > 0)
+    if (player.customData.dbUser.data.jailTime > 0)
     {
         // JailManager.SetPlayerJail(player);
     //     @todo
@@ -27,21 +31,22 @@ export async function spawnPlayer(player: PlayerMp) {
 
 }
 
-function setSpawnPlayerSkin(player: PlayerMp) {
-    const skin = player.getVariable("dbUser").data.skin;
+function setSpawnPlayerSkin(player: Player) {
+    const dbUser: DbUser = player.customData.dbUser;
+    const skin = dbUser.data.skin;
 
     if (skin === 0) {
-        if (player.getVariable("dbUser").gender === "female") {
-            player.model = RageEnums.Hashes.Ped.IG_ABIGAIL;
+        if (dbUser.gender === "female") {
+            player.model = RageMP.Hashes.Ped.IG_ABIGAIL;
         } else {
-            player.model = RageEnums.Hashes.Ped.PLAYER_ZERO;
+            player.model = RageMP.Hashes.Ped.PLAYER_ZERO;
         }
     } else {
         player.model = skin;
     }
 }
 
-function resetOfflineStats(player: PlayerMp) {
+function resetOfflineStats(player: Player) {
     // @todo
 
     // string offlineState = (string) player.getData("LastOfflineState");
@@ -73,7 +78,7 @@ function resetOfflineStats(player: PlayerMp) {
     // }
 }
 
-export function getSpawnPosition(player: PlayerMp) : Vector3Mp {
+export function getSpawnPosition(player: Player) : Vector3 {
     // @todo:
 
     // List<Apartment> apartments = (List<Apartment>) player.getData("UserApartments");

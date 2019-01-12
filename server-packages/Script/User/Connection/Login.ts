@@ -4,8 +4,9 @@ import {ClientHelper} from '../../Helper/ClientHelper';
 import {DbUserData} from '../../../DB/entities/DbUserData';
 import {DbUserInventory} from '../../../DB/entities/DbUserInventory';
 import {spawnPlayer} from '../Spawn/Spawn';
+import Player = RageMP.Player;
 
-export async function loginPlayer(player: PlayerMp, password: string) {
+export async function loginPlayer(player: Player, password: string) {
     const encryptedPw = crypto.createHash('sha256').update(password).digest('hex');
 
     const user = await DbUser.findAndCount({
@@ -43,7 +44,8 @@ export async function loginPlayer(player: PlayerMp, password: string) {
 
     await userObj.reload();
 
-    player.setVariable("dbUser", userObj);
+    player.customData = {};
+    player.customData.dbUser = userObj;
     player.setVariable("loggedIn", true);
 
     spawnPlayer(player);

@@ -5,7 +5,7 @@ import {
     UpdateDateColumn,
     BaseEntity,
     OneToOne,
-    JoinColumn
+    JoinColumn, AfterLoad
 } from 'typeorm';
 import {DbUser} from './DbUser';
 
@@ -32,17 +32,13 @@ export class DbUserInventory extends BaseEntity {
 
     @Column({
         default: 5000,
-        type: 'decimal',
-        precision: 65,
-        scale: 2
+        type: 'float',
     })
     money: number;
 
     @Column({
         default: 5000,
-        type: 'decimal',
-        precision: 65,
-        scale: 2
+        type: 'float',
     })
     bank: number;
 
@@ -51,4 +47,5 @@ export class DbUserInventory extends BaseEntity {
         nullable: true
     })
     updated: Date;
+
 }

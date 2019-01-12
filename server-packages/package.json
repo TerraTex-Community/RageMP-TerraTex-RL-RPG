@@ -17,7 +17,7 @@
         "typescript": "^3.2.2"
     },
     "devDependencies": {
-        "@types/ragemp-s": "github:CocaColaBear/types-ragemp-s#master",
+        "@types/ragemp-s": "github:TerraTex-Community/types-ragemp-s#0.4",
         "tsconfig-paths": "^3.7.0"
     }
 }

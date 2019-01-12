@@ -1,10 +1,11 @@
 import {DbUser} from '../../../DB/entities/DbUser';
 import {DbAdminBans} from '../../../DB/entities/DbAdminBans';
+import Player = RageMP.Player;
 
 /**
  * Player starts to connect => check ban table
  */
-async function checkBans(player: PlayerMp): Promise<boolean> {
+async function checkBans(player: Player): Promise<boolean> {
     console.log(`Checks Bans of ${player.name}!`);
 
     // @ts-ignore
@@ -46,7 +47,7 @@ async function checkBans(player: PlayerMp): Promise<boolean> {
 /**
  * Player Connected => show Register or Login
  */
-export async function playerConnect(player: PlayerMp) {
+export async function playerConnect(player: Player) {
     // hide player
     player.alpha = 0;
     player.position = new mp.Vector3(0,0,200);
