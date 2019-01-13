@@ -10,8 +10,6 @@ function savePlayers() {
         (player: Player): void => {
             if (player.getVariable("loggedIn")) {
 
-                console.log(player.customData.dbUser);
-
                 player.customData.dbUser.save().then(() => {
                     console.log(`Datastore: ${player.customData.nickname} saved.`)
                 }).catch((e: any) => console.error(e));
@@ -19,3 +17,9 @@ function savePlayers() {
         }, player)
     );
 }
+
+mp.events.add(RageMP.Enums.Event.PLAYER_QUIT, (player: Player) => {
+    if (player.getVariable("loggedIn")) {
+        player.customData.dbUser.save();
+    }
+});
