@@ -29,13 +29,12 @@ export function payByBankOrHand(player: Player, amount: number, category: MoneyC
 
     if (dbInventory.money >= amount)
     {
-        // pay with money @todo
-        // ChangePlayerMoney(player, amount, false, category, reason, additionalDataAsJson);
         changePlayerMoney(player, amount, false, category, data, toPlayer);
     }
     else
     {
         changePlayerMoney(player, amount, true, category, data, toPlayer);
+        // @todo bank notification
     }
 
     return true;
