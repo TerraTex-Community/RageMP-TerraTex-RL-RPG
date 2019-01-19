@@ -5,28 +5,30 @@ import {DbUser} from '../../../DB/entities/DbUser';
 
 
 export async function spawnPlayer(player: Player) {
-    ClientHelper.callClientSideFunc(player, "players.local.freezePosition", false);
-    player.dimension = 0;
-    player.alpha = 255;
+    try {
+        ClientHelper.callClientSideFunc(player, 'players.local.freezePosition', false);
+        player.dimension = 0;
+        player.alpha = 255;
 
-    setSpawnPlayerSkin(player);
-    const spawnPos: Vector3 = getSpawnPosition(player);
+        setSpawnPlayerSkin(player);
+        const spawnPos: Vector3 = getSpawnPosition(player);
 
-    if (player.customData.dbUser.data.jailTime > 0)
-    {
-        // JailManager.SetPlayerJail(player);
-    //     @todo
-    }
-    // else if (OfflineSpawnSave.HasPlayerOfflinePositionStored(player))
-    // {
-    //     AntiTeleportHack.SetPlayerSavePosition(player, OfflineSpawnSave.GetPlayerOfflinePosition(player));
-    //     OfflineSpawnSave.RemovePlayerOfflinePosition(player);
-    //     resetOfflineStats(player);
-    // }
-    else
-    {
-        player.position = spawnPos;
-        // resetOfflineStats(player);
+        if (player.customData.dbUser.data.jailTime > 0) {
+            // JailManager.SetPlayerJail(player);
+            //     @todo
+        }
+        // else if (OfflineSpawnSave.HasPlayerOfflinePositionStored(player))
+        // {
+        //     AntiTeleportHack.SetPlayerSavePosition(player, OfflineSpawnSave.GetPlayerOfflinePosition(player));
+        //     OfflineSpawnSave.RemovePlayerOfflinePosition(player);
+        //     resetOfflineStats(player);
+        // }
+        else {
+            player.position = spawnPos;
+            // resetOfflineStats(player);
+        }
+    } catch (e) {
+        console.error(e);
     }
 
 }
