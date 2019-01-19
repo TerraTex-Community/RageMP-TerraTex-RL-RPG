@@ -266,3 +266,15 @@ F
 Client-UI/Gruntfile.js,3\8\382e725c513fa2c7e62128cef51184e80a81ee04
 R
 "client-packages/src/login/index.ts,f\e\fe6638a44f655df0f303f09739947c9bee50d6be
+_
+/server-packages/Script/User/Connection/Login.ts,0\1\0178bfb3f1c58d37780f07af8b217b03e7a79d1d
+\
+,server-packages/Script/System/Money/money.ts,9\7\972ae8b04ed7fb9bab142af9ed37beb18a43572f
+Y
+)server-packages/DB/entities/DbMoneyLog.ts,2\3\23425dff0319b494dba3736751849a4e13364d65
+f
+6server-packages/Script/System/Money/MoneyCategories.ts,9\d\9d88cba503d83cb432b523d5a103fbcd2bfbe612
+^
+.server-packages/DB/entities/DbUserInventory.ts,d\3\d34ba77175005255de0241a9d21c210cff8e7729
+Y
+)server-packages/DB/entities/DbUserData.ts,c\d\cd4570a9c010fb2aa259d592e0f9e83f6352778e

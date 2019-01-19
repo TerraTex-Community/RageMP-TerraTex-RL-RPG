@@ -4,6 +4,7 @@ gitlabCommitStatus {
     node('windows'){
         deleteDir()
         checkout scm
+        bat 'printenv | sort'
 
         /*stage('Sonar-Scanner') {
             if (env.BRANCH_NAME != 'master') {
