@@ -5,6 +5,10 @@ import {EventHelper} from '../../Helper/EventHelper';
 
 mp.events.add(RageMP.Enums.Event.PLAYER_DEATH, (player: Player, reason: HashOrString, killer: Player) => {
     EventHelper.resolveEventAsync((aPlayer: Player) => {
-        setTimeout(aPlayer.spawn, 10000, getSpawnPosition(aPlayer));
+        try {
+            setTimeout(aPlayer.spawn, 10000, getSpawnPosition(aPlayer));
+        } catch (e) {
+            console.error(e);
+        }
     }, player);
 });
