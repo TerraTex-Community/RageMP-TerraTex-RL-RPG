@@ -7,19 +7,19 @@ gitlabCommitStatus {
 
         script {
             final scmVars = checkout(scm)
-            echo "scmVars: ${scmVars}"
+            // echo "scmVars: ${scmVars}"
 
             JSONVERSION = "{\"versionTimestamp\":\"${env.BUILD_TIMESTAMP}\", \
             \"versionBuildId\":\"${env.BUILD_ID}\", \
             \"gitBranch\": \"${scmVars.GIT_BRANCH}\", \
             \"gitCommit\": \"${scmVars.GIT_COMMIT}\"}"
 
-            echo JSONVERSION
+            // echo JSONVERSION
 
             bat "cd server-packages && echo ${JSONVERSION} > version.json"
         }
 
-        bat 'printenv | sort'
+        // bat 'printenv | sort'
 
 
 
