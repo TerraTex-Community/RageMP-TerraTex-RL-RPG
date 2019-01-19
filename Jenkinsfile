@@ -7,11 +7,18 @@ gitlabCommitStatus {
         script {
             final scmVars = checkout(scm)
             echo "scmVars: ${scmVars}"
-            echo "scmVars.GIT_COMMIT: ${scmVars.GIT_COMMIT}"
-            echo "scmVars.GIT_BRANCH: ${scmVars.GIT_BRANCH}"
+
+            final json = "{\"versionTimestamp\":\"${env.BUILD_TIMESTAMP}\", \
+            \"versionBuildId\":\"${env.BUILD_ID}\", \
+            \"gitBranch\": \"${scmVars.GIT_BRANCH}\", \
+            \"gitCommit\": \"${scmVars.GIT_COMMIT}\"}"
+
+            bat 'cd server-packages && echo ${json} > version.json'
         }
 
         bat 'printenv | sort'
+
+
 
         /*stage('Sonar-Scanner') {
             if (env.BRANCH_NAME != 'master') {
