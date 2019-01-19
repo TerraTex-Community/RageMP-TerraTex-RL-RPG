@@ -13,6 +13,8 @@ gitlabCommitStatus {
             \"gitBranch\": \"${scmVars.GIT_BRANCH}\", \
             \"gitCommit\": \"${scmVars.GIT_COMMIT}\"}"
 
+            echo json
+
             bat 'cd server-packages && echo ${json} > version.json'
         }
 
