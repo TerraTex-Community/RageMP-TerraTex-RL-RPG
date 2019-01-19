@@ -5,6 +5,7 @@ import {DbUser} from './DB/entities/DbUser';
 import './Script/Admin/loadAdmin';
 import './Script/User/Spawn/Spawn';
 import './Script/User/Spawn/Death';
+import './Script/System/Chat';
 
 async function initGameMode() {
     await initDb();
