@@ -11,7 +11,7 @@ function savePlayers() {
             if (player.getVariable("loggedIn")) {
 
                 player.customData.dbUser.save().then(() => {
-                    console.log(`Datastore: ${player.customData.nickname} saved.`)
+                    console.log(`Datastore: ${player.name} saved.`)
                 }).catch((e: any) => console.error(e));
             }
         }, player)
