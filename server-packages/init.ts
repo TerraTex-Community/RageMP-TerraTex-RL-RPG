@@ -17,24 +17,3 @@ initGameMode()
     .catch(e => console.error("error during startup:", e));
 
 
-process.on('uncaughtException', function(err) {
-    // handle the error safely
-    console.error(err);
-    setTimeout(process.exit, 10000, 1);
-});
-process.on('unhandledRejection', function(err) {
-    // handle the error safely
-    console.error(err);
-    setTimeout(process.exit, 10000, 1);
-});
-process.on('unhandledRejection', function(err) {
-    // handle the error safely
-    console.error(err);
-    setTimeout(process.exit, 10000, 1);
-});
-
-process.on('exit', (code) => {
-    while(true) {
-        continue;
-    }
-});
