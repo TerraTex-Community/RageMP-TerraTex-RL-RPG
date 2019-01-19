@@ -1,11 +1,23 @@
 const Use3d = true;
 const UseAutoVolume = false;
 
-const MaxRange = 50.0;
+const MaxRange = 25.0;
 
 mp.keys.bind(0x73, true, function() {
     mp.voiceChat.muted = !mp.voiceChat.muted;
-    mp.game.graphics.notify("Voice Chat: " + ((!mp.voiceChat.muted) ? "~g~enabled" : "~r~disabled"));
+	if (mp.voiceChat.muted) {
+		mp.gui.chat.push("Voice Chat: ~r~deaktiviert");
+	} else {
+		mp.gui.chat.push("Voice Chat: ~g~aktiviert - Du kannst nun reden, bis du den VoiceChat wieder deaktivierst!");
+	}
+});
+
+mp.keys.bind(0x4B, true, () => {
+	mp.voiceChat.muted = false;
+});
+
+mp.keys.bind(0x4B, false, () => {
+	mp.voiceChat.muted = true;
 });
 
 let g_voiceMgr =

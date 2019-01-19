@@ -91,7 +91,8 @@ module.exports = function(grunt) {
                     force: true,
                 },
                 src: [deployPath + '/packages', deployPath + '/client_packages']
-            }
+            },
+            'scss': ['./dist/**/*.scss']
         }
     });
 
@@ -103,7 +104,7 @@ module.exports = function(grunt) {
     grunt.registerTask('pre', ['clean:pre']);
     grunt.registerTask('install', ['npm-command:ui_install','npm-command:serverpackages_install','npm-command:clientpackages_install', "npm-command:extras_console"]);
     grunt.registerTask('build', ['npm-command:ui_build', 'npm-command:clientpackages_build']);
-    grunt.registerTask('publish', ['mkdir', 'copy:ui', 'copy:client', 'copy:server', 'copy:extras']);
+    grunt.registerTask('publish', ['mkdir', 'copy:ui', 'copy:client', 'copy:server', 'copy:extras', 'clean:scss']);
 
     grunt.registerTask('default', ['pre', 'install', 'build', 'publish']);
     grunt.registerTask('deploy', ['clean:deploy', 'copy:deploy']);

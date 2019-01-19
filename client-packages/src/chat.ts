@@ -24,3 +24,4 @@ function addSlashes(string: string) {
     replace(/'/g, '\\\'').
     replace(/"/g, '\\"');
 }
+
