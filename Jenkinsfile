@@ -1,4 +1,5 @@
 properties([gitLabConnection('terratex')])
+def JSONVERSION
 
 gitlabCommitStatus {
     node('windows'){
@@ -8,14 +9,14 @@ gitlabCommitStatus {
             final scmVars = checkout(scm)
             echo "scmVars: ${scmVars}"
 
-            final json = "{\"versionTimestamp\":\"${env.BUILD_TIMESTAMP}\", \
+            JSONVERSION = "{\"versionTimestamp\":\"${env.BUILD_TIMESTAMP}\", \
             \"versionBuildId\":\"${env.BUILD_ID}\", \
             \"gitBranch\": \"${scmVars.GIT_BRANCH}\", \
             \"gitCommit\": \"${scmVars.GIT_COMMIT}\"}"
 
-            echo json
+            echo JSONVERSION
 
-            bat 'cd server-packages && echo ${json} > version.json'
+            bat 'cd server-packages && echo ${JSONVERSION} > version.json'
         }
 
         bat 'printenv | sort'
