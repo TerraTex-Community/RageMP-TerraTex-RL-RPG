@@ -3,10 +3,14 @@ properties([gitLabConnection('terratex')])
 gitlabCommitStatus {
     node('windows'){
         deleteDir()
-        final scmVars = checkout(scm)
-        echo "scmVars: ${scmVars}"
-        echo "scmVars.GIT_COMMIT: ${scmVars.GIT_COMMIT}"
-        echo "scmVars.GIT_BRANCH: ${scmVars.GIT_BRANCH}
+
+        script {
+            final scmVars = checkout(scm)
+            echo "scmVars: ${scmVars}"
+            echo "scmVars.GIT_COMMIT: ${scmVars.GIT_COMMIT}"
+            echo "scmVars.GIT_BRANCH: ${scmVars.GIT_BRANCH}
+        }
+
         bat 'printenv | sort'
 
         /*stage('Sonar-Scanner') {
