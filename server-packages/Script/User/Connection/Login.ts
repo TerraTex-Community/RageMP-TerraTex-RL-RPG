@@ -32,7 +32,7 @@ export async function loginPlayer(player: Player, password: string) {
         return false;
     }
 
-    const userObj:DbUser = user[0][0];
+    const userObj: DbUser = user[0][0];
 
     // ensure tables
     if (userObj.data === null) {
@@ -46,7 +46,11 @@ export async function loginPlayer(player: Player, password: string) {
 
     player.customData = {};
     player.customData.dbUser = userObj;
-    player.setVariable("loggedIn", true);
+
+    player.setVariable('customNameTag', `[${userObj.id}]${player.name}`);
+    player.setVariable('customChatNameTag', `[${userObj.id}]${player.name} (${userObj.forename} ${userObj.lastname})`);
+
+    player.setVariable('loggedIn', true);
 
     spawnPlayer(player);
 }

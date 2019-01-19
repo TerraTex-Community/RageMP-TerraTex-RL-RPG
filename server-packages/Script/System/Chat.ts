@@ -1,5 +1,7 @@
-// @todo: modify to be only in area and to have correct format before sending to client
-mp.events.add('playerChat', (player, message) => {
+import Player = RageMP.Player;
+
+mp.events.add('playerChat', (player: Player, message) => {
+    message = `${player.getVariable("customChatNameTag")}: ${message}`;
     mp.players.call('addChat', [player, message]);
 });
 
