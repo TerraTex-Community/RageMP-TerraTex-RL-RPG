@@ -7,7 +7,7 @@ let chat =
 	active: true
 };
 
-function enableChatInput(enable)
+function enableChatInput(enable, defaultInput = "")
 {
 	if(chat.active == false
 		&& enable == true)
@@ -23,6 +23,7 @@ function enableChatInput(enable)
 		{
             chat.input = $("#chat").append('<div><input id="chat_msg" type="text" /></div>').children(":last");
 			chat.input.children("input").focus();
+			chat.input.children("input").val(defaultInput);
         } 
 		else
 		{
@@ -34,6 +35,7 @@ function enableChatInput(enable)
         }
     }
 }
+
 
 var chatAPI =
 {
@@ -59,7 +61,13 @@ var chatAPI =
 			chat.container.children(":last").remove();
 		}
 	},
-	
+	openChatInput: preText => {
+		setTimeout(() => {
+			enableChatInput(true, preText);
+			event.preventDefault();
+
+		}, 100);
+	},
 	clear: () =>
 	{
 		chat.container.html("");
@@ -84,6 +92,8 @@ var chatAPI =
 		chat.active = toggle;
 	}
 };
+const oldMessages = [];
+let lastMessageId = -1;
 
 $(document).ready(function()
 {
@@ -102,10 +112,21 @@ $(document).ready(function()
         } 
 		else if (event.which == 13 && chat.input != null)
 		{
+
+			lastMessageId = -1;
+
             var value = chat.input.children("input").val();
 
             if (value.length > 0) 
 			{
+				let isSameMessage = false;
+				if (oldMessages.length > 0 && oldMessages[0] === value) {
+					isSameMessage = true;
+				}
+				if (!isSameMessage) {
+					oldMessages.unshift(value);
+				}
+
                 if (value[0] == "/")
 				{
                     value = value.substr(1);
@@ -119,7 +140,24 @@ $(document).ready(function()
                 }
             }
 
-            enableChatInput(false);
-        }
+				enableChatInput(false);
+        } else if(event.which == 38 && chat.input != null) {
+			// pressed arrow up
+			if (lastMessageId < oldMessages.length - 1) {
+				lastMessageId++;
+			}
+			chat.input.children("input").val(oldMessages[lastMessageId]);
+
+		} else if(event.which == 40 && chat.input != null) {
+			// pressed arrow down
+			if (lastMessageId > -1) {
+				lastMessageId--;
+			}
+			if (lastMessageId >= 0) {
+				chat.input.children("input").val(oldMessages[lastMessageId]);
+			} else {
+				chat.input.children("input").val("");
+			}
+		}
     });
 });

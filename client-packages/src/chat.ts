@@ -5,11 +5,14 @@ mp.gui.execute("window.location = 'package://chat/index.html'");
 
 mp.events.add(
     {
-        addChat: (player, message) =>{
+        "addChat": (message) => {
             mp.gui.chat.push(`${message}`);
         },
-        addHTML: (player, message) =>{
+        "addHTML": (message) => {
             mp.gui.execute(`chatAPI.pushPlain("${addSlashes(message)}");`);
+        },
+        "openChatInput": (preText) => {
+            mp.gui.execute(`chatAPI.openChatInput("${preText}");`);
         }
     }
 );
@@ -24,4 +27,3 @@ function addSlashes(string: string) {
     replace(/'/g, '\\\'').
     replace(/"/g, '\\"');
 }
-
