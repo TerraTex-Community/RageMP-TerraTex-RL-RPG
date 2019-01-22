@@ -49,8 +49,8 @@ class VersionCreator {
     }
 
     async getVersionIdentifier() {
-        if (fs.existsSync("version.json")) {
-            const json = JSON.parse(fs.readFileSync("version.json").toString());
+        if (fs.existsSync("packages/TerraTex/version.json")) {
+            const json = JSON.parse(fs.readFileSync("packages/TerraTex/version.json").toString());
             this.versionIdentifier = `${json.versionTimestamp}_${json.versionBuildId}_${json.gitBranch}_${json.gitCommit}`;
         } else {
             this.versionIdentifier = "local-unknown";
