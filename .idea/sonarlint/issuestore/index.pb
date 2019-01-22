@@ -284,8 +284,6 @@ V
 &Extras/client_packages/chat/index.html,6\2\62a34c150d0cfa684b6244a39c56d352066772e1
 V
 &Extras/client_packages/chat/js/main.js,8\8\88131030079699e821ef1783a5f53ac7f61d7b84
-U
-%server-packages/Script/System/Chat.ts,9\9\99f312ebf5a91a1489aca4cceade667b9d70d309
 G
 Client-UI/Client-UI.iml,5\5\556892a3b91a2dbb106340b4289ba3392a325b86
 S
