@@ -11,14 +11,14 @@ mp.keys.bind(0x73, true, function() {
 		mp.gui.chat.push("Voice Chat: ~g~aktiviert - Du kannst nun reden, bis du den VoiceChat wieder deaktivierst!");
 	}
 });
-
-mp.keys.bind(0x4B, true, () => {
-	mp.voiceChat.muted = false;
-});
-
-mp.keys.bind(0x4B, false, () => {
-	mp.voiceChat.muted = true;
-});
+//
+// mp.keys.bind(0x4B, true, () => {
+// 	mp.voiceChat.muted = false;
+// });
+//
+// mp.keys.bind(0x4B, false, () => {
+// 	mp.voiceChat.muted = true;
+// });
 
 let g_voiceMgr =
 {

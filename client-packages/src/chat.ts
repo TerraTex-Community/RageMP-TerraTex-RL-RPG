@@ -13,7 +13,10 @@ mp.events.add(
         },
         "openChatInput": (preText) => {
             mp.gui.execute(`chatAPI.openChatInput("${preText}");`);
-        }
+        },
+        "simulateChat": (text) => {
+            mp.gui.execute(`chatAPI.simulate("${text}");`);
+        },
     }
 );
 

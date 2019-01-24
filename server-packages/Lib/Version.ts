@@ -42,6 +42,7 @@ class VersionCreator {
 
                 this.currentVersion = version;
                 break;
+                
             }
         }
 

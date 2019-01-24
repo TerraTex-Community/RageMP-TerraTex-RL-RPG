@@ -1,6 +1,7 @@
 import 'src/login/index';
 import 'src/helper/loadHelpers';
 import 'src/chat';
+import 'src/systems/binding/binding_init';
 
 // init player defaults
 mp.gui.chat.colors = true;
