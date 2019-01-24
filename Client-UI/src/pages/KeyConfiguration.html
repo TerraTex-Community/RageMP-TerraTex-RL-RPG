@@ -104,7 +104,7 @@
                     $("html").on("click", ".changeText", function () {
                         $("button").hide();
                         $(".modalbutton_ok, .modalbutton_cancel").show();
-                        inputRow = $(this).parent().parent().parent();
+                        inputRow = $(this).parent().parent();
 
                         $("#modal_content").text(inputRow.find("td:nth-child(2)").text());
                         $('#inputModal').modal('show');

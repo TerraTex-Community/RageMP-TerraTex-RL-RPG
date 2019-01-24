@@ -42,6 +42,7 @@ class Bindings {
             this.resetToDefaultBindings();
         }
         this.bindings = mp.storage.data.bindings;
+        this.prepareExecuteBinds();
 
         mp.events.add(RageEnums.EventKey.RENDER, this.renderFunc.bind(this));
     }

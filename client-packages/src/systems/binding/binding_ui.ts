@@ -82,6 +82,7 @@ mp.events.add('browser_bindings_save', (rawKeys) => {
 
 mp.events.add("script_key_pressed", (isControl: boolean, key: number) => {
     if (sendNextKey && bindingBrowser) {
+        bindingManager.toggleBindings(true);
         mp.gui.cursor.show(true, true);
         if (!isControl && key === 27) {
             bindingBrowser.execute("stopWaitForKey();")
