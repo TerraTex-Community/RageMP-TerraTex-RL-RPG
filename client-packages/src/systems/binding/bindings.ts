@@ -32,7 +32,7 @@ interface Binding {
 }
 
 class Bindings {
-    private bindings: Binding[];
+    private bindings: Binding[] = [];
     private isBindingActivated = true;
     private keysPressed: any = {};
     private executeBinds: any = {};
@@ -40,8 +40,9 @@ class Bindings {
     constructor() {
         if (!mp.storage.data.bindings) {
             this.resetToDefaultBindings();
+        } else {
+            this.bindings = mp.storage.data.bindings;
         }
-        this.bindings = mp.storage.data.bindings;
         this.prepareExecuteBinds();
 
         mp.events.add(RageEnums.EventKey.RENDER, this.renderFunc.bind(this));
@@ -70,6 +71,7 @@ class Bindings {
             {'func': '/show_cursor', 'isControl': false, 'key': 88},
             {'func': '/toggle_vehicle_engine', 'isControl': false, 'key': 77}
         ];
+        mp.storage.data.bindings = this.bindings;
     }
 
     setBindings(bindings: Binding[]) {
