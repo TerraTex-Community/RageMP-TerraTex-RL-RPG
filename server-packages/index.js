@@ -1,6 +1,7 @@
 console.log(process.version);
 
 require("ts-node").register({
+    preserveConstEnums: true,
     project: './packages/TerraTex/tsconfig.json'
 });
 
