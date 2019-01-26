@@ -1,18 +1,20 @@
 import {DbUser} from '../../../DB/entities/DbUser';
 import Player = RageMP.Player;
 
-mp.events.addCommand("veh", (player: Player, text: string, vehModel: string) => {
+mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => {
     const vehicle = mp.vehicles.new(mp.joaat(vehModel), player.position.add(new mp.Vector3(0, 0, 1)));
     player.putIntoVehicle(vehicle, -1);
 });
 
-mp.events.addCommand("weapons", ((player, fullText) => {
+mp.events.addCommand('weapons', ((player, fullText) => {
     for (const weapon in Weapon) {
-        player.giveWeapon(Weapon[weapon], 10000)
+        player.giveWeapon(Weapon[weapon], 10000);
     }
 }));
 
-mp.events.addCommand("killme", ((player, fullText) => {player.health = 0; }));
+mp.events.addCommand('killme', ((player, fullText) => {
+    player.health = 0;
+}));
 
 enum Weapon {
     ADVANCEDRIFLE = 0xAF113F99,

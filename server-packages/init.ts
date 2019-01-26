@@ -6,6 +6,7 @@ import './Script/User/Spawn/Spawn';
 import './Script/User/Spawn/Death';
 import './Script/System/Chat/Chat';
 import './Lib/Version';
+import './Script/System/Money/ATM';
 
 async function initGameMode() {
     await initDb();

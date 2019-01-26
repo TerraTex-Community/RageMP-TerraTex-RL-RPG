@@ -11,6 +11,7 @@
         "@types/nodemailer": "^4.6.5",
         "@types/request-promise": "^4.1.42",
         "html-entities": "^1.2.1",
+        "lerp": "^1.0.3",
         "mysql": "2.15.0",
         "nodemailer": "^5.1.1",
         "reflect-metadata": "^0.1.13",
