@@ -5,6 +5,7 @@ mp.events.add('click', (x, y, upOrDown, leftOrRight) => {
     let position = camera.getCoord();
 
     const end = lerp(position, pos3d, 5);
+    //@ts-ignore
     const result = mp.raycasting.testPointToPoint(position, end, [mp.players.local]);
     mp.events.callRemote('playerClick', x, y, upOrDown, leftOrRight, result ? result.entity : null);
 });
