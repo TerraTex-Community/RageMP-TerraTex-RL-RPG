@@ -1,4 +1,3 @@
-import {DbUser} from '../../../DB/entities/DbUser';
 import Player = RageMP.Player;
 
 mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => {
@@ -11,6 +10,10 @@ mp.events.addCommand('weapons', ((player, fullText) => {
         player.giveWeapon(Weapon[weapon], 10000);
     }
 }));
+
+mp.events.addCommand('debugclick', (player: Player, fullText) => {
+    player.call('debug_click');
+});
 
 mp.events.addCommand('killme', ((player, fullText) => {
     player.health = 0;

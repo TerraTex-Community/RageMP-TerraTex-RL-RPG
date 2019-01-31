@@ -47,11 +47,6 @@ export class DbUser extends BaseEntity {
     })
     admin: number;
 
-    @Column({
-        default: 0
-    })
-    dev: number;
-
     @CreateDateColumn({readonly: true})
     created: Date;
 
