@@ -323,6 +323,4 @@ _
 e
 5server-packages/Script/Helper/Enums/TerraTexEvents.ts,4\8\482ba6079b6866ac4505875f12c2ad7559157d96
 Z
-*server-packages/Script/System/Money/ATM.ts,7\9\796fd5c543bf5096e9ffc822f691d9c9aff29a15
-Z
 *client-packages/src/systems/clicksystem.ts,e\a\eae5d392d521b21e57ef6121cb4fd6aa633f6d81

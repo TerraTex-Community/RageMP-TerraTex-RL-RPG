@@ -110,3 +110,24 @@ enum Weapon {
     VINTAGEPISTOL = 0x83839C4,
     WRENCH = 0x19044EE0
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
