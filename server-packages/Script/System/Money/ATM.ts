@@ -12,7 +12,8 @@ const atmHashes = [
     -870868698
 ];
 
-mp.events.add(TerraTexEvents.playerClickOnEntity, (player: Player, x:number, y:number, upOrDown:string, leftOrRight:string, entityData: any) => {
+mp.events.add(TerraTexEvents.playerClickOnEntity, (player: Player, x:number, y:number, upOrDown:string, leftOrRight:string, entityDataJSON: string) => {
+    const entityData = JSON.parse(entityDataJSON);
     if (atmHashes.indexOf(entityData.model) !== -1) {
         player.call('openATM');
     }

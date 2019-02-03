@@ -16,7 +16,7 @@ export const enum TerraTexEvents {
      * @param {number} x
      * @param {string} upOrDown
      * @param {string} leftOrRight
-     * @param {{}} entityData
+     * @param {string|JSON} entityData
      * @param {Vector3} entityData.position
      * @param {number | Entity} entityData.resultEntityData
      * @param {number} entityData.model
