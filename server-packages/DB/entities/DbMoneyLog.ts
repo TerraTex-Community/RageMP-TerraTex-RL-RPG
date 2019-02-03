@@ -41,10 +41,6 @@ export class DbMoneyLog extends BaseEntity {
     })
     amount: number;
 
-    @Column({
-        type: 'enum',
-        enum: ["BankToMoney", "PlayerToPlayer", "PayDay", "Job", "Purchase", "Other"]
-    })
     category: string;
 
     @Column({

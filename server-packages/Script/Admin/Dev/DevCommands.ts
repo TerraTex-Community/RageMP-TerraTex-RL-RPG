@@ -1,11 +1,13 @@
 import Player = RageMP.Player;
 
 mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => {
+    // @todo Admin 4
     const vehicle = mp.vehicles.new(mp.joaat(vehModel), player.position.add(new mp.Vector3(0, 0, 1)));
     player.putIntoVehicle(vehicle, -1);
 });
 
 mp.events.addCommand('weapons', ((player, fullText) => {
+    // @todo: Dev Server only
     for (const weapon in Weapon) {
         player.giveWeapon(Weapon[weapon], 10000);
     }
@@ -16,6 +18,7 @@ mp.events.addCommand('debugclick', (player: Player, fullText) => {
 });
 
 mp.events.addCommand('killme', ((player, fullText) => {
+    // @todo: Dev Server only
     player.health = 0;
 }));
 

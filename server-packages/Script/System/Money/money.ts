@@ -42,6 +42,11 @@ export function payByBankOrHand(player: Player, amount: number, category: MoneyC
 
 export function changePlayerMoney(player: Player, amount: number, isBank: boolean, category: MoneyCategory, data: any, toPlayer: string|Player|DbUser|null = null) {
     const inventory = player.customData.dbUser.inventory;
+
+    if (typeof amount !== "number") {
+        throw new Error("Number expected as amount");
+    }
+
     if (isBank) {
         inventory.bank += amount;
         player.setVariable("inventory.bank", inventory.bank);
@@ -51,6 +56,7 @@ export function changePlayerMoney(player: Player, amount: number, isBank: boolea
     }
 
     createMoneyLog(player, amount, isBank, category, data, toPlayer);
+    console.log(amount, isBank, category, data);
 }
 
 export async function createMoneyLog(player: Player, amount: number, isBank: boolean, category: MoneyCategory, data: any, toPlayer: string|Player|DbUser|null = null) {
@@ -86,4 +92,15 @@ export function getPlayerMoney(player: Player) {
 
 export function getPlayerBank(player: Player) {
     return player.customData.dbUser.inventory.bank;
+}
+
+export function getReadableCurrency(amount) {
+    const formatter = new Intl.NumberFormat('de-DE', {
+        style: 'currency',
+        currency: 'EUR',
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2
+    });
+
+    return formatter.format(amount);
 }

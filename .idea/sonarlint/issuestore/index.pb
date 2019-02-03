@@ -72,8 +72,6 @@ W
 'Client-UI/src/old/Settings/character.js,d\2\d2f49bc61449ce6b5d82dfbbfe6237ee07e0a116
 T
 $Client-UI/src/old/Settings/main.html,d\0\d031eb246f736fe26d88794eab857e39539d8972
-J
-Client-UI/src/old/ATM.html,f\4\f48c3305304edd591374cadd79a156fbbf9d518b
 Y
 )Client-UI/src/old/PayDay-Calculation.html,e\5\e5143f40a29097e9163d1055f86cd92a457fb156
 Q
@@ -328,3 +326,11 @@ Z
 ,server-packages/Script/Helper/EventHelper.ts,5\1\51760be829f7da5ae5efbe3237450776035522e5
 Z
 *server-packages/Script/System/Money/ATM.ts,7\9\796fd5c543bf5096e9ffc822f691d9c9aff29a15
+b
+2server-packages/Script/User/Connection/UserData.ts,9\b\9baf2b8d965443ff502bc0d44c8b8df137c2bc6a
+V
+&client-packages/src/Enviroment/ATMs.ts,0\7\0763a456f38e30a87959938ab3d3fa71eb61c9dc
+W
+'client-packages/src/Enviroment/index.ts,3\5\35f05046c04d80d094e4f8d8ee5f385bbd01789e
+L
+Client-UI/src/pages/ATM.html,d\6\d61aab7fc8727351d142e477d0cf612fc688a698

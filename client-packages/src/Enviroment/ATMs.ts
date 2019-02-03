@@ -8,10 +8,17 @@ mp.events.add("openATM", () => {
     mp.gui.cursor.show(true, true);
 
     atmBrowser = mp.browsers.new('package://ui/index.html?page=pages/ATM.html');
+    closeBrowserOnDistance(atmBrowser, 5, () => {
+        atmBrowser = null;
+    });
 
     setTimeout(() => {
         updateATMUi();
     }, 250);
+});
+
+mp.events.add("updateATM", () => {
+    updateATMUi();
 });
 
 mp.events.add("browser_atm_close", () => {
@@ -30,5 +37,12 @@ function updateATMUi() {
     atmBrowser.execute(`setMoney(${money});`);
 }
 
-// @todo: browser_atm_payInPayOut
-// @todo: browser_atm_transfer
+// type === "in" | "out"
+mp.events.add("browser_atm_payInPayOut", (type, amount, txt) => {
+    mp.events.callRemote("atm_payInPayOut", type, parseFloat(amount), txt);
+});
+
+
+mp.events.add("browser_atm_transfer", (amount, receiver, txt) => {
+    mp.events.callRemote("atm_transfer", parseFloat(amount), receiver, txt);
+});
