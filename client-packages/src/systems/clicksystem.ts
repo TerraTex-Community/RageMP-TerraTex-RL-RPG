@@ -32,7 +32,7 @@ mp.events.add('click', (x, y, upOrDown, leftOrRight) => {
 
         mp.events.callRemote('playerClickOnEntity', x, y, upOrDown, leftOrRight, entityData, result.entity);
     } else {
-        mp.events.callRemote('playerClick', x, y, upOrDown, leftOrRight);
+        mp.events.callRemote('playerClick', x, y, upOrDown, leftOrRight, pos3d);
     }
 });
 

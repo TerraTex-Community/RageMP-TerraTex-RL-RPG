@@ -44,15 +44,17 @@ export function changePlayerMoney(player: Player, amount: number, isBank: boolea
     const inventory = player.customData.dbUser.inventory;
     if (isBank) {
         inventory.bank += amount;
+        player.setVariable("inventory.bank", inventory.bank);
     } else {
         inventory.money += amount;
+        player.setVariable("inventory.money", inventory.money);
     }
 
     createMoneyLog(player, amount, isBank, category, data, toPlayer);
 }
 
 export async function createMoneyLog(player: Player, amount: number, isBank: boolean, category: MoneyCategory, data: any, toPlayer: string|Player|DbUser|null = null) {
-    let toUser = null;
+    let toUser: DbUser | null | undefined = null;
     if (typeof toPlayer === "string") {
         toUser = await DbUser.findOne({
             where: {
@@ -70,8 +72,18 @@ export async function createMoneyLog(player: Player, amount: number, isBank: boo
     moneyLogEntry.amount = amount;
     moneyLogEntry.category = category;
     moneyLogEntry.description = data;
-    moneyLogEntry.to = toUser;
+    if (toUser) {
+        moneyLogEntry.to = toUser;
+    }
     moneyLogEntry.user = player.customData.dbUser;
     moneyLogEntry.type = isBank ? "bank" : "money";
     await moneyLogEntry.save();
+}
+
+export function getPlayerMoney(player: Player) {
+    return player.customData.dbUser.inventory.money;
+}
+
+export function getPlayerBank(player: Player) {
+    return player.customData.dbUser.inventory.bank;
 }
