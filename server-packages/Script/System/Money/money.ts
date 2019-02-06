@@ -56,7 +56,7 @@ export function changePlayerMoney(player: Player, amount: number, isBank: boolea
     }
 
     createMoneyLog(player, amount, isBank, category, data, toPlayer);
-    console.log(amount, isBank, category, data);
+    // console.log(amount, isBank, category, data);
 }
 
 export async function createMoneyLog(player: Player, amount: number, isBank: boolean, category: MoneyCategory, data: any, toPlayer: string|Player|DbUser|null = null) {

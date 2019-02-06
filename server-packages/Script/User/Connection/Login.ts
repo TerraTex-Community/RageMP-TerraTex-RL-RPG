@@ -54,6 +54,7 @@ export async function loginPlayer(player: Player, password: string) {
     syncPlayerData(player);
 
     player.setVariable('loggedIn', true);
+    player.call('player_loggedin');
 
     spawnPlayer(player);
 }
