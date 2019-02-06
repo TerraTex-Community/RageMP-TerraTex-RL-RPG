@@ -14,7 +14,7 @@ mp.events.add("openATM", () => {
 
     setTimeout(() => {
         updateATMUi();
-    }, 250);
+    }, 500);
 });
 
 mp.events.add("updateATM", () => {

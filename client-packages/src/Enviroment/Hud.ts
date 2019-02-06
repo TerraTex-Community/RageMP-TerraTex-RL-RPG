@@ -8,15 +8,18 @@ mp.events.add("player_loggedin", () => {
         if (!hudBrowser) return;
         hud_money = mp.players.local.getVariable("inventory.money");
         hudBrowser.execute(`setMoney(${hud_money});`);
-    }, 200);
+        console.log(hud_money);
+    }, 500);
 });
 
 mp.events.add(RageEnums.EventKey.RENDER, () => {
     if (!hudBrowser) return;
 
     if (mp.players.local.getVariable("inventory.money")) {
+        console.log("is there");
         if (mp.players.local.getVariable("inventory.money") !== hud_money
         ) {
+            console.log(hud_money);
             hud_money = mp.players.local.getVariable("inventory.money");
             hudBrowser.execute(`setMoney(${hud_money});`);
         }
