@@ -1,5 +1,6 @@
 const releaseFunctions = [
-    "/voice_push_to_talk"
+    "/voice_push_to_talk",
+    "/show_playerlist"
 ];
 
 const controlInputs: any = {
@@ -69,7 +70,8 @@ class Bindings {
         this.bindings = [
             {'func': '/voice_push_to_talk', 'isControl': false, 'key': 75},
             {'func': '/show_cursor', 'isControl': false, 'key': 88},
-            {'func': '/toggle_vehicle_engine', 'isControl': false, 'key': 77}
+            {'func': '/toggle_vehicle_engine', 'isControl': false, 'key': 77},
+            {'func': '/show_playerlist', 'isControl': false, 'key':89}
         ];
         mp.storage.data.bindings = this.bindings;
     }

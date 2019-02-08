@@ -1,0 +1,93 @@
+﻿<div style="display: flex; height:100%; width:100%; align-items: center; justify-content: center;">
+    <div style="align-self: flex-start"></div>
+    <div style="width: 1024px; max-width: 100%; max-height: 75%;">
+        <div class="container-fluid body-dark-transparent">
+            <table class="table table-hover playerlist">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nickname</th>
+                    <th>Character</th>
+                    <!--<th>Level</th>-->
+                    <th>Spielzeit</th>
+                    <th>Ping</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <script>
+                let isUpdateInProcess = false;
+                let updatedEntries = [];
+
+                function clearPlayerList() {
+                    $("tbody").html("");
+                }
+
+                // function startUpdate(data) {
+                //     updatedEntries = [];
+                //     isUpdateInProcess = true;
+                //
+                //     const playerDataParsed = JSON.parse(data);
+                //
+                //     for (const player of playerDataParsed.data) {
+                //         const isLocalPlayer = parseInt(player.id) === data.ownUser;
+                //         let time = player.playtime;
+                //
+                //         if (time !== "-") {
+                //             const hours = Math.floor(time / 60);
+                //             const minutes = time - hours * 60;
+                //             time = hours + ":" + (minutes < 10 ? `0${minutes}` : minutes);
+                //         }
+                //
+                //         updateUser(player.id, player.nickname, player.name, player.level, time, player.ping, isLocalPlayer);
+                //     }
+                //     stopUpdate();
+                // }
+
+                // function stopUpdate() {
+                //     $("tbody tr").each(function () {
+                //         let id = $(this).attr("id");
+                //
+                //         if (updatedEntries.indexOf(parseInt(id)) === -1) {
+                //             $(`tbody tr#${id}`).remove();
+                //         }
+                //     });
+                //
+                //     updatedEntries = [];
+                //     isUpdateInProcess = false;
+                // }
+
+                function updateUser(id, nickname, character, time, ping, isOwnPlayer) {
+                    if ($(`tbody tr#${id}`).length) {
+                        $(`tbody tr#${id}`).html(
+                                `<td>${id}</td><td>${nickname}</td><td>${character}</td>
+                                <td>${time} h</td><td>${ping} ms</td>`
+                        );
+                    } else {
+                        addUser(id, nickname, character, time, ping, isOwnPlayer);
+                    }
+                    // updatedEntries.push(parseInt(id));
+                }
+
+                function addUser(id, nickname, character, time, ping, isOwnPlayer) {
+                    let classText = "";
+                    if (isOwnPlayer) {
+                        classText = "class='body-dark-light-transparent'";
+                        $("tbody").prepend(
+                                `<tr ${classText} id="${id}"><td>${id}</td><td>${nickname}</td><td>${character}</td>
+                                <td>${time} h</td><td>${ping} ms</td></tr>`
+                        );
+                    } else {
+                        $("tbody").append(
+                                `<tr ${classText} id="${id}"><td>${id}</td><td>${nickname}</td><td>${character}</td><td>${time} h</td><td>${ping} ms</td></tr>`
+                        );
+                    }
+                }
+            </script>
+
+        </div>
+    </div>
+    <div style="align-self: flex-end"></div>
+</div>

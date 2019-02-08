@@ -1,7 +1,8 @@
 function isSpecialFunction(func: string) {
     const specialFunctions = [
         "/voice_push_to_talk",
-        "/show_cursor"
+        "/show_cursor",
+        "/show_playerlist"
     ];
 
     return specialFunctions.indexOf(func) !== -1;
@@ -14,6 +15,9 @@ function executeSpecialFunction(func: string, release: boolean = false) {
             break;
         case "/show_cursor":
             toggleCursor();
+            break;
+        case "/show_playerlist":
+            togglePlayerList();
             break;
     }
 }

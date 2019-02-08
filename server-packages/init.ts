@@ -17,5 +17,3 @@ async function initGameMode() {
 initGameMode()
     .then(() => console.log("GameMode started successfully"))
     .catch(e => console.error("error during startup:", e));
-
-
