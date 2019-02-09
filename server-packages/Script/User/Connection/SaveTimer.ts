@@ -23,3 +23,8 @@ mp.events.add(RageMP.Enums.Event.PLAYER_QUIT, (player: Player) => {
         player.customData.dbUser.save();
     }
 });
+
+mp.events.addCommand("saveplayers", (Player: Player) => {
+    // @todo only for admin = 4
+    savePlayers();
+});

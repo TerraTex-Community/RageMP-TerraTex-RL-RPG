@@ -4,9 +4,9 @@ import './Script/User/Connection/LoginEvents';
 import './Script/Admin/loadAdmin';
 import './Script/User/Spawn/Spawn';
 import './Script/User/Spawn/Death';
-import './Script/System/Chat/Chat';
 import './Lib/Version';
-import './Script/System/Money/ATM';
+import './Script/System/Chat/Chat';
+import './Script/System/Money';
 import './Script/System/Clock';
 
 async function initGameMode() {

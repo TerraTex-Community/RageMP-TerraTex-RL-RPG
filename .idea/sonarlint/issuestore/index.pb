@@ -74,8 +74,6 @@ T
 $Client-UI/src/old/Settings/main.html,d\0\d031eb246f736fe26d88794eab857e39539d8972
 Y
 )Client-UI/src/old/PayDay-Calculation.html,e\5\e5143f40a29097e9163d1055f86cd92a457fb156
-Q
-!Client-UI/src/old/PlayerList.html,f\3\f3882a6b505b44a627435b2dee7ecb5aaa7ada2f
 O
 Client-UI/src/old/ShowBans.html,1\4\14595f854fe04341d86b75e7b8086179cd6f69b5
 T

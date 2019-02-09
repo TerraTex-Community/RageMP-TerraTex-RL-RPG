@@ -58,3 +58,7 @@ export async function loginPlayer(player: Player, password: string) {
 
     spawnPlayer(player);
 }
+
+export function isPlayerLoggedIn(player: Player) {
+    return player.getVariable('loggedIn');
+}
