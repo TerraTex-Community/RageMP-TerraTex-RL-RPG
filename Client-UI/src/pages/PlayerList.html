@@ -8,7 +8,6 @@
                     <th>Id</th>
                     <th>Nickname</th>
                     <th>Character</th>
-                    <!--<th>Level</th>-->
                     <th>Spielzeit</th>
                     <th>Ping</th>
                 </tr>
@@ -18,48 +17,20 @@
                 </tbody>
             </table>
             <script>
-                let isUpdateInProcess = false;
-                let updatedEntries = [];
-
                 function clearPlayerList() {
                     $("tbody").html("");
                 }
 
-                // function startUpdate(data) {
-                //     updatedEntries = [];
-                //     isUpdateInProcess = true;
-                //
-                //     const playerDataParsed = JSON.parse(data);
-                //
-                //     for (const player of playerDataParsed.data) {
-                //         const isLocalPlayer = parseInt(player.id) === data.ownUser;
-                //         let time = player.playtime;
-                //
-                //         if (time !== "-") {
-                //             const hours = Math.floor(time / 60);
-                //             const minutes = time - hours * 60;
-                //             time = hours + ":" + (minutes < 10 ? `0${minutes}` : minutes);
-                //         }
-                //
-                //         updateUser(player.id, player.nickname, player.name, player.level, time, player.ping, isLocalPlayer);
-                //     }
-                //     stopUpdate();
-                // }
+                function removeUser(id) {
+                    $(`tbody tr#${id}`).remove();
+                }
 
-                // function stopUpdate() {
-                //     $("tbody tr").each(function () {
-                //         let id = $(this).attr("id");
-                //
-                //         if (updatedEntries.indexOf(parseInt(id)) === -1) {
-                //             $(`tbody tr#${id}`).remove();
-                //         }
-                //     });
-                //
-                //     updatedEntries = [];
-                //     isUpdateInProcess = false;
-                // }
+                function updateUser(id, nickname, character, minutes, ping, isOwnPlayer) {
+                    let hours = Math.floor(minutes / 60);
+                    let realMinutes = minutes % 60;
 
-                function updateUser(id, nickname, character, time, ping, isOwnPlayer) {
+                    let time = `${hours}:${realMinutes < 10 ? "0" + realMinutes : realMinutes}`;
+
                     if ($(`tbody tr#${id}`).length) {
                         $(`tbody tr#${id}`).html(
                                 `<td>${id}</td><td>${nickname}</td><td>${character}</td>
@@ -68,7 +39,6 @@
                     } else {
                         addUser(id, nickname, character, time, ping, isOwnPlayer);
                     }
-                    // updatedEntries.push(parseInt(id));
                 }
 
                 function addUser(id, nickname, character, time, ping, isOwnPlayer) {

@@ -19,6 +19,10 @@ export function calculatePayDay(player: Player) {
     }
 
     payDayData.last = payDayData.current;
+    payDayData.current = {
+        outgoings: {},
+        income: {}
+    };
 
     changePlayerMoney(player, payDayAmount, true, MoneyCategory.PayDay, payDayData.last, null);
 
@@ -85,3 +89,9 @@ function addDefaultPayDayAmounts(player: Player) {
     const addAmount = (<DbUser>player.customData.dbUser).data.playTime / 100;
     addIncomeToPayDay(player, 250 + addAmount, PayDayCategory.Salery);
 }
+
+mp.events.addCommand("payday", (player:Player, fullText) => {
+    player.call("show_payday_ui", [JSON.stringify((<DbUser>player.customData.dbUser).data.paydayData.last)]);
+});
+
+

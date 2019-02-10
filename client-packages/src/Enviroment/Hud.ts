@@ -4,25 +4,28 @@ let hud_gold = 0;
 
 mp.events.add("player_loggedin", () => {
     hudBrowser = mp.browsers.new('package://ui/index.html?page=pages/Hud.html');
+    hudBrowser.active = false;
     setTimeout(() => {
         if (!hudBrowser) return;
         hud_money = mp.players.local.getVariable("inventory.money");
         hudBrowser.execute(`setMoney(${hud_money});`);
+        hudBrowser.active = true;
     }, 500);
 });
 
 mp.events.add(RageEnums.EventKey.RENDER, () => {
-    if (!hudBrowser) return;
+    if (!hudBrowser || !hudBrowser.active) return;
 
-    if (mp.players.local.getVariable("inventory.money")) {
+    if (typeof mp.players.local.getVariable("inventory.money") === "number") {
         if (mp.players.local.getVariable("inventory.money") !== hud_money
         ) {
             hud_money = mp.players.local.getVariable("inventory.money");
+            console.log(hud_money);
             hudBrowser.execute(`setMoney(${hud_money});`);
         }
     }
 
-    if (mp.players.local.getVariable("inventory.gold")) {
+    if (typeof mp.players.local.getVariable("inventory.gold") === "number") {
         if (mp.players.local.getVariable("inventory.gold") !== hud_gold
         ) {
             hud_gold = mp.players.local.getVariable("inventory.gold");

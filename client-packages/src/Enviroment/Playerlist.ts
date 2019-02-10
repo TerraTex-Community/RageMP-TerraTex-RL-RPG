@@ -28,3 +28,9 @@ function togglePlayerList() {
 
     playerListBrowser.active = !playerListBrowser.active ;
 }
+
+mp.events.add(RageEnums.EventKey.PLAYER_QUIT, (player: PlayerMp) => {
+    if (!playerListBrowser) return;
+
+    playerListBrowser.execute(`removeUser(${player.getVariable("id")});`);
+});
