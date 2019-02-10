@@ -1,7 +1,7 @@
 import {DbUser} from '../../../DB/entities/DbUser';
 import {EventHelper} from '../../Helper/EventHelper';
 import Player = RageMP.Player;
-import {isAdmin} from '../../Admin/adminChecks';
+import {isAdmin} from '../../Admin/AdminHelper';
 
 
 setInterval(savePlayers, 1800000);

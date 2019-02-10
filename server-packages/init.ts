@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import {initDb} from './Lib/Data/Database';
 import './Script/User/Connection/LoginEvents';
-import './Script/Admin/loadAdmin';
+import './Script/Admin';
 import './Script/User/Spawn/Spawn';
 import './Script/User/Spawn/Death';
 import './Lib/Version';
