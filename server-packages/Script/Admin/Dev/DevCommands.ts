@@ -1,13 +1,16 @@
 import Player = RageMP.Player;
+import {isAdmin, isDevServer} from '../adminChecks';
 
 mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => {
-    // @todo Admin 4
+    if (!isAdmin(player, 4)) return;
+
     const vehicle = mp.vehicles.new(mp.joaat(vehModel), player.position.add(new mp.Vector3(0, 0, 1)));
     player.putIntoVehicle(vehicle, -1);
 });
 
-mp.events.addCommand('weapons', ((player, fullText) => {
-    // @todo: Dev Server only
+mp.events.addCommand('giveweapons', ((player, fullText) => {
+    if (!isAdmin(player, 4)) return;
+
     for (const weapon in Weapon) {
         player.giveWeapon(Weapon[weapon], 10000);
     }
@@ -18,7 +21,8 @@ mp.events.addCommand('debugclick', (player: Player, fullText) => {
 });
 
 mp.events.addCommand('killme', ((player, fullText) => {
-    // @todo: Dev Server only
+    if (!isDevServer()) return;
+
     player.health = 0;
 }));
 

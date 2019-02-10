@@ -1,6 +1,7 @@
 import {DbUser} from '../../../DB/entities/DbUser';
 import {EventHelper} from '../../Helper/EventHelper';
 import Player = RageMP.Player;
+import {isAdmin} from '../../Admin/adminChecks';
 
 
 setInterval(savePlayers, 1800000);
@@ -25,6 +26,6 @@ mp.events.add(RageMP.Enums.Event.PLAYER_QUIT, (player: Player) => {
 });
 
 mp.events.addCommand("saveplayers", (Player: Player) => {
-    // @todo only for admin = 4
+    if (!isAdmin(Player, 4, true)) return;
     savePlayers();
 });
