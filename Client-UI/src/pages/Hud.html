@@ -1,0 +1,101 @@
+<div class="hud">
+    <div id="statusIconsContainer">
+        <div style="align-self: flex-start"></div>
+        <div id="statusIcons">
+            <div id="food">
+                <img src="images/hud/food_background.png"/>
+                <div class="status_front">
+                    <img src="images/hud/food.png" class="status_front"/>
+                </div>
+            </div>
+            <div id="water">
+                <img src="images/hud/water_background.png"/>
+                <div class="status_front ">
+                    <img src="images/hud/water.png" class="status_front"/>
+                </div>
+            </div>
+            <!--<div id="wanteds">-->
+                <!--<img src="images/hud/wanteds_background.png"/>-->
+                <!--<div class="status_front">-->
+                    <!--<img src="images/hud/wanteds.png" class="status_front"/>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div style="align-self: flex-end"></div>
+    </div>
+
+    <div id="info_container">
+        <div id="clock">
+            <span class="hour">00</span>:<span class="minute">00</span>
+        </div>
+        <div id="gold_container">
+            <img src="images/hud/gold-1013618_640.png" style="position: relative; height: 30px;top: -3px;"/><span
+                class="value" id="gold_container_value">0</span>
+        </div>
+        <div id="money_container">
+            <img src="images/hud/money.png" style="position: relative; height: 30px; top: -2px;"/><span class="value text-success"
+                                                                        id="money_container_value">0,00 €</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    let anim;
+    let lastEnd = 0;
+    $(document).ready(function () {
+        const easeOutCubic = function (t, b, c, d) {
+            var ts = (t /= d) * t;
+            var tc = ts * t;
+            return b + c * (1.77635683940025e-15 * tc * ts + 0.999999999999998 * tc + -3 * ts + 3 * t);
+        };
+        const options = {
+            easingFn: easeOutCubic,
+            formattingFn: (amount) => {
+                let lastMoneyString = amount.toFixed(2).replace(/\./g, ",").replace(/./g,
+                        function (c, i, a) {
+                            return i && c !== "," && ((a.length - i) % 3 === 0) ? `.${c}` : c;
+                        });
+                lastMoneyString += " €";
+                return lastMoneyString;
+            }
+        };
+        anim = new CountUp("money_container_value", 0, 0, 2, 5, options);
+    });
+
+    function setStatus(id, percent) {
+        $("#" + id + " div.status_front").height(60 / 100 * percent + "px");
+        if (id !== "armor" && id !== "wanteds") {
+            if (percent < 15) {
+                $("#" + id).toggleClass("blink", true);
+            } else {
+                $("#" + id).toggleClass("blink", false);
+            }
+        }
+    }
+
+    function setClock(hour, minute) {
+        $("#clock .minute").html(minute < 10 ? ("0" + minute) : minute);
+        $("#clock .hour").html(hour < 10 ? ("0" + hour) : hour);
+    }
+
+    function setMoney(value) {
+        anim.pauseResume();
+        var lastEnd = anim.getFrameVal();
+        var calcValue = (lastEnd < value) ? (value - lastEnd) : (lastEnd - value);
+        var time = 19 / 9999600 * calcValue + 6245 / 24999;
+        anim.setDuration(time);
+        anim.update(value);
+        lastEnd = value;
+        if (value < 0) {
+            $("#money_container .value").toggleClass("text-danger", true);
+            $("#money_container .value").toggleClass("text-success", false);
+        } else {
+            $("#money_container .value").toggleClass("text-danger", false);
+            $("#money_container .value").toggleClass("text-success", true);
+        }
+    }
+
+    function setGold(value) {
+        $("#gold_container .value").html(value);
+    }
+</script>

@@ -90,6 +90,20 @@ var chatAPI =
 			$("#chat").hide();
 		
 		chat.active = toggle;
+	},
+
+	simulate: (txt) => {
+		if (txt[0] == "/")
+		{
+			txt = txt.substr(1);
+
+			if (txt.length > 0)
+				mp.invoke("command", txt);
+		}
+		else
+		{
+			mp.invoke("chatMessage", txt);
+		}
 	}
 };
 const oldMessages = [];

@@ -9,6 +9,7 @@ export async function spawnPlayer(player: Player) {
     player.dimension = 0;
     player.alpha = 255;
 
+
     setSpawnPlayerSkin(player);
     const spawnPos: Vector3 = getSpawnPosition(player);
 
@@ -24,8 +25,10 @@ export async function spawnPlayer(player: Player) {
     // }
     else {
         player.position = spawnPos;
+        player.spawn(spawnPos);
         // resetOfflineStats(player);
     }
+    player.health = 100;
 }
 
 function setSpawnPlayerSkin(player: Player) {

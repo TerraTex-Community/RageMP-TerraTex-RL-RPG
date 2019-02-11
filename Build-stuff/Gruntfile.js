@@ -64,6 +64,12 @@ module.exports = function(grunt) {
                 dest: './dist/client_packages',
                 cwd: '../client-packages/dist'
             },
+            dlc: {
+                expand: true,
+                src: '**/*',
+                dest: './dist/client_packages/dlcpacks',
+                cwd: '../client-packages/dlcpacks'
+            },
             server: {
                 expand: true,
                 src: '**/*',
@@ -104,7 +110,7 @@ module.exports = function(grunt) {
     grunt.registerTask('pre', ['clean:pre']);
     grunt.registerTask('install', ['npm-command:ui_install','npm-command:serverpackages_install','npm-command:clientpackages_install', "npm-command:extras_console"]);
     grunt.registerTask('build', ['npm-command:ui_build', 'npm-command:clientpackages_build']);
-    grunt.registerTask('publish', ['mkdir', 'copy:ui', 'copy:client', 'copy:server', 'copy:extras', 'clean:scss']);
+    grunt.registerTask('publish', ['mkdir', 'copy:ui', 'copy:client','copy:dlc', 'copy:server', 'copy:extras', 'clean:scss']);
 
     grunt.registerTask('default', ['pre', 'install', 'build', 'publish']);
     grunt.registerTask('deploy', ['clean:deploy', 'copy:deploy']);

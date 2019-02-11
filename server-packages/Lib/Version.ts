@@ -42,6 +42,7 @@ class VersionCreator {
 
                 this.currentVersion = version;
                 break;
+                
             }
         }
 
@@ -63,7 +64,11 @@ class VersionCreator {
     }
 
     printVersionToPlayer(player: Player) {
-        const versionHtml = `Version: ${this.currentVersion}<br/>Identifier: ${this.versionIdentifier}`;
+        const versionHtml = `
+            Version: ${this.currentVersion}<br/>
+            Identifier: <span class="copyToClipOnClick-parent">${this.versionIdentifier} <i class="far fa-clipboard pointer copyToClipOnClickWithAlert"></i></span>
+            
+        `;
         sendChatNotificationToPlayer(player, versionHtml, "Aktuelle Version");
     }
 }

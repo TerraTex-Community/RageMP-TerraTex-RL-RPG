@@ -1,6 +1,8 @@
 import * as htmlEntities from 'html-entities';
 
 mp.events.addCommand("global", ((player, fullText, ...args) => {
+    // @todo in future admin only
+
     let sendMessage = new htmlEntities.AllHtmlEntities().encode(args.join(" "));
     let message = `<i>GlobalChat ${player.getVariable("customChatNameTag")}: ${sendMessage}</i>`;
     mp.players.call("addHTML", [message]);

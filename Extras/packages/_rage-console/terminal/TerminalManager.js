@@ -74,7 +74,7 @@ class TerminalManager {
 
     this._saveStream(log);
 
-    mp.players.call('console:server:add', [log]);
+    // mp.players.call('console:server:add', [log]);
   }
 
   _saveStream(log) {
@@ -86,7 +86,7 @@ class TerminalManager {
   }
 
   _stream(player) {
-    player.call('console:server:stream', [this.logs]);
+    // player.call('console:server:stream', [this.logs]);
   }
 }
 

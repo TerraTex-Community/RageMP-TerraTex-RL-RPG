@@ -1,5 +1,5 @@
 export enum MoneyCategory {
-    BankToMoney = "BankToMoney",
+    PayInPayOut = "PayInPayOut",
     PlayerToPlayer = "PlayerToPlayer",
     PayDay = "PayDay",
     Job = "Job",

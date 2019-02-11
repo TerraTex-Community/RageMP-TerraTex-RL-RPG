@@ -1,0 +1,51 @@
+import Player = RageMP.Player;
+import {DbUser} from '../../DB/entities/DbUser';
+import {isPlayerLoggedIn} from '../User/Connection/Login';
+
+
+/**
+ *
+ * @param player
+ * @param minAdminLvl -
+ *                  1: Supporter
+ *                  2: Moderator
+ *                  3: Administator
+ *                  4: Serverleitung
+ * @param checkOnDevServer
+ */
+export function isAdmin(player: Player, minAdminLvl: number = 1, checkOnDevServer = false): boolean {
+    if (isDevServer() && !checkOnDevServer) return true;
+    return (<DbUser>player.customData.dbUser).admin >= minAdminLvl;
+}
+
+export function isDevServer(): boolean {
+    if (mp.config.isDevServer) {
+        return true;
+    }
+    return false;
+}
+
+export function getAdminRankDescription(adminlvl: number) {
+    const ranks = [
+        "",
+        "Supporter",
+        "Moderator",
+        "Administrator",
+        "Serverleitung"
+    ];
+
+    return ranks[adminlvl];
+}
+
+export function getAllOnlineAdmins() {
+    const list: Player[] = [];
+    for (const player of mp.players.toArray()) {
+        if (isPlayerLoggedIn(player)) {
+            if (isAdmin(player, 1, true)) {
+                list.push(player);
+            }
+        }
+    }
+
+    return list;
+}

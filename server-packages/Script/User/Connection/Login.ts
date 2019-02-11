@@ -5,6 +5,7 @@ import {DbUserData} from '../../../DB/entities/DbUserData';
 import {DbUserInventory} from '../../../DB/entities/DbUserInventory';
 import {spawnPlayer} from '../Spawn/Spawn';
 import Player = RageMP.Player;
+import {syncPlayerData} from './UserData';
 
 export async function loginPlayer(player: Player, password: string) {
     const encryptedPw = crypto.createHash('sha256').update(password).digest('hex');
@@ -50,7 +51,14 @@ export async function loginPlayer(player: Player, password: string) {
     player.setVariable('customNameTag', `[${userObj.id}]${player.name}`);
     player.setVariable('customChatNameTag', `[${userObj.id}]${player.name} (${userObj.forename} ${userObj.lastname})`);
 
+    syncPlayerData(player);
+
     player.setVariable('loggedIn', true);
+    player.call('player_loggedin');
 
     spawnPlayer(player);
+}
+
+export function isPlayerLoggedIn(player: Player) {
+    return player.getVariable('loggedIn');
 }

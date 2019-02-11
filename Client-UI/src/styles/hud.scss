@@ -1,0 +1,89 @@
+#statusIconsContainer {
+  height: 100vh;
+
+  position: absolute;
+  right: 0;
+
+  display:flex;
+  align-items: center;
+  justify-content: center;
+
+  #statusIcons {
+    clear: both;
+    width: 110px;
+    margin: 10px;
+
+    & > div {
+      float: right;
+      position: relative;
+      margin-bottom: 5px;
+
+      & > img {
+        height: 60px;
+      }
+
+      & > div.status_front {
+        position: absolute;
+        bottom: 0;
+        overflow: hidden;
+        height: 60px;
+        width: 100%;
+
+        & > img {
+          position: absolute;
+          bottom: 0;
+          height: 60px;
+        }
+      }
+    }
+
+    #food {
+      margin-right: 6.5px;
+
+      img {
+        width: 87px;
+      }
+    }
+
+    #water {
+      margin-right: 16px;
+
+      img {
+        width: 68px;
+      }
+    }
+
+    #wanteds {
+      margin-right: 9.5px;
+
+      img {
+        width: 81px;
+      }
+    }
+  }
+
+}
+
+#info_container {
+  position: absolute;
+  bottom: 0px;
+  left: 15%;
+
+  #clock {
+    font-size: 1.5em;
+    color: #FFF;
+    margin-left: 43px;
+  }
+  #gold_container {
+    color: goldenrod;
+  }
+  #gold_container_value {
+    margin-left: 10px;
+  }
+  #money_container_value {
+    margin-left: 15px;
+  }
+
+  font-family: $font-family-custom;
+  text-shadow: $text-shadow;
+}

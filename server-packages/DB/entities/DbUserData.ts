@@ -6,7 +6,7 @@ import {
     UpdateDateColumn,
     BaseEntity,
     OneToOne,
-    JoinColumn
+    JoinColumn, AfterLoad
 } from 'typeorm';
 import {DbUser} from './DbUser';
 
@@ -42,7 +42,32 @@ export class DbUserData extends BaseEntity {
         type: 'simple-json',
         nullable: true
     })
-    paydayData: {"Income": {}, "Outgoings": {}, "LastIncome": {}, "LastOutgoings": {}};
+    paydayData: {
+        current: {
+            outgoings: {},
+            income: {}
+        },
+        last: {
+            outgoings: {},
+            income: {}
+        }
+    };
+
+    @AfterLoad()
+    resetPayDayData() {
+        if (this.paydayData === null) {
+            this.paydayData = {
+                current: {
+                    outgoings: {},
+                    income: {}
+                },
+                last: {
+                    outgoings: {},
+                    income: {}
+                }
+            }
+        }
+    }
 
     @Column({default: 0})
     job: number;
