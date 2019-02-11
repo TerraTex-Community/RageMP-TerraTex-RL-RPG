@@ -12,11 +12,11 @@ function openBindingBrowser() {
     mp.gui.chat.activate(false);
 
     bindingBrowser = mp.browsers.new('package://ui/index.html?page=pages/KeyConfiguration.html');
-
-    setTimeout(() => {
-        addBindsToUI();
-    }, 250);
 }
+
+mp.events.add("browser_bindings_ready", () => {
+    addBindsToUI();
+});
 
 function addBindsToUI() {
     if (!bindingBrowser) {

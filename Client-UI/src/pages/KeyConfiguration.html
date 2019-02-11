@@ -162,6 +162,10 @@
                         mp.trigger("browser_bindings_save", JSON.stringify(keyDefinition));
                     });
 
+                    $(document).ready(function () {
+                        mp.trigger("browser_bindings_ready");
+                    });
+
                 });
             </script>
         </div>

@@ -142,7 +142,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="submit" class="btn-success btn" onclick="transfer();">überweisen
+                                    <button type="submit" class="btn-success btn" onsubmit="transfer();">überweisen
                                     </button>
                                 </td>
                             </tr>
@@ -190,7 +190,6 @@
                 $("#payment_money, #account_money").toggleClass("text-danger", amount < 0);
                 $("#payment_money, #account_money").toggleClass("text-success", amount > 0);
                 $("#payment_money, #account_money").text(lastMoneyString);
-                $("#transfer_amount").attr("max", amount.toFixed(2));
             }
 
             function setContainer(id) {

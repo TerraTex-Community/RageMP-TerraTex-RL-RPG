@@ -72,8 +72,6 @@ W
 'Client-UI/src/old/Settings/character.js,d\2\d2f49bc61449ce6b5d82dfbbfe6237ee07e0a116
 T
 $Client-UI/src/old/Settings/main.html,d\0\d031eb246f736fe26d88794eab857e39539d8972
-Y
-)Client-UI/src/old/PayDay-Calculation.html,e\5\e5143f40a29097e9163d1055f86cd92a457fb156
 O
 Client-UI/src/old/ShowBans.html,1\4\14595f854fe04341d86b75e7b8086179cd6f69b5
 T
