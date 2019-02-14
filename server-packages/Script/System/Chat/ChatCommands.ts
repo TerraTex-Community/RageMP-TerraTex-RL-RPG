@@ -1,7 +1,11 @@
 import * as htmlEntities from 'html-entities';
+import {isAdmin} from '../../Admin/AdminHelper';
 
 mp.events.addCommand("global", ((player, fullText, ...args) => {
-    // @todo in future admin only
+    if (mp.players.length >= 15 && !isAdmin(player, 1)) {
+        player.call("addHTML", `<span style="color:red">/global ist nur für Admins freigegeben, sobald mehr als 15 Spieler online sind!</span>`);
+        return;
+    }
 
     let sendMessage = new htmlEntities.AllHtmlEntities().encode(args.join(" "));
     let message = `<i>GlobalChat ${player.getVariable("customChatNameTag")}: ${sendMessage}</i>`;
