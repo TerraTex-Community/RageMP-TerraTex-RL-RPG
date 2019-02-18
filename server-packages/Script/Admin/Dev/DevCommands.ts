@@ -1,5 +1,6 @@
 import Player = RageMP.Player;
 import {isAdmin, isDevServer} from '../AdminHelper';
+import {ShutdownService} from '../../../Lib/Services/ShutdownService';
 import addToShutdownService = ShutdownService.addToShutdownService;
 
 mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => {

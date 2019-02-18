@@ -1,4 +1,4 @@
-namespace ShutdownService {
+export namespace ShutdownService {
 
     const shutdownFunctions: Function[] = [];
     const shutdownFunctionsNonParallel: Function[] = [];
