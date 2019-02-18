@@ -52,10 +52,6 @@ e
 5server-packages/Script/User/Connection/UserConnect.ts,5\6\561c60857d808a052e4b476a913d120810b59ea5
 N
 server-packages/ormconfig.json,3\8\387680c8ee3c7f33a0aa645023143520162d944d
-\
-,Client-UI/src/styles/bootstrap/bootstrap.css,e\3\e3a74c183453506aa42a8fa313de967cc3888e3c
-O
-Client-UI/src/styles/custom.css,0\9\09a16348eaa8e6e110750f99ab2deac93d757596
 _
 /Client-UI/src/old/help_menu/commands_binds.html,0\f\0fa828c11976e46e9d92da1f3fb8f615e4eca4c4
 U

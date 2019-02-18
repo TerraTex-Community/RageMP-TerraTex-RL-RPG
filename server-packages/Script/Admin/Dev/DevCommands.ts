@@ -1,5 +1,6 @@
 import Player = RageMP.Player;
 import {isAdmin, isDevServer} from '../AdminHelper';
+import addToShutdownService = ShutdownService.addToShutdownService;
 
 mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => {
     if (!isAdmin(player, 4)) return;
@@ -119,22 +120,4 @@ enum Weapon {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+addToShutdownService(() => {});
