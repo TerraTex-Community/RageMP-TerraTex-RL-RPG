@@ -8,6 +8,7 @@ import './Lib/Version';
 import './Script/System/Chat/Chat';
 import './Script/System/Money';
 import './Script/System/Clock';
+import './Lib/Services/index';
 
 async function initGameMode() {
     await initDb();
