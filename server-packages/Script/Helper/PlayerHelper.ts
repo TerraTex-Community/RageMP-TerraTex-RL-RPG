@@ -1,6 +1,7 @@
-import {DbUser} from '../../DB/entities/DbUser';
+import {DbUser} from "../../DB/entities/DbUser";
+import Player = RageMP.Player;
 
-export function getPlayerFromNameOrId(playerNameOrId: string | number) : false | Player {
+export function getPlayerFromNameOrId(playerNameOrId: string | number): false | Player {
     if (typeof playerNameOrId === "string" && /^\d+$/.test(playerNameOrId)) {
         return getPlayerFromId(parseInt(playerNameOrId));
     } else if (typeof playerNameOrId === "number") {
@@ -12,8 +13,10 @@ export function getPlayerFromNameOrId(playerNameOrId: string | number) : false |
     }
 }
 
-function getPlayerFromName(playerName)  : false | Player{
-    if (playerName.length <= 3) return false;
+function getPlayerFromName(playerName): false | Player {
+    if (playerName.length <= 3) {
+        return false;
+    }
 
     const possiblePlayers: Player[] = [];
 
@@ -30,9 +33,9 @@ function getPlayerFromName(playerName)  : false | Player{
     return false;
 }
 
-function getPlayerFromId(playerId) : false | Player {
+function getPlayerFromId(playerId): false | Player {
     for (const player of mp.players.toArray()) {
-        if ((<DbUser> player.customData.dbUser).id === playerId) {
+        if ((<DbUser>player.customData.dbUser).id === playerId) {
             return player;
         }
     }

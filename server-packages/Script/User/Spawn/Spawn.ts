@@ -4,8 +4,8 @@ import Player = RageMP.Player;
 import {DbUser} from '../../../DB/entities/DbUser';
 
 
-export async function spawnPlayer(player: Player) {
-    ClientHelper.callClientSideFunc(player, 'players.local.freezePosition', false);
+export async function spawnPlayer(player: Player): Promise<void> {
+    ClientHelper.callClientSideFunc(player, "players.local.freezePosition", false);
     player.dimension = 0;
     player.alpha = 255;
 
@@ -31,7 +31,7 @@ export async function spawnPlayer(player: Player) {
     player.health = 100;
 }
 
-function setSpawnPlayerSkin(player: Player) {
+function setSpawnPlayerSkin(player: Player): void {
     const dbUser: DbUser = player.customData.dbUser;
     const skin = dbUser.data.skin;
 
@@ -46,7 +46,7 @@ function setSpawnPlayerSkin(player: Player) {
     }
 }
 
-function resetOfflineStats(player: Player) {
+function resetOfflineStats(player: Player): void {
     // @todo
 
     // string offlineState = (string) player.getData("LastOfflineState");
@@ -78,7 +78,7 @@ function resetOfflineStats(player: Player) {
     // }
 }
 
-export function getSpawnPosition(player: Player) : Vector3 {
+export function getSpawnPosition(player: Player): Vector3 {
     // @todo:
 
     // List<Apartment> apartments = (List<Apartment>) player.getData("UserApartments");

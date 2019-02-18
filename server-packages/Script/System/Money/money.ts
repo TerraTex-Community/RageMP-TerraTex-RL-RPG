@@ -1,8 +1,8 @@
 import Player = RageMP.Player;
-import {DbUser} from '../../../DB/entities/DbUser';
-import {MoneyCategory} from './MoneyCategories';
-import {DbUserInventory} from '../../../DB/entities/DbUserInventory';
-import {DbMoneyLog} from '../../../DB/entities/DbMoneyLog';
+import {DbUser} from "../../../DB/entities/DbUser";
+import {MoneyCategory} from "./MoneyCategories";
+import {DbUserInventory} from "../../../DB/entities/DbUserInventory";
+import {DbMoneyLog} from "../../../DB/entities/DbMoneyLog";
 
 export function canPlayerPayByBank(player: Player, amount: number) {
     const dbUser: DbUser = player.customData.dbUser;
@@ -17,22 +17,17 @@ export function canPlayerPayByHand(player: Player, amount: number) {
 export function payByBankOrHand(player: Player, amount: number, category: MoneyCategory, data: any, toPlayer: string|Player|DbUser|null = null) {
     const dbInventory: DbUserInventory = player.customData.dbUser.inventory;
 
-    if (amount < 0)
-    {
+    if (amount < 0) {
         amount = -amount;
     }
 
-    if (dbInventory.bank < amount && dbInventory.money < amount)
-    {
+    if (dbInventory.bank < amount && dbInventory.money < amount) {
         return false;
     }
 
-    if (dbInventory.money >= amount)
-    {
+    if (dbInventory.money >= amount) {
         changePlayerMoney(player, amount, false, category, data, toPlayer);
-    }
-    else
-    {
+    } else {
         changePlayerMoney(player, amount, true, category, data, toPlayer);
         // @todo bank notification
     }
@@ -95,9 +90,9 @@ export function getPlayerBank(player: Player) {
 }
 
 export function getReadableCurrency(amount) {
-    const formatter = new Intl.NumberFormat('de-DE', {
-        style: 'currency',
-        currency: 'EUR',
+    const formatter = new Intl.NumberFormat("de-DE", {
+        style: "currency",
+        currency: "EUR",
         maximumFractionDigits: 2,
         minimumFractionDigits: 2
     });

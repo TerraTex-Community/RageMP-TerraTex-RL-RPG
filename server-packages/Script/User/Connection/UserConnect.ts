@@ -1,6 +1,8 @@
-import {DbUser} from '../../../DB/entities/DbUser';
-import {DbAdminBans} from '../../../DB/entities/DbAdminBans';
+import {DbUser} from "../../../DB/entities/DbUser";
+import {DbAdminBans} from "../../../DB/entities/DbAdminBans";
 import Player = RageMP.Player;
+import {ShutdownService} from "../../../Lib/Services/ShutdownService";
+import isServerShuttingDown = ShutdownService.isServerShuttingDown;
 
 /**
  * Player starts to connect => check ban table
@@ -52,6 +54,11 @@ export async function playerConnect(player: Player) {
     player.alpha = 0;
     player.position = new mp.Vector3(0,0,200);
     player.dimension = 1;
+
+    if (isServerShuttingDown) {
+        player.call("setShutDownView");
+        return;
+    }
 
     try {
         const result = await checkBans(player);

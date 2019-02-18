@@ -1,2 +1,2 @@
-import './PayDayTimer';
-import './ATM';
+import "./PayDayTimer";
+import "./ATM";

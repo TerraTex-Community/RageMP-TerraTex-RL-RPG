@@ -22,3 +22,4 @@ Thumbs.db
 /Client-UI/src/styles/bootstrap/bootstrap.css
 /Client-UI/src/styles/bootstrap/bootstrap.css.map
 /Extras/packages/_rage-console/node_modules/
+/server-packages/dist/

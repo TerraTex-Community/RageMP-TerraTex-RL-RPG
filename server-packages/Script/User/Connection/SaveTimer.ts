@@ -1,22 +1,41 @@
-import {DbUser} from '../../../DB/entities/DbUser';
-import {EventHelper} from '../../Helper/EventHelper';
+import {DbUser} from "../../../DB/entities/DbUser";
 import Player = RageMP.Player;
-import {isAdmin} from '../../Admin/AdminHelper';
+import {isAdmin} from "../../Admin/AdminHelper";
+import {ShutdownService} from "../../../Lib/Services/ShutdownService";
 
 
 setInterval(savePlayers, 1800000);
 
-function savePlayers() {
-    mp.players.forEach((player: Player) => EventHelper.resolveEventAsync(
-        (player: Player): void => {
-            if (player.getVariable("loggedIn")) {
+function savePlayers(): Promise<any> {
+    const allPromises: Promise<DbUser>[] = [];
 
-                player.customData.dbUser.save().then(() => {
-                    console.log(`Datastore: ${player.name} saved.`)
-                }).catch((e: any) => console.error(e));
-            }
-        }, player)
-    );
+    for (const player of mp.players.toArray()) {
+        if (player.getVariable("loggedIn")) {
+            const promise: Promise<DbUser> = (<DbUser>player.customData.dbUser).save();
+            allPromises.push(promise);
+            promise.then(() => {
+                console.log(`Datastore: ${player.name} saved.`);
+            }).catch((e: any) => console.error(e));
+        }
+    }
+
+    return Promise.all(allPromises);
+}
+
+function handlePlayersOnShutdown() {
+    for (const player of mp.players.toArray()) {
+        setPlayerShutDownView(player);
+    }
+
+}
+ShutdownService.addToShutdownService(handlePlayersOnShutdown);
+
+function setPlayerShutDownView(player: Player) {
+    player.alpha = 0;
+    player.position = new mp.Vector3(0, 0, 200);
+    player.dimension = 1;
+
+    player.call("setShutDownView");
 }
 
 mp.events.add(RageMP.Enums.Event.PLAYER_QUIT, (player: Player) => {
@@ -26,6 +45,9 @@ mp.events.add(RageMP.Enums.Event.PLAYER_QUIT, (player: Player) => {
 });
 
 mp.events.addCommand("saveplayers", (Player: Player) => {
-    if (!isAdmin(Player, 4, true)) return;
+    if (!isAdmin(Player, 4, true)) {
+        return;
+    }
+
     savePlayers();
 });

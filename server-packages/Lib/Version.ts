@@ -1,9 +1,10 @@
-import {sendChatNotificationToPlayer} from '../Script/System/Chat/Chat';
+import {Chat} from "../Script/System/Chat/Chat";
 
 const request = require("request-promise");
 const fs = require("fs");
 
 import Player = RageMP.Player;
+import sendChatNotificationToPlayer = Chat.sendChatNotificationToPlayer;
 
 class VersionCreator {
     versionIdentifier: string;
@@ -17,7 +18,7 @@ class VersionCreator {
         }
     }
 
-    async loadVersion() {
+    async loadVersion(): Promise<void> {
         await this.getVersionIdentifier();
 
         const body = JSON.parse(await request.get("https://bug.terratex.eu/api/rest/projects"));
@@ -42,14 +43,14 @@ class VersionCreator {
 
                 this.currentVersion = version;
                 break;
-                
+
             }
         }
 
         this.printConsoleLog();
     }
 
-    async getVersionIdentifier() {
+    async getVersionIdentifier(): Promise<void> {
         if (fs.existsSync("packages/TerraTex/version.json")) {
             const json = JSON.parse(fs.readFileSync("packages/TerraTex/version.json").toString());
             this.versionIdentifier = `${json.versionTimestamp}_${json.versionBuildId}_${json.gitBranch}_${json.gitCommit}`;
@@ -58,16 +59,16 @@ class VersionCreator {
         }
     }
 
-    printConsoleLog() {
+    printConsoleLog(): void {
         console.info(`Current Version: ${this.currentVersion}`);
         console.info(`Current VersionIdentifier: ${this.versionIdentifier}`);
     }
 
-    printVersionToPlayer(player: Player) {
+    printVersionToPlayer(player: Player): void {
         const versionHtml = `
             Version: ${this.currentVersion}<br/>
-            Identifier: <span class="copyToClipOnClick-parent">${this.versionIdentifier} <i class="far fa-clipboard pointer copyToClipOnClickWithAlert"></i></span>
-            
+            Identifier: <span class="copyToClipOnClick-parent">
+                ${this.versionIdentifier} <i class="far fa-clipboard pointer copyToClipOnClickWithAlert"></i></span>
         `;
         sendChatNotificationToPlayer(player, versionHtml, "Aktuelle Version");
     }

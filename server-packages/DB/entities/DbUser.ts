@@ -1,10 +1,10 @@
-import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, BaseEntity, OneToMany, OneToOne} from 'typeorm';
-import {DbAdminBans} from './DbAdminBans';
-import {DbUserData} from './DbUserData';
-import {DbUserInventory} from './DbUserInventory';
+import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, BaseEntity, OneToMany, OneToOne} from "typeorm";
+import {DbAdminBans} from "./DbAdminBans";
+import {DbUserData} from "./DbUserData";
+import {DbUserInventory} from "./DbUserInventory";
 
 @Entity({
-    name: 'user'
+    name: "user"
 })
 export class DbUser extends BaseEntity {
     @PrimaryGeneratedColumn()
@@ -29,7 +29,7 @@ export class DbUser extends BaseEntity {
     lastname: string;
 
     @Column({
-        type: 'enum',
+        type: "enum",
         enum: ["male", "female", "other"]
     })
     gender: string;
@@ -38,7 +38,7 @@ export class DbUser extends BaseEntity {
     birthday: Date;
 
     @Column({
-        type: 'longtext'
+        type: "longtext"
     })
     history: string;
 

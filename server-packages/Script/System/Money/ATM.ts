@@ -1,7 +1,7 @@
-import {TerraTexEvents} from '../../Helper/Enums/TerraTexEvents';
-import {canPlayerPayByBank, canPlayerPayByHand, changePlayerMoney, getReadableCurrency} from './money';
-import {MoneyCategory} from './MoneyCategories';
-import {getPlayerFromNameOrId} from '../../Helper/PlayerHelper';
+import {TerraTexEvents} from "../../Helper/Enums/TerraTexEvents";
+import {canPlayerPayByBank, canPlayerPayByHand, changePlayerMoney, getReadableCurrency} from "./money";
+import {MoneyCategory} from "./MoneyCategories";
+import {getPlayerFromNameOrId} from "../../Helper/PlayerHelper";
 import Player = RageMP.Player;
 
 
@@ -24,7 +24,7 @@ mp.events.add(TerraTexEvents.playerClickOnEntity, (player: Player, x:number, y:n
     const entityData: any = JSON.parse(entityDataJSON);
 
     if (atmHashes.indexOf(entityData.model) !== -1 && player.position.subtract(entityData.position).length() <= 5) {
-        player.call('openATM');
+        player.call("openATM");
     }
 });
 
@@ -38,7 +38,7 @@ mp.events.add("atm_payInPayOut", (player: Player, type: string, amount: number, 
             changePlayerMoney(player, -amount, false, MoneyCategory.PayInPayOut, {reason: txt}, null);
             changePlayerMoney(player, amount, true, MoneyCategory.PayInPayOut, {reason: txt}, null);
             player.notify(`~g~${getReadableCurrency(amount)} wurden auf dein Konto eingezahlt.`);
-            player.call('updateATM');
+            player.call("updateATM");
         } else {
             player.notify("~r~Du hast nicht genug Geld auf der Hand!");
         }
@@ -47,7 +47,7 @@ mp.events.add("atm_payInPayOut", (player: Player, type: string, amount: number, 
             changePlayerMoney(player, amount, false, MoneyCategory.PayInPayOut, {reason: txt}, null);
             changePlayerMoney(player, -amount, true, MoneyCategory.PayInPayOut, {reason: txt}, null);
             player.notify(`~g~${getReadableCurrency(amount)} wurden von deinem Konto ausgezahlt.`);
-            player.call('updateATM');
+            player.call("updateATM");
         } else {
             player.notify("~r~Du hast nicht genug Geld auf der Bank!");
         }
@@ -77,6 +77,6 @@ mp.events.add("atm_transfer", (player: Player, amount: number, receiver: string,
     player.notify(`~g~${getReadableCurrency(amount)} wurden an ${toPlayer.name} überwiesen.`);
     toPlayer.notify(`~g~${getReadableCurrency(amount)} wurden von ${player.name} an dich überwiesen.`);
 
-    player.call('updateATM');
-    toPlayer.call('updateATM');
+    player.call("updateATM");
+    toPlayer.call("updateATM");
 });

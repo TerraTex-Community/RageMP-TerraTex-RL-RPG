@@ -1,10 +1,10 @@
-import {Connection, createConnection, getConnection} from 'typeorm';
+import {Connection, createConnection, getConnection} from "typeorm";
 
-export async function initDb() {
+export async function initDb(): Promise<void> {
     await createConnection();
 }
 
-export async function getDatabase() {
+export async function getDatabase(): Promise<Connection> {
     if (!getConnection()) {
         await initDb();
     }

@@ -5,12 +5,12 @@ import {
     UpdateDateColumn,
     BaseEntity,
     OneToOne,
-    JoinColumn, AfterLoad
-} from 'typeorm';
-import {DbUser} from './DbUser';
+    JoinColumn
+} from "typeorm";
+import {DbUser} from "./DbUser";
 
 @Entity({
-    name: 'user_inventory'
+    name: "user_inventory"
 })
 export class DbUserInventory extends BaseEntity {
     constructor(user: DbUser) {
@@ -23,8 +23,8 @@ export class DbUserInventory extends BaseEntity {
     id: number;
 
     @OneToOne(type => DbUser, user => user.id, {
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
         persistence: true
     })
     @JoinColumn()
@@ -32,13 +32,13 @@ export class DbUserInventory extends BaseEntity {
 
     @Column({
         default: 5000,
-        type: 'float',
+        type: "float",
     })
     money: number;
 
     @Column({
         default: 5000,
-        type: 'float',
+        type: "float",
     })
     bank: number;
 

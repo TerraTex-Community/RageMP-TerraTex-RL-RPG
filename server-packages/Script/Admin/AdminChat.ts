@@ -1,7 +1,8 @@
-import {getAdminRankDescription, getAllOnlineAdmins, isAdmin} from './AdminHelper';
-import {DbUser} from '../../DB/entities/DbUser';
-import * as htmlEntities from 'html-entities';
-import {sendChatAlertToPlayer} from '../System/Chat/Chat';
+import {getAdminRankDescription, getAllOnlineAdmins, isAdmin} from "./AdminHelper";
+import {DbUser} from "../../DB/entities/DbUser";
+import * as htmlEntities from "html-entities";
+import {Chat} from "../System/Chat/Chat";
+import sendChatAlertToPlayer = Chat.sendChatAlertToPlayer;
 
 mp.events.addCommand("a", ((player, fullText, ...args) => {
     if (isAdmin(player, 1, true)) {
@@ -12,7 +13,7 @@ mp.events.addCommand("a", ((player, fullText, ...args) => {
 
         let message = `<span style='color: yellow'>${description} ${player.getVariable("customChatNameTag")}: ${sendMessage}</span>`;
 
-        mp.players.call(allAdmins, 'addHTML', [message]);
+        mp.players.call(allAdmins, "addHTML", [message]);
     }
 }));
 

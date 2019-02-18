@@ -2,17 +2,16 @@ import {
     Entity,
     Column,
     PrimaryGeneratedColumn,
-    CreateDateColumn,
     UpdateDateColumn,
     BaseEntity,
     OneToOne,
     JoinColumn, AfterLoad
-} from 'typeorm';
-import {DbUser} from './DbUser';
+} from "typeorm";
+import {DbUser} from "./DbUser";
 
 
 @Entity({
-    name: 'user_data'
+    name: "user_data"
 })
 export class DbUserData extends BaseEntity {
     constructor(user: DbUser) {
@@ -25,8 +24,8 @@ export class DbUserData extends BaseEntity {
     id: number;
 
     @OneToOne(type => DbUser, user => user.id, {
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
         persistence: true
     })
     @JoinColumn()
@@ -39,7 +38,7 @@ export class DbUserData extends BaseEntity {
     skin: number;
 
     @Column({
-        type: 'simple-json',
+        type: "simple-json",
         nullable: true
     })
     paydayData: {
@@ -65,7 +64,7 @@ export class DbUserData extends BaseEntity {
                     outgoings: {},
                     income: {}
                 }
-            }
+            };
         }
     }
 
@@ -73,7 +72,7 @@ export class DbUserData extends BaseEntity {
     job: number;
 
     @Column({
-        type: 'simple-json',
+        type: "simple-json",
         nullable: true
     })
     spawn: {};
@@ -85,7 +84,7 @@ export class DbUserData extends BaseEntity {
     factionRank: 0;
 
     @Column({
-        type: 'simple-json',
+        type: "simple-json",
         nullable: true
     })
     lastOfflineState: {};

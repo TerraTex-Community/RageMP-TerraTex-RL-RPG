@@ -1,5 +1,5 @@
 import * as nodemailer from "nodemailer";
-import * as config from '../../mailconfig.json';
+import * as config from "../../mailconfig.json";
 
 export default async function sendMail(to: string, subject: string, html: string) {
 

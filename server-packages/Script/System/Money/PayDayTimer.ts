@@ -1,6 +1,6 @@
-import {isPlayerLoggedIn} from '../../User/Connection/Login';
-import {DbUser} from '../../../DB/entities/DbUser';
-import {calculatePayDay} from './PayDayManager';
+import {isPlayerLoggedIn} from "../../User/Connection/Login";
+import {DbUser} from "../../../DB/entities/DbUser";
+import {calculatePayDay} from "./PayDayManager";
 
 setInterval(calculatePlayTime, 60000);
 

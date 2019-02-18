@@ -2,6 +2,7 @@ export namespace ShutdownService {
 
     const shutdownFunctions: Function[] = [];
     const shutdownFunctionsNonParallel: Function[] = [];
+    export let isServerShuttingDown: boolean = false;
 
     /**
      * Add an async function that is called before the server shutsdown (e.g. additional save functions)
@@ -21,7 +22,9 @@ export namespace ShutdownService {
      * Starts the Shutdown Service - It calls all shutdown functions
      * @param {boolean} [killServer=true] - kills the server afterwards
      */
-    export async function startShutdownService(killServer = true) {
+    export async function shutdownServer(killServer = true) {
+        isServerShuttingDown = true;
+
         for (const func of shutdownFunctionsNonParallel) {
             await func();
         }
@@ -37,4 +40,6 @@ export namespace ShutdownService {
             process.exit(0);
         }
     }
+
+
 }

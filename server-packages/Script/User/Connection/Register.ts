@@ -1,7 +1,5 @@
-import {DbUser} from '../../../DB/entities/DbUser';
+import {DbUser} from "../../../DB/entities/DbUser";
 import * as crypto from "crypto";
-import {getDatabase} from '../../../Lib/Data/Database';
-import {getConnection} from 'typeorm';
 import Player = RageMP.Player;
 
 export async function registerPlayer(player: Player, data: any) {
@@ -20,7 +18,7 @@ export async function registerPlayer(player: Player, data: any) {
     let newUser = new DbUser();
 
     newUser.serial = player.serial;
-    newUser.password = crypto.createHash('sha256').update(parsedData.password).digest('hex');
+    newUser.password = crypto.createHash("sha256").update(parsedData.password).digest("hex");
     newUser.gender = parsedData.gender;
     newUser.email = parsedData.email;
     newUser.forename = parsedData.forename;

@@ -3,6 +3,7 @@ import 'src/helper/loadHelpers';
 import 'src/chat';
 import 'src/systems/binding/binding_init';
 import 'src/systems/clicksystem';
+import 'src/systems/shutdown';
 import 'src/Enviroment/index';
 
 // init player defaults

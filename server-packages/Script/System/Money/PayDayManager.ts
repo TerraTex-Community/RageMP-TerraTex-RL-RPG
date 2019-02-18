@@ -1,11 +1,12 @@
 import Player = RageMP.Player;
-import {PayDayCategory} from './PayDayCategory';
-import {DbUser} from '../../../DB/entities/DbUser';
-import {changePlayerMoney, getReadableCurrency} from './money';
-import {MoneyCategory} from './MoneyCategories';
-import {sendChatAlertToPlayer} from '../Chat/Chat';
+import {PayDayCategory} from "./PayDayCategory";
+import {DbUser} from "../../../DB/entities/DbUser";
+import {changePlayerMoney, getReadableCurrency} from "./money";
+import {MoneyCategory} from "./MoneyCategories";
+import {Chat} from "../Chat/Chat";
+import sendChatAlertToPlayer = Chat.sendChatAlertToPlayer;
 
-export function calculatePayDay(player: Player) {
+export function calculatePayDay(player: Player): void {
     addDefaultPayDayAmounts(player);
 
     const payDayData = (<DbUser>player.customData.dbUser).data.paydayData;
@@ -29,23 +30,23 @@ export function calculatePayDay(player: Player) {
     if (payDayAmount >= 0) {
         sendChatAlertToPlayer(
             player,
-            'success',
+            "success",
             `PayDay! Dir wurden <strong>${getReadableCurrency(payDayAmount)}</strong> auf dein Bankkonto überwiesen!`,
-            'PayDay!'
+            "PayDay!"
         );
     } else {
         sendChatAlertToPlayer(
             player,
-            'danger',
+            "danger",
             `PayDay! Dir wurden <strong>${getReadableCurrency(payDayAmount)}</strong> von deinem Bankkonto abgezogen!`,
-            'PayDay!'
+            "PayDay!"
         );
     }
 }
 
-export function addOutgoingToPayDay(player: Player, amount: number, category: PayDayCategory) {
+export function addOutgoingToPayDay(player: Player, amount: number, category: PayDayCategory): void {
     if (amount <= 0) {
-        throw new Error('Amount on PayDay-Functions have to be positive!');
+        throw new Error("Amount on PayDay-Functions have to be positive!");
     }
 
     // round amount to max two decimals
@@ -59,16 +60,16 @@ export function addOutgoingToPayDay(player: Player, amount: number, category: Pa
     }
 }
 
-export function addIncomeToPayDay(player: Player, amount: number, category: PayDayCategory) {
+export function addIncomeToPayDay(player: Player, amount: number, category: PayDayCategory): void {
     if (amount <= 0) {
-        throw new Error('Amount on PayDay-Functions have to be positive!');
+        throw new Error("Amount on PayDay-Functions have to be positive!");
     }
 
     // round amount to max two decimals
     amount = Math.floor((amount * 100)) / 100;
 
     if (!category.incomeCategory) {
-        throw new Error('Only Income Categories are allowed for Income!');
+        throw new Error("Only Income Categories are allowed for Income!");
     }
 
     const income = (<DbUser>player.customData.dbUser).data.paydayData.current.income;
@@ -84,13 +85,13 @@ export function addIncomeToPayDay(player: Player, amount: number, category: PayD
     }
 }
 
-function addDefaultPayDayAmounts(player: Player) {
+function addDefaultPayDayAmounts(player: Player): void {
     // base salery = 250 + 1 PlayMinute = 0.01
     const addAmount = (<DbUser>player.customData.dbUser).data.playTime / 100;
     addIncomeToPayDay(player, 250 + addAmount, PayDayCategory.Salery);
 }
 
-mp.events.addCommand("payday", (player:Player, fullText) => {
+mp.events.addCommand("payday", (player:Player) => {
     player.call("show_payday_ui", [JSON.stringify((<DbUser>player.customData.dbUser).data.paydayData.last)]);
 });
 

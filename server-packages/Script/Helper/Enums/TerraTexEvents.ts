@@ -9,7 +9,7 @@ export const enum TerraTexEvents {
      * @param {number} relativeY
      * @param {Vector3} worldPosition
      */
-    'PlayerClick' = 'playerClick',
+    "PlayerClick" = "playerClick",
     /**
      * Attributes: x, y, upOrDown, leftOrRight, entityData, entity
      * @param {number} x
@@ -22,5 +22,5 @@ export const enum TerraTexEvents {
      * @param {number} entityData.model
      * @param {Entity | null} entity
      */
-    'playerClickOnEntity' = 'playerClickOnEntity',
+    "playerClickOnEntity" = "playerClickOnEntity",
 }

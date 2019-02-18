@@ -6,6 +6,6 @@ mp.events.add(RageMP.Enums.Event.PLAYER_DEATH, (player: Player, reason: HashOrSt
     setTimeout(spawnThePlayer, 10000, player);
 });
 
-function spawnThePlayer(player: Player) {
+function spawnThePlayer(player: Player): void {
     spawnPlayer(player).catch(e => console.error(e));
 }
