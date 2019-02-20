@@ -5,12 +5,10 @@ import "./Script/Admin";
 import "./Script/User/Spawn/Spawn";
 import "./Script/User/Spawn/Death";
 import "./Lib/Version";
-import "./Script/System/Chat/Chat";
-import "./Script/System/Money";
-import "./Script/System/Clock";
 import "./Lib/Services/index";
+import "./Script/System/index";
 
-async function initGameMode() {
+async function initGameMode(): Promise<void> {
     await initDb();
 
 }
