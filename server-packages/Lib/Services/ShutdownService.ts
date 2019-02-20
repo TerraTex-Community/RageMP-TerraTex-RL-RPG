@@ -10,7 +10,7 @@ export namespace ShutdownService {
      * @param {Function} func - the ASYNC function that should be called
      * @param {boolean} [canBeRunInParallel=true] - if this is set to false the func will be run before all other functions and non-parallel
      */
-    export function addToShutdownService(func: Function, canBeRunInParallel = true) {
+    export function addToShutdownService(func: Function, canBeRunInParallel: boolean = true): void {
         if (canBeRunInParallel) {
             shutdownFunctions.push(func);
         } else {
@@ -22,7 +22,7 @@ export namespace ShutdownService {
      * Starts the Shutdown Service - It calls all shutdown functions
      * @param {boolean} [killServer=true] - kills the server afterwards
      */
-    export async function shutdownServer(killServer = true) {
+    export async function shutdownServer(killServer: boolean = true): Promise<void> {
         isServerShuttingDown = true;
 
         for (const func of shutdownFunctionsNonParallel) {

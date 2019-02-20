@@ -14,7 +14,7 @@ export class TimeHelper {
      * seconds    s
      * @param txt
      */
-    static getTimeFromTimestring(txt: string) {
+    static getTimeFromTimestring(txt: string): number {
         const regexp = /(?<time>[0-9]+)(?<unit>[yQMwdhms])/;
         const extendedRegExp = /^((?<time>[0-9]+)(?<unit>[yQMwdhms]))+$/;
 
@@ -28,9 +28,15 @@ export class TimeHelper {
         for (const m of matches) {
             if (!m.groups || !m.groups.time || !m.groups.unit) { continue; }
             // @ts-ignore
-            moment.add(parseInt(m.groups.time), m.groups.unit);
+            moment.add(parseInt(m.groups.time, 10), m.groups.unit);
         }
 
         return moment.diff(0);
+    }
+
+    static getHoursByUTCHour(utcHour: number): number {
+        const date = new Date();
+        date.setUTCHours(utcHour);
+        return date.getHours();
     }
 }
