@@ -10,7 +10,7 @@ import {scheduleJob} from "node-schedule";
 let lastShutDownTimer: null | Timeout = null;
 let lastShutDownInterval: null | Timeout = null;
 let lastFinishTime: Moment.Moment | null = null;
-let lastReason = "";
+let lastReason: string = "";
 
 
 function sendTimeUntilShutdown(): void {
@@ -38,7 +38,7 @@ mp.events.addCommand("shutdown", (player: Player, fullText, timestring: string =
     if (isAdmin(player, 4, true)) {
         try {
 
-            const reason = reasonA.join(" ");
+            const reason: string = reasonA.join(" ");
             lastReason = reason.length > 0 ? reason : "unbekannt";
 
             if (lastShutDownInterval) {
