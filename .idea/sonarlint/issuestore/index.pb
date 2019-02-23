@@ -326,3 +326,23 @@ W
 'client-packages/src/Enviroment/index.ts,3\5\35f05046c04d80d094e4f8d8ee5f385bbd01789e
 L
 Client-UI/src/pages/ATM.html,d\6\d61aab7fc8727351d142e477d0cf612fc688a698
+U
+%server-packages/Script/Admin/index.ts,e\5\e521aa9b6db11ad890ab0eeab43137a2ceac7077
+[
++server-packages/Script/Admin/AdminHelper.ts,6\3\63f6952258d33908fc2de27d16f792bac1b9e4f5
+[
++server-packages/Script/Helper/TimeHelper.ts,d\0\d0a6e78b1a5568b06e1c0df68fba7eb19060c5ea
+_
+/server-packages/Lib/Services/ShutdownService.ts,8\e\8e329c6472f86e64ba08f8e471bce02db51d86ca
+X
+(server-packages/Script/Admin/Shutdown.ts,e\c\ec1828eee349a8445a0be43adc627c38abe38fa5
+Z
+*server-packages/Script/System/Jobs/IJob.ts,9\6\96d11a00be7b3a7a69944b99573ab439fd38ce7c
+V
+&server-packages/Script/System/index.ts,e\3\e36399b31efaff86ef89626e3ad1bc064a0b71be
+[
++server-packages/Script/System/Jobs/index.ts,9\5\953a0aab1fa1f8538502391fdc3bd306f6469729
+]
+-server-packages/Script/System/Jobs/Joblist.ts,8\5\85dbf11cab520bfe37772621a1f668cf3ad8f675
+o
+?server-packages/Script/System/Jobs/Bergwerksjob/Bergwerksjob.ts,0\b\0be75a5035150f21061cc4e09530e83d0b24856d

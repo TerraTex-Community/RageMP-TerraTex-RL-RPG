@@ -15,7 +15,6 @@ mp.events.addCommand("goto", ((player: Player, fullText: string, nameOrId: strin
     }
 }));
 
-
 mp.events.addCommand("gethere", ((player: Player, fullText: string, nameOrId: string) => {
     if (isAdmin(player, 1, true)) {
         const toPlayer: Player | false = getPlayerFromNameOrId(nameOrId);
@@ -26,5 +25,12 @@ mp.events.addCommand("gethere", ((player: Player, fullText: string, nameOrId: st
 
         toPlayer.position = player.position;
         toPlayer.dimension = player.dimension;
+    }
+}));
+
+mp.events.addCommand("gotopos", ((player: Player, fullText: string, position: string) => {
+    if (isAdmin(player, 1, true)) {
+        const positions = position.split(",");
+        player.position = new mp.Vector3(parseFloat(positions[0]), parseFloat(positions[1]), parseFloat(positions[2]));
     }
 }));

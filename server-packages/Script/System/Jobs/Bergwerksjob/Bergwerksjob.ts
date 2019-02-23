@@ -2,8 +2,8 @@ import {IJob} from "../IJob";
 
 export class Bergwerksjob implements IJob {
     id: number;
-    jobStartingPoint: RageMP.Vector3 = new mp.Vector3(0,0,0);
-    name: string = "Bergwerksjob";
+    jobStartingPoint: RageMP.Vector3 = new mp.Vector3(2569.71313, 2719.22656, 42.8665237);
+    name: string = "Bergwerksarbeiter";
     static instance: Bergwerksjob;
 
     constructor(id: number) {
