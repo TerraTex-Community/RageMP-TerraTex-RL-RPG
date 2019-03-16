@@ -1,6 +1,7 @@
 import Player = RageMP.Player;
 import {isAdmin} from "../AdminHelper";
 import {getPlayerFromNameOrId} from "../../Helper/PlayerHelper";
+import {JobList} from "../../System/Jobs/Joblist";
 
 mp.events.addCommand("goto", ((player: Player, fullText: string, nameOrId: string) => {
     if (isAdmin(player, 1)) {
@@ -12,6 +13,16 @@ mp.events.addCommand("goto", ((player: Player, fullText: string, nameOrId: strin
 
         player.position = toPlayer.position;
         player.dimension = toPlayer.dimension;
+    }
+}));
+
+mp.events.addCommand("gotojob", ((player: Player, fullText: string, jobid: string) => {
+    if (isAdmin(player, 1)) {
+        const jobidparsed = parseInt(jobid);
+
+        const job = JobList.getJobById(jobidparsed);
+        player.position = job.jobStartingPoint;
+        player.dimension = 0;
     }
 }));
 

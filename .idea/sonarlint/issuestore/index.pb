@@ -346,3 +346,11 @@ V
 -server-packages/Script/System/Jobs/Joblist.ts,8\5\85dbf11cab520bfe37772621a1f668cf3ad8f675
 o
 ?server-packages/Script/System/Jobs/Bergwerksjob/Bergwerksjob.ts,0\b\0be75a5035150f21061cc4e09530e83d0b24856d
+a
+1server-packages/Script/Admin/Commands/Teleport.ts,d\9\d9f72f39304a28483159b10c30f4c6113f66da35
+_
+/server-packages/Script/System/Jobs/JobSystem.ts,b\1\b137e2336ce5c085b133d1c2ab606f0ef83c895e
+K
+server-packages/tslint.json,8\5\8523e52ed8367092e01de898052ecbc739539303
+a
+1server-packages/Script/System/Jobs/JobCommands.ts,2\9\29b6c476c47df407c1ecc7d2c3e4d318eaab5db0

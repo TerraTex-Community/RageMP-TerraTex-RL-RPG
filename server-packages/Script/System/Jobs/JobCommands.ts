@@ -4,6 +4,8 @@ import {JobList} from "./Joblist";
 import {IJob} from "./IJob";
 
 mp.events.addCommand("getjob", (player => {
+    if (player.vehicle) return;
+
     if ((<DbUser>player.customData.dbUser).data.job !== 0) {
         const job: IJob = JobList.getJobById((<DbUser>player.customData.dbUser).data.job);
         Chat.sendChatAlertToPlayer(
@@ -16,6 +18,7 @@ mp.events.addCommand("getjob", (player => {
     const job: IJob|false = JobList.getJobByPosition(player.position);
 
     if (job && job.checkPlayerRequirements(player)) {
+
         (<DbUser>player.customData.dbUser).data.job = job.id;
         Chat.sendChatNotificationToPlayer(
             player,
@@ -26,6 +29,8 @@ mp.events.addCommand("getjob", (player => {
 }));
 
 mp.events.addCommand("quitjob", (player => {
+    if (player.vehicle) return;
+
     if ((<DbUser>player.customData.dbUser).data.job === 0) {
         return;
     }
@@ -57,9 +62,12 @@ mp.events.addCommand("jobhelp", (player => {
 }));
 
 mp.events.addCommand("startjob", (player => {
+    if (player.vehicle) return;
+
     if ((<DbUser>player.customData.dbUser).data.job === 0) {
         return;
     }
+
     const job: IJob|false = JobList.getJobById((<DbUser>player.customData.dbUser).data.job);
     if (job && job.jobStartingPoint.subtract(player.position).length() <= 2) {
         if (job.checkPlayerRequirements(player)) {
