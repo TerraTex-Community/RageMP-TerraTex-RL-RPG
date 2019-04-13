@@ -9,6 +9,7 @@ import Vector3 = RageMP.Vector3;
 import Colshape = RageMP.Colshape;
 import {addIncomeToPayDay} from "../../Money/PayDayManager";
 import {PayDayCategory} from "../../Money/PayDayCategory";
+import {VehicleHelper} from "../../../Helper/VehicleHelper";
 
 export class Bergwerksjob implements IJob {
     id: number;
@@ -253,11 +254,13 @@ export class Bergwerksjob implements IJob {
         this.cancel = true;
     }
 
-    startJob(player: RageMP.Player): void {
+    async startJob(player: RageMP.Player) {
         const bulldozer = mp.vehicles.new(
             RageMP.Hashes.Vehicle.BULLDOZER,
             new mp.Vector3(2587.20581, 2722.64185, 42.2129631)
         );
+
+        await VehicleHelper.ensurePlayerInVehicle(player, bulldozer, -1);
 
         bulldozer.isBergwerkBulldozer = true;
         bulldozer.driver = player;
@@ -270,7 +273,6 @@ export class Bergwerksjob implements IJob {
             "Job Information"
         );
 
-        player.putIntoVehicle(bulldozer, -1);
 
         if (!this.alreadyUsedPositions[(<DbUser>player.customData.dbUser).id]) {
             this.alreadyUsedPositions[(<DbUser>player.customData.dbUser).id] = [...this.marker];
