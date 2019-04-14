@@ -59,5 +59,8 @@ gitlabCommitStatus {
             }
         }
 
+        stage('Artifacts Client') {
+            archiveArtifacts artifacts: 'Build-stuff/dist/client_packages', fingerprint: true
+        }
     }
 }
