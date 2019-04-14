@@ -354,3 +354,13 @@ K
 server-packages/tslint.json,8\5\8523e52ed8367092e01de898052ecbc739539303
 a
 1server-packages/Script/System/Jobs/JobCommands.ts,2\9\29b6c476c47df407c1ecc7d2c3e4d318eaab5db0
+^
+.server-packages/Script/Admin/Commands/index.ts,8\0\8067c452726b8b82c5bffc3844626304a98c86fe
+d
+4server-packages/Script/System/Money/PayDayManager.ts,b\7\b7ea6efc4f57a2f368dc480e4f368a83a7efae32
+\
+,client-packages/src/Enviroment/Jobs/index.ts,c\d\cd1d7cd7874136d1f188ea1de87d6aa371664f14
+l
+<Build-stuff/dist/client_packages/src/helper/BrowserHelper.js,a\c\ac18b99536658ba5a7ef574e34fd552d53ddb98e
+c
+3client-packages/src/Enviroment/Jobs/Bergwerksjob.ts,6\0\60c47ecb2d1e249ad9f5c1463366e32650a9699d
