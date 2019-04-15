@@ -25,7 +25,7 @@ gitlabCommitStatus {
                 bat 'tslint -o sonar-tslint.json -p . -e **/dist/**/*'
 
                 withSonarQubeEnv('TerraTex SonarQube') {
-                    bat "sonar-scanner -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=."
+                    bat "sonar-scanner -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
                 }
 
                 timeout(time: 1, unit: 'HOURS') {
