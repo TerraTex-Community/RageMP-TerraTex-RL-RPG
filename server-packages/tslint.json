@@ -63,7 +63,7 @@
     "jsdoc-format": true,
     "new-parens": true,
     "no-angle-bracket-type-assertion": true,
-    "no-consecutive-blank-lines": [true, 1],
+    "no-consecutive-blank-lines": false,
     "no-parameter-properties": true,
     // "object-literal-key-quotes": [
     //   true,
