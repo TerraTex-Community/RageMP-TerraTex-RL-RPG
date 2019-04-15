@@ -21,7 +21,7 @@ gitlabCommitStatus {
 
         stage('Sonar-Scanner') {
             if (env.BRANCH_NAME != 'master') {
-                bat 'printenv'
+                bat 'npm i typescript'
                 bat 'tslint -o sonar-tslint.json -p . -e **/dist/**/* || exit 0'
 
                 withSonarQubeEnv('TerraTex SonarQube') {
