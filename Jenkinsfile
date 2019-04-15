@@ -19,13 +19,13 @@ gitlabCommitStatus {
             bat "cd server-packages && echo ${JSONVERSION} > version.json"
         }
 
-        // bat 'printenv | sort'
-
-
-
-        /*stage('Sonar-Scanner') {
+        stage('Sonar-Scanner') {
             if (env.BRANCH_NAME != 'master') {
+                bat 'printenv'
+                bat 'tslint -o sonar-tslint.json -p . -e **/dist/**/*'
+
                 withSonarQubeEnv('TerraTex SonarQube') {
+                    sonar-scanner.bat -D"sonar.projectKey=terratex:rl-rpg" -D"sonar.sources=."
                 }
 
                 timeout(time: 1, unit: 'HOURS') {
@@ -35,7 +35,7 @@ gitlabCommitStatus {
                     }
                 }
             }
-        }*/
+        }
 
 		stage('Build-Server') {
 		    if (env.BRANCH_NAME == 'master') {
