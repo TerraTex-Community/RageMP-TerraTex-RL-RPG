@@ -9,7 +9,6 @@ import {
 } from "typeorm";
 import {DbUser} from "./DbUser";
 
-
 @Entity({
     name: "user_data"
 })

@@ -68,6 +68,7 @@
     //   true,
     //   "as-needed"
     // ],
+    "no-consecutive-blank-lines": false,
     "one-line": [
       true,
       "check-catch",
