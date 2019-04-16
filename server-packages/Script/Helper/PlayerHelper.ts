@@ -3,7 +3,7 @@ import Player = RageMP.Player;
 
 export function getPlayerFromNameOrId(playerNameOrId: string | number): false | Player {
     if (typeof playerNameOrId === "string" && /^\d+$/.test(playerNameOrId)) {
-        return getPlayerFromId(parseInt(playerNameOrId));
+        return getPlayerFromId(parseInt(playerNameOrId, 10));
     } else if (typeof playerNameOrId === "number") {
         return getPlayerFromId(playerNameOrId);
     } else if (playerNameOrId === "string") {
@@ -13,7 +13,7 @@ export function getPlayerFromNameOrId(playerNameOrId: string | number): false | 
     }
 }
 
-function getPlayerFromName(playerName): false | Player {
+function getPlayerFromName(playerName: string): false | Player {
     if (playerName.length <= 3) {
         return false;
     }
@@ -33,7 +33,7 @@ function getPlayerFromName(playerName): false | Player {
     return false;
 }
 
-function getPlayerFromId(playerId): false | Player {
+function getPlayerFromId(playerId: number): false | Player {
     for (const player of mp.players.toArray()) {
         if ((<DbUser>player.customData.dbUser).id === playerId) {
             return player;

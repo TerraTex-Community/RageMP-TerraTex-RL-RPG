@@ -22,15 +22,16 @@ function savePlayers(): Promise<any> {
     return Promise.all(allPromises);
 }
 
-function handlePlayersOnShutdown() {
+function handlePlayersOnShutdown(): void {
     for (const player of mp.players.toArray()) {
         setPlayerShutDownView(player);
     }
 
 }
+
 ShutdownService.addToShutdownService(handlePlayersOnShutdown);
 
-function setPlayerShutDownView(player: Player) {
+function setPlayerShutDownView(player: Player): void {
     player.alpha = 0;
     player.position = new mp.Vector3(0, 0, 200);
     player.dimension = 1;
@@ -44,8 +45,8 @@ mp.events.add(RageMP.Enums.Event.PLAYER_QUIT, (player: Player) => {
     }
 });
 
-mp.events.addCommand("saveplayers", (Player: Player) => {
-    if (!isAdmin(Player, 4, true)) {
+mp.events.addCommand("saveplayers", (player: Player) => {
+    if (!isAdmin(player, 4, true)) {
         return;
     }
 

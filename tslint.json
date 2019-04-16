@@ -1,8 +1,8 @@
 {
   "rules": {
     "no-any": false,
-    "no-internal-module": true,
-    "no-namespace": true,
+    "no-internal-module": false,
+    "no-namespace": false,
     "no-reference": true,
     "no-var-requires": true,
     "typedef": [true, "call-signature", "parameter", "property-declaration"],
@@ -62,7 +62,7 @@
     "class-name": true,
     "jsdoc-format": true,
     "new-parens": true,
-    "no-angle-bracket-type-assertion": true,
+    "no-angle-bracket-type-assertion": false,
     "no-parameter-properties": true,
     // "object-literal-key-quotes": [
     //   true,
