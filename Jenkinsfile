@@ -18,7 +18,7 @@ gitlabCommitStatus {
 
             bat "cd server-packages && echo ${JSONVERSION} > version.json"
 
-            bat "printenv"
+            bat "Version: ${BRANCH_NAME}_${BUILD_ID}"
         }
 
         stage('Sonar-Scanner') {
@@ -26,7 +26,7 @@ gitlabCommitStatus {
             bat 'tslint -o sonar-tslint.json -p . -t json -e **/dist/**/* || exit 0'
 
             withSonarQubeEnv('TerraTex SonarQube') {
-                bat "sonar-scanner -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
+                bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
             }
 
             if (env.BRANCH_NAME != 'master') {
