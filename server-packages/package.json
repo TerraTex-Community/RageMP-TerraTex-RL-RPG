@@ -11,6 +11,7 @@
         "@types/node-schedule": "^1.2.3",
         "@types/nodemailer": "^4.6.5",
         "@types/request-promise": "^4.1.42",
+        "@types/uuid": "^3.4.4",
         "html-entities": "^1.2.1",
         "lerp": "^1.0.3",
         "moment": "^2.24.0",
@@ -23,7 +24,8 @@
         "ts-node": "^7.0.1",
         "tslint": "^5.12.1",
         "typeorm": "^0.3.0-alpha.22",
-        "typescript": "^3.2.4"
+        "typescript": "^3.2.4",
+        "uuid": "^3.3.2"
     },
     "devDependencies": {
         "@types/ragemp-s": "github:TerraTex-Community/types-ragemp-s#0.4",

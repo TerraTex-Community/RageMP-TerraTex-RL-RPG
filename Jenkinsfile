@@ -20,14 +20,14 @@ gitlabCommitStatus {
         }
 
         stage('Sonar-Scanner') {
+            bat 'npm i typescript'
+            bat 'tslint -o sonar-tslint.json -p . -t json -e **/dist/**/* || exit 0'
+
+            withSonarQubeEnv('TerraTex SonarQube') {
+                bat "sonar-scanner -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
+            }
+
             if (env.BRANCH_NAME != 'master') {
-                bat 'npm i typescript'
-                bat 'tslint -o sonar-tslint.json -p . -t json -e **/dist/**/* || exit 0'
-
-                withSonarQubeEnv('TerraTex SonarQube') {
-                    bat "sonar-scanner -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
-                }
-
                 timeout(time: 1, unit: 'HOURS') {
                     def qg = waitForQualityGate()
                     if (qg.status != 'OK') {

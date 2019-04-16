@@ -2,6 +2,7 @@ import Player = RageMP.Player;
 import {isAdmin} from "../AdminHelper";
 import {getPlayerFromNameOrId} from "../../Helper/PlayerHelper";
 import {JobList} from "../../System/Jobs/Joblist";
+import {ClientHelper} from "../../Helper/ClientHelper";
 
 mp.events.addCommand("goto", ((player: Player, fullText: string, nameOrId: string) => {
     if (isAdmin(player, 1)) {
