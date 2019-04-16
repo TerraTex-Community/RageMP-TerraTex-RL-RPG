@@ -12,9 +12,9 @@ class BergwerksjobClient {
         mp.events.add("job_bergwerk_destroyAllMarkers", this.destroyAllMarker.bind(this));
     }
 
-    destroyAllMarker() {
-        for (const index in this.markerList) {
-            let {blip, marker} = this.markerList[index];
+    destroyAllMarker(): void  {
+        for (const markerListItem of this.markerList) {
+            let {blip, marker} = markerListItem;
 
             blip.destroy();
             marker.destroy();
@@ -23,8 +23,10 @@ class BergwerksjobClient {
         this.markerList = [];
     }
 
-    destroyMarker() {
+    destroyMarker(): void  {
         const markerPosition = mp.players.local.position;
+
+        // tslint:disable-next-line:forin
         for (const index in this.markerList) {
             let {position, blip, marker} = this.markerList[index];
             const positionM = new mp.Vector3(markerPosition.x, markerPosition.y, markerPosition.z);
@@ -39,7 +41,7 @@ class BergwerksjobClient {
         }
     }
 
-    createMarker(markerList: Vector3Mp[]) {
+    createMarker(markerList: Vector3Mp[]): void  {
         for (let pos of markerList) {
             const positionE = new mp.Vector3(pos.x, pos.y, pos.z);
             positionE.add(new mp.Vector3(0,0, 1));
@@ -62,4 +64,5 @@ class BergwerksjobClient {
     }
 }
 
+// tslint:disable-next-line:no-unused-expression
 new BergwerksjobClient();

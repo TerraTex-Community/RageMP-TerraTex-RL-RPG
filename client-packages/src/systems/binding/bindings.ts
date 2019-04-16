@@ -49,7 +49,7 @@ class Bindings {
         mp.events.add(RageEnums.EventKey.RENDER, this.renderFunc.bind(this));
     }
 
-    prepareExecuteBinds() {
+    prepareExecuteBinds(): void  {
         this.executeBinds = {"controls": {}};
         for (const binding of this.bindings) {
             if (releaseFunctions.indexOf(binding.func) !== -1) {
@@ -66,7 +66,7 @@ class Bindings {
         }
     }
 
-    resetToDefaultBindings() {
+    resetToDefaultBindings(): void  {
         this.bindings = [
             {'func': '/voice_push_to_talk', 'isControl': false, 'key': 75},
             {'func': '/show_cursor', 'isControl': false, 'key': 88},
@@ -76,22 +76,22 @@ class Bindings {
         mp.storage.data.bindings = this.bindings;
     }
 
-    setBindings(bindings: Binding[]) {
+    setBindings(bindings: Binding[]): void  {
         this.bindings = bindings;
         mp.storage.data.bindings = this.bindings;
         mp.storage.flush();
         this.prepareExecuteBinds();
     }
 
-    getBindings() {
+    getBindings(): Binding[] {
         return this.bindings;
     }
 
-    toggleBindings(bool: boolean) {
+    toggleBindings(bool: boolean): void  {
         this.isBindingActivated = bool;
     }
 
-    keyPressed(isControl: boolean, key: number) {
+    keyPressed(isControl: boolean, key: number): void  {
         if (!isControl && key >= 112 && key <= 123) {
             return;
         }
@@ -116,7 +116,7 @@ class Bindings {
         }
     }
 
-    keyReleased(isControl: boolean, key: number) {
+    keyReleased(isControl: boolean, key: number): void {
         if (this.isBindingActivated) {
             let execBinding: Binding;
             if (isControl) {
@@ -135,13 +135,15 @@ class Bindings {
         }
     }
 
-    renderFunc() {
+    renderFunc(): void {
         for (const tInputs in controlInputs) {
-            const input = controlInputs[tInputs];
-            if (mp.game.controls.isControlJustPressed(17, input)) {
-                this.keyPressed(true, input);
-            } else if (mp.game.controls.isControlJustReleased(17, input)) {
-                this.keyReleased(true, input);
+            if (controlInputs.hasOwnProperty(tInputs)) {
+                const input = controlInputs[tInputs];
+                if (mp.game.controls.isControlJustPressed(17, input)) {
+                    this.keyPressed(true, input);
+                } else if (mp.game.controls.isControlJustReleased(17, input)) {
+                    this.keyReleased(true, input);
+                }
             }
         }
 
@@ -173,7 +175,7 @@ class Bindings {
 
 const bindingsInstance = new Bindings();
 
-function getBindingManager() {
+function getBindingManager(): Bindings {
     return bindingsInstance;
 }
 

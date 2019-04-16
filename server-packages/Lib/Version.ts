@@ -1,7 +1,7 @@
 import {Chat} from "../Script/System/Chat/Chat";
 
-const request = require("request-promise");
-const fs = require("fs");
+import * as request from "request-promise";
+import * as fs from "fs";
 
 import Player = RageMP.Player;
 import sendChatNotificationToPlayer = Chat.sendChatNotificationToPlayer;
@@ -28,20 +28,20 @@ class VersionCreator {
                 const versions = project.versions;
 
                 let nextDate = new Date(100);
-                let version = "unknown";
+                let versionS = "unknown";
 
                 for (const versionId in versions) {
                     if (versions.hasOwnProperty(versionId) &&
                         versions[versionId].released &&
                         !versions[versionId].obsolete) {
                         if (new Date(versions[versionId].timestamp) > nextDate) {
-                            version = versions[versionId].name;
+                            versionS = versions[versionId].name;
                             nextDate = new Date(versions[versionId].timestamp);
                         }
                     }
                 }
 
-                this.currentVersion = version;
+                this.currentVersion = versionS;
                 break;
 
             }
