@@ -17,6 +17,8 @@ gitlabCommitStatus {
             // echo JSONVERSION
 
             bat "cd server-packages && echo ${JSONVERSION} > version.json"
+
+            bat "printenv"
         }
 
         stage('Sonar-Scanner') {
