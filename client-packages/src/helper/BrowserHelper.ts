@@ -1,5 +1,6 @@
 let closeBrowserColshapes: any = {};
-function closeBrowserOnDistance(browser: BrowserMp, distance: number, callAfter: Function | null) {
+
+function closeBrowserOnDistance(browser: BrowserMp, distance: number, callAfter: Function | null): void {
     const position = mp.players.local.position;
     const colshape = mp.colshapes.newSphere(position.x, position.y, position.z, distance);
     closeBrowserColshapes[colshape.handle] = {
@@ -18,7 +19,9 @@ mp.events.add(RageEnums.EventKey.PLAYER_EXIT_COLSHAPE, (shape: ColshapeMp) => {
             if (callAfter) {
                 callAfter();
             }
-        } catch (e) {}
+        } catch (e) {
+            console.error(e);
+        }
     }
 });
 

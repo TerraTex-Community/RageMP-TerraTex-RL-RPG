@@ -1,5 +1,3 @@
-// player.call("executeClientFunction", [funcPathAfterMP, JSON.stringify(args)]);
-
 mp.events.add("executeClientFunction", (funcPath, args) => {
 
     if (checkForSpecialCase(funcPath, JSON.parse(args))) {
@@ -7,7 +5,7 @@ mp.events.add("executeClientFunction", (funcPath, args) => {
     }
 
     const pathParts = funcPath.split('.');
-    let func:any = mp;
+    let func: any = mp;
 
     for (const part of pathParts) {
         func = func[part];
