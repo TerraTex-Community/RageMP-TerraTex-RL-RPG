@@ -1,6 +1,6 @@
 {
   "rules": {
-    "no-any": true,
+    "no-any": false,
     "no-internal-module": true,
     "no-namespace": true,
     "no-reference": true,
@@ -23,8 +23,8 @@
         "variable-declaration": "onespace"
       }
     ],
-    "curly": true,
-    "forin": true,
+    "curly": false,
+    "forin": false,
     "label-position": true,
     "no-arg": true,
     "no-bitwise": true,

@@ -13,6 +13,7 @@ mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => 
 mp.events.addCommand('giveweapons', ((player, fullText) => {
     if (!isAdmin(player, 4)) return;
 
+    // tslint:disable-next-line:forin
     for (const weapon in Weapon) {
         player.giveWeapon(Weapon[weapon], 10000);
     }

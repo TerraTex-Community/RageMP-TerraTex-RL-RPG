@@ -19,7 +19,7 @@ mp.events.addCommand("goto", ((player: Player, fullText: string, nameOrId: strin
 
 mp.events.addCommand("gotojob", ((player: Player, fullText: string, jobid: string) => {
     if (isAdmin(player, 1)) {
-        const jobidparsed = parseInt(jobid);
+        const jobidparsed = parseInt(jobid, 10);
 
         const job = JobList.getJobById(jobidparsed);
         player.position = job.jobStartingPoint;

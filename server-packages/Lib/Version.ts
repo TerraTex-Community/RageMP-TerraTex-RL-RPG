@@ -11,11 +11,7 @@ class VersionCreator {
     currentVersion: string;
 
     constructor() {
-        try {
-            this.loadVersion();
-        } catch (e) {
-            console.error(e);
-        }
+        this.loadVersion().catch(e => console.error(e));
     }
 
     async loadVersion(): Promise<void> {
