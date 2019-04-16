@@ -28,7 +28,7 @@ mp.events.add("browser_atm_close", () => {
     }
 });
 
-function updateATMUi() {
+function updateATMUi(): void {
     if (!atmBrowser) return;
 
     const money = mp.players.local.getVariable("inventory.money");

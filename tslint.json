@@ -23,7 +23,7 @@
         "variable-declaration": "onespace"
       }
     ],
-    "curly": true,
+    "curly": false,
     "forin": true,
     "label-position": true,
     "no-arg": true,
