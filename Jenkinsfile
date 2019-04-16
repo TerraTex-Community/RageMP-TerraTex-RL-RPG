@@ -17,8 +17,6 @@ gitlabCommitStatus {
             // echo JSONVERSION
 
             bat "cd server-packages && echo ${JSONVERSION} > version.json"
-
-            bat "echo 'Version: ${BRANCH_NAME}_${BUILD_ID}'"
         }
 
         stage('Sonar-Scanner') {
