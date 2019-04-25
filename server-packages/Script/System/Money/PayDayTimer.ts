@@ -4,7 +4,7 @@ import {calculatePayDay} from "./PayDayManager";
 
 setInterval(calculatePlayTime, 60000);
 
-function calculatePlayTime() {
+function calculatePlayTime(): void {
     mp.players.forEach((player: RageMP.Player) => {
         if (isPlayerLoggedIn(player)) {
             (<DbUser>player.customData.dbUser).data.playTime++;

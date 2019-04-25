@@ -3,18 +3,22 @@ import {DbUser} from "../../../DB/entities/DbUser";
 import {MoneyCategory} from "./MoneyCategories";
 import {DbUserInventory} from "../../../DB/entities/DbUserInventory";
 import {DbMoneyLog} from "../../../DB/entities/DbMoneyLog";
+import {anyUserType} from "../../Helper/PlayerHelper";
 
-export function canPlayerPayByBank(player: Player, amount: number) {
+
+export function canPlayerPayByBank(player: Player, amount: number): boolean {
     const dbUser: DbUser = player.customData.dbUser;
     return dbUser.inventory.bank >= amount;
 }
 
-export function canPlayerPayByHand(player: Player, amount: number) {
+export function canPlayerPayByHand(player: Player, amount: number): boolean {
     const dbUser: DbUser = player.customData.dbUser;
     return dbUser.inventory.money >= amount;
 }
 
-export function payByBankOrHand(player: Player, amount: number, category: MoneyCategory, data: any, toPlayer: string|Player|DbUser|null = null) {
+export function payByBankOrHand(
+    player: Player, amount: number, category: MoneyCategory, data: any, toPlayer: anyUserType = null
+): boolean {
     const dbInventory: DbUserInventory = player.customData.dbUser.inventory;
 
     if (amount < 0) {
@@ -35,7 +39,9 @@ export function payByBankOrHand(player: Player, amount: number, category: MoneyC
     return true;
 }
 
-export function changePlayerMoney(player: Player, amount: number, isBank: boolean, category: MoneyCategory, data: any, toPlayer: string|Player|DbUser|null = null) {
+export function changePlayerMoney(
+    player: Player, amount: number, isBank: boolean, category: MoneyCategory, data: any, toPlayer: anyUserType = null
+): void {
     const inventory = player.customData.dbUser.inventory;
 
     if (typeof amount !== "number") {
@@ -51,10 +57,11 @@ export function changePlayerMoney(player: Player, amount: number, isBank: boolea
     }
 
     createMoneyLog(player, amount, isBank, category, data, toPlayer);
-    // console.log(amount, isBank, category, data);
 }
 
-export async function createMoneyLog(player: Player, amount: number, isBank: boolean, category: MoneyCategory, data: any, toPlayer: string|Player|DbUser|null = null) {
+export async function createMoneyLog(
+    player: Player, amount: number, isBank: boolean, category: MoneyCategory, data: any, toPlayer: anyUserType = null
+): Promise<void> {
     let toUser: DbUser | null | undefined = null;
     if (typeof toPlayer === "string") {
         toUser = await DbUser.findOne({
@@ -81,15 +88,15 @@ export async function createMoneyLog(player: Player, amount: number, isBank: boo
     await moneyLogEntry.save();
 }
 
-export function getPlayerMoney(player: Player) {
+export function getPlayerMoney(player: Player): number {
     return player.customData.dbUser.inventory.money;
 }
 
-export function getPlayerBank(player: Player) {
+export function getPlayerBank(player: Player): number {
     return player.customData.dbUser.inventory.bank;
 }
 
-export function getReadableCurrency(amount) {
+export function getReadableCurrency(amount: number): string {
     const formatter = new Intl.NumberFormat("de-DE", {
         style: "currency",
         currency: "EUR",

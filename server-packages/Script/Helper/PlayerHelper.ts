@@ -1,6 +1,8 @@
 import {DbUser} from "../../DB/entities/DbUser";
 import Player = RageMP.Player;
 
+export type anyUserType = string | Player | DbUser | null;
+
 export function getPlayerFromNameOrId(playerNameOrId: string | number): false | Player {
     if (typeof playerNameOrId === "string" && /^\d+$/.test(playerNameOrId)) {
         return getPlayerFromId(parseInt(playerNameOrId, 10));

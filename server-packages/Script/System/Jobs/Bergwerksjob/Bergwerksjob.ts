@@ -17,7 +17,7 @@ export class Bergwerksjob implements IJob {
 
     moneyPerMarker: number = 63.51;
 
-    private marker: RageMP.Vector3[] = [
+    private readonly marker: RageMP.Vector3[] = [
         new mp.Vector3(2591.796, 2737.56323, 42.00883),
         new mp.Vector3(2630.61279, 2726.9353, 40.8038635),
         new mp.Vector3(2673.475, 2731.62231, 40.46215),
@@ -118,7 +118,7 @@ export class Bergwerksjob implements IJob {
         new mp.Vector3(2555.69824, 2773.52881, 39.3047)
     ];
 
-    private alreadyUsedPositions: bergwerkPlayerMarkerList = {};
+    private readonly alreadyUsedPositions: bergwerkPlayerMarkerList = {};
 
     name: string = "Bergwerksarbeiter";
     static instance: Bergwerksjob;
@@ -138,7 +138,7 @@ export class Bergwerksjob implements IJob {
         mp.events.add(RageMP.Enums.Event.PLAYER_START_ENTER_VEHICLE, this.onPlayerEnterVehicle);
     }
 
-    onPlayerLeaveVehicle(player: Player, vehicle: Vehicle) {
+    onPlayerLeaveVehicle(player: Player, vehicle: Vehicle): void {
         if (!vehicle.isBergwerkBulldozer) {
             return;
         }
@@ -159,7 +159,7 @@ export class Bergwerksjob implements IJob {
         vehicle.destroy();
     }
 
-    onPlayerEnterColshape(player: Player, shape: Colshape) {
+    onPlayerEnterColshape(player: Player, shape: Colshape): void {
 
         if (!shape.isBergwerksColshape) {
             return;
@@ -173,12 +173,11 @@ export class Bergwerksjob implements IJob {
             return;
         }
 
-        const markerPos = shape.position;
         const markers = this.alreadyUsedPositions[(<DbUser>player.customData.dbUser).id];
 
         let found = false;
 
-        for (let index in markers) {
+        for (const index in markers) {
             if (markers[index].subtract(player.position).length() >= 5) {
                 continue;
             }
@@ -207,7 +206,7 @@ export class Bergwerksjob implements IJob {
             delete this.alreadyUsedPositions[(<DbUser>player.customData.dbUser).id];
 
             const money = this.marker.length * this.moneyPerMarker / 2;
-            addIncomeToPayDay(player, money, PayDayCategory.Job);
+            addIncomeToPayDay(player, money, PayDayCategory.JOB);
 
             Chat.sendChatNotificationToPlayer(player,
             `Dein Gehalt von ${getReadableCurrency(money)} bekommst du zu deinem PayDay!`);
@@ -236,7 +235,7 @@ export class Bergwerksjob implements IJob {
 
     }
 
-    onPlayerEnterVehicle(player: Player, vehicle: Vehicle, seat: number) {
+    onPlayerEnterVehicle(player: Player, vehicle: Vehicle, seat: number): void {
         if (seat !== -1) {
             return;
         }
@@ -254,7 +253,7 @@ export class Bergwerksjob implements IJob {
         this.cancel = true;
     }
 
-    async startJob(player: RageMP.Player) {
+    async startJob(player: RageMP.Player): Promise<void> {
         const bulldozer = mp.vehicles.new(
             RageMP.Hashes.Vehicle.BULLDOZER,
             new mp.Vector3(2587.20581, 2722.64185, 42.2129631)

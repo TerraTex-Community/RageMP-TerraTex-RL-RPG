@@ -20,19 +20,19 @@ async function checkBans(player: Player): Promise<boolean> {
         }
     });
 
-    if (user[1] !== 0) {
-        if ((await user[0][0].bans).length > 0) {
-            player.outputChatBox("!{#ff0000} You are banned from this server.");
-            console.error(`${player.name} is already banned.`);
-            player.kick("You are banned from this server.");
+    if (user[1] !== 0 && (await user[0][0].bans).length > 0) {
 
-            return false;
-        }
+        player.outputChatBox("!{#ff0000} You are banned from this server.");
+        console.error(`${player.name} is already banned.`);
+        player.kick("You are banned from this server.");
+
+        return false;
+
     }
 
     const serialBans = await DbAdminBans.findAndCount({
         where: {
-            serial: serial
+            serial
         }
     });
 
@@ -49,10 +49,10 @@ async function checkBans(player: Player): Promise<boolean> {
 /**
  * Player Connected => show Register or Login
  */
-export async function playerConnect(player: Player) {
+export async function playerConnect(player: Player): Promise<void|false> {
     // hide player
     player.alpha = 0;
-    player.position = new mp.Vector3(0,0,200);
+    player.position = new mp.Vector3(0, 0, 200);
     player.dimension = 1;
 
     if (isServerShuttingDown) {

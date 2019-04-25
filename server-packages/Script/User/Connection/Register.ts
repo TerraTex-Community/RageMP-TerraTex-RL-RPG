@@ -2,7 +2,7 @@ import {DbUser} from "../../../DB/entities/DbUser";
 import * as crypto from "crypto";
 import Player = RageMP.Player;
 
-export async function registerPlayer(player: Player, data: any) {
+export async function registerPlayer(player: Player, data: any): Promise<void> {
     /**
      * @type {}
      * @property {string} forename
@@ -15,7 +15,7 @@ export async function registerPlayer(player: Player, data: any) {
      */
     const parsedData = JSON.parse(data);
 
-    let newUser = new DbUser();
+    const newUser = new DbUser();
 
     newUser.serial = player.serial;
     newUser.password = crypto.createHash("sha256").update(parsedData.password).digest("hex");

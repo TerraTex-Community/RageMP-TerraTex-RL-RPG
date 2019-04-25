@@ -28,13 +28,13 @@ mp.events.add(RageMP.Enums.Event.PLAYER_ENTER_COLSHAPE, (player: Player, shape: 
     if (playerData.job === job.id) {
         Chat.sendChatNotificationToPlayer(
             player,
-            "Du kannst hier deinen Job fortsetzen. Nutze einfach /startjob oder nutze /jobhelp um eine Hilfe zu erhalten. ~n~Kündigen kannst du mit /quitjob"
+            "Du kannst hier deinen JOB fortsetzen. Nutze einfach /startjob oder nutze /jobhelp um eine Hilfe zu erhalten. ~n~Kündigen kannst du mit /quitjob"
         );
     } else {
         if (playerData.job !== 0) {
             Chat.sendChatNotificationToPlayer(
                 player,
-                "Du hast bereits einen anderen Job, um diesen zu beginnen zu können, kündige erst bei deinem alten Job!"
+                "Du hast bereits einen anderen JOB, um diesen zu beginnen zu können, kündige erst bei deinem alten JOB!"
             );
         } else {
             Chat.sendChatNotificationToPlayer(

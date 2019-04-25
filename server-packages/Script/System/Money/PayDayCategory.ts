@@ -9,17 +9,17 @@ export class PayDayCategory {
         this.tax = tax;
         this.incomeCategory = incomeCategory;
 
-        PayDayCategory.CategoriesByName[name] = this;
+        PayDayCategory.CATEGORIES_BY_NAME[name] = this;
     }
 
-    static readonly CategoriesByName = {};
-    static readonly Taxes = new PayDayCategory("Steuern", 0, false);
-    static readonly Job = new PayDayCategory("Jobgehalt", 0.25, true);
-    static readonly Salery = new PayDayCategory("Grundgehalt", 0, true);
-    static readonly Rent = new PayDayCategory("Miete", 0, false);
+    static readonly CATEGORIES_BY_NAME: {[name: string]: PayDayCategory} = {};
+    static readonly TAXES = new PayDayCategory("Steuern", 0, false);
+    static readonly JOB = new PayDayCategory("Jobgehalt", 0.25, true);
+    static readonly SALERY = new PayDayCategory("Grundgehalt", 0, true);
+    static readonly RENT = new PayDayCategory("Miete", 0, false);
 }
 
-export function getCategoryByName(category: string) {
-    return PayDayCategory.CategoriesByName[category];
+export function getCategoryByName(category: string): PayDayCategory {
+    return PayDayCategory.CATEGORIES_BY_NAME[category];
 }
 

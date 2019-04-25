@@ -7,11 +7,11 @@ mp.events.addCommand("getjob", (player => {
     if (player.vehicle) return;
 
     if ((<DbUser>player.customData.dbUser).data.job !== 0) {
-        const job: IJob = JobList.getJobById((<DbUser>player.customData.dbUser).data.job);
+        const playerJob: IJob = JobList.getJobById((<DbUser>player.customData.dbUser).data.job);
         Chat.sendChatAlertToPlayer(
             player,
             "danger",
-            `Du hast bereits den Job ${job.name}!`
+            `Du hast bereits den Job ${playerJob.name}!`
         );
         return;
     }

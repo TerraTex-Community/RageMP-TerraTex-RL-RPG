@@ -7,7 +7,7 @@ import {spawnPlayer} from "../Spawn/Spawn";
 import Player = RageMP.Player;
 import {syncPlayerData} from "./UserData";
 
-export async function loginPlayer(player: Player, password: string) {
+export async function loginPlayer(player: Player, password: string): Promise<boolean> {
     const encryptedPw = crypto.createHash("sha256").update(password).digest("hex");
 
     const user = await DbUser.findAndCount({
@@ -57,8 +57,10 @@ export async function loginPlayer(player: Player, password: string) {
     player.call("player_loggedin");
 
     spawnPlayer(player);
+
+    return true;
 }
 
-export function isPlayerLoggedIn(player: Player) {
-    return player.getVariable("loggedIn");
+export function isPlayerLoggedIn(player: Player): boolean {
+    return !!player.getVariable("loggedIn");
 }

@@ -1,12 +1,13 @@
 import {DbUser} from "../../../DB/entities/DbUser";
-import sendMail from "../../../Lib/Data/EMail";
+import {sendMail} from "../../../Lib/Data/EMail";
 import {ClientHelper} from "../../Helper/ClientHelper";
 import * as crypto from "crypto";
 import Player = RageMP.Player;
+import {throws} from "assert";
 
 const mailedCodes: any = {};
 
-export async function getHiddenEMail(player: Player) {
+export async function getHiddenEMail(player: Player): Promise<void> {
     const user = await DbUser.findOne({
         where: {
             nickname: player.name
@@ -20,10 +21,10 @@ export async function getHiddenEMail(player: Player) {
     const emailParts = email.split("@");
 
     let generatedEmail = emailParts[0].charAt(0);
-    generatedEmail += "*".repeat(emailParts[0].length - 2) + emailParts[0].charAt(emailParts[0].length - 1) + "@";
+    generatedEmail += `${"*".repeat(emailParts[0].length - 2) + emailParts[0].charAt(emailParts[0].length - 1)}@`;
 
     const restParts = emailParts[1].split(".");
-    let endPart = restParts[restParts.length - 1];
+    const endPart = restParts[restParts.length - 1];
 
 
     const rest = restParts.slice(0, restParts.length - 1).join(".");
@@ -34,7 +35,7 @@ export async function getHiddenEMail(player: Player) {
     player.call("execute_login_password_forgotten_getEmailHidden_result", [generatedEmail]);
 }
 
-export async function sendEmailCode(player: Player) {
+export async function sendEmailCode(player: Player): Promise<void> {
     const user = await DbUser.findOne({
         where: {
             nickname: player.name
@@ -52,13 +53,12 @@ export async function sendEmailCode(player: Player) {
                     Änderung von Accountdaten auf dem Terratex Roleplay Reallife Server durchzuführen:
                     <br/><br/><pre>${code}</pre><br/>Viele Grüße<br/>dein TerraTex-Team`;
 
-    const result = await sendMail(user.email, subject, body);
-    // console.log(result);
+    await sendMail(user.email, subject, body);
 
     mailedCodes[player.name] = code;
 }
 
-export async function checkCodeAndSetPassword(player: Player, pw: string, code: string) {
+export async function checkCodeAndSetPassword(player: Player, pw: string, code: string): Promise<void> {
     if (!mailedCodes[player.name] || mailedCodes[player.name] !== code) {
         player.notify("~r~Der eingegebene Code ist nicht korrekt.");
 

@@ -15,7 +15,9 @@ const atmHashes = [
     -870868698
 ];
 
-mp.events.add(TerraTexEvents.playerClickOnEntity, (player: Player, x:number, y:number, upOrDown:string, leftOrRight:string, entityDataJSON: string) => {
+mp.events.add(TerraTexEvents.playerClickOnEntity, (
+    player: Player, x: number, y: number, upOrDown: string, leftOrRight: string, entityDataJSON: string
+) => {
     /**
      * @type {}
      * @property {Vector3} position

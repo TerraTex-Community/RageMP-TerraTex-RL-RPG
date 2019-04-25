@@ -81,17 +81,17 @@ export function addIncomeToPayDay(player: Player, amount: number, category: PayD
 
     if (category.tax > 0) {
         const taxAmount = amount * category.tax;
-        addOutgoingToPayDay(player, taxAmount, PayDayCategory.Taxes);
+        addOutgoingToPayDay(player, taxAmount, PayDayCategory.TAXES);
     }
 }
 
 function addDefaultPayDayAmounts(player: Player): void {
     // base salery = 250 + 1 PlayMinute = 0.01
     const addAmount = (<DbUser>player.customData.dbUser).data.playTime / 100;
-    addIncomeToPayDay(player, 250 + addAmount, PayDayCategory.Salery);
+    addIncomeToPayDay(player, 250 + addAmount, PayDayCategory.SALERY);
 }
 
-mp.events.addCommand("payday", (player:Player) => {
+mp.events.addCommand("payday", (player: Player) => {
     player.call("show_payday_ui", [JSON.stringify((<DbUser>player.customData.dbUser).data.paydayData.last)]);
 });
 
