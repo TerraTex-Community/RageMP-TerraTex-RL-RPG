@@ -38,15 +38,17 @@ gitlabCommitStatus {
         }
 
 		stage('Build-Server') {
-		    if (env.BRANCH_NAME == 'master') {
-                bat 'cd server-packages && del /f ormconfig.json'
-                bat 'cd server-packages && copy ormconfig.prod.json ormconfig.json'
-            } else if (env.BRANCH_NAME == 'develop') {
-                bat 'cd server-packages && del /f ormconfig.json'
-                bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
-            }
-			bat 'cd Build-stuff && npm i'
-			bat 'cd Build-stuff && grunt'
+		    if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop') {
+                if (env.BRANCH_NAME == 'develop') {
+                    bat 'cd server-packages && del /f ormconfig.json'
+                    bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
+                } else {
+                    bat 'cd server-packages && del /f ormconfig.json'
+                    bat 'cd server-packages && copy ormconfig.prod.json ormconfig.json'
+                }
+                bat 'cd Build-stuff && npm i'
+                bat 'cd Build-stuff && grunt'
+			}
 		}
 
         stage('Deploy') {
@@ -60,7 +62,9 @@ gitlabCommitStatus {
         }
 
         stage('Artifacts Client') {
-            archiveArtifacts artifacts: 'Build-stuff/dist/client_packages/**/*', fingerprint: true
+            if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop') {
+                archiveArtifacts artifacts: 'Build-stuff/dist/client_packages/**/*', fingerprint: true
+            }
         }
     }
 }
