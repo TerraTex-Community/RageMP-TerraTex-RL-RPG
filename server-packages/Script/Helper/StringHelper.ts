@@ -1,6 +1,6 @@
 export class StringHelper {
 
-    static matchAll(text: string, regExp: RegExp) {
+    static matchAll(text: string, regExp: RegExp): RegExpMatchArray[] {
         const checkRegExpNonGlobal = new RegExp(regExp.source, regExp.flags.replace("g", ""));
         const checkRegExpGlobal = new RegExp(regExp.source, checkRegExpNonGlobal.flags + "g");
 

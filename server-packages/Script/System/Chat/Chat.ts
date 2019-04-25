@@ -8,7 +8,7 @@ export namespace Chat {
         mp.players.callInRange(player.position, 20, "addChat", [message]);
     });
 
-    export function createChatNotification(message: string, title: string = "") {
+    export function createChatNotification(message: string, title: string = ""): string {
         let code = "<div class='htmlChatEntry'>";
         if (title.length > 0) {
             code += "<span style='font-weight:bold; text-decoration: underline'>";
@@ -32,7 +32,7 @@ export namespace Chat {
         return code;
     }
 
-    export function sendChatNotificationToPlayer(player: Player | Player[], message: string, title: string = "") {
+    export function sendChatNotificationToPlayer(player: Player | Player[], message: string, title: string = ""): void {
         const notification = createChatNotification(message, title);
 
         if (Array.isArray(player)) {
@@ -42,7 +42,7 @@ export namespace Chat {
         }
     }
 
-    export function sendChatAlertToPlayer(player: Player | Player[], alertClass: string, message: string, title: string = "") {
+    export function sendChatAlertToPlayer(player: Player | Player[], alertClass: string, message: string, title: string = ""): void {
         const notification = createChatAlert(alertClass, message, title);
         console.log(notification);
         if (Array.isArray(player)) {

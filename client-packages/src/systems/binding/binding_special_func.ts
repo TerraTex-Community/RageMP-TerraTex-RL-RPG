@@ -1,4 +1,4 @@
-function isSpecialFunction(func: string) {
+function isSpecialFunction(func: string): boolean {
     const specialFunctions = [
         "/voice_push_to_talk",
         "/show_cursor",
@@ -8,7 +8,7 @@ function isSpecialFunction(func: string) {
     return specialFunctions.indexOf(func) !== -1;
 }
 
-function executeSpecialFunction(func: string, release: boolean = false) {
+function executeSpecialFunction(func: string, release: boolean = false): void {
     switch(func) {
         case "/voice_push_to_talk":
             setVoiceChat(release);
@@ -22,10 +22,10 @@ function executeSpecialFunction(func: string, release: boolean = false) {
     }
 }
 
-function toggleCursor() {
+function toggleCursor(): void {
     mp.gui.cursor.show(!mp.gui.cursor.visible, !mp.gui.cursor.visible);
 }
 
-function setVoiceChat(state: boolean) {
+function setVoiceChat(state: boolean): void {
     mp.voiceChat.muted = state;
 }

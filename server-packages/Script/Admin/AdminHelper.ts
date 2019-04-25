@@ -14,7 +14,9 @@ import {isPlayerLoggedIn} from "../User/Connection/Login";
  * @param checkOnDevServer
  */
 export function isAdmin(player: Player, minAdminLvl: number = 1, checkOnDevServer: boolean = false): boolean {
-    if (isDevServer() && !checkOnDevServer) { return true; }
+    if (isDevServer() && !checkOnDevServer) {
+        return true;
+    }
     return (<DbUser>player.customData.dbUser).admin >= minAdminLvl;
 }
 
@@ -35,13 +37,11 @@ export function getAdminRankDescription(adminlvl: number): string {
     return ranks[adminlvl];
 }
 
-export function getAllOnlineAdmins() {
+export function getAllOnlineAdmins(): Player[] {
     const list: Player[] = [];
     for (const player of mp.players.toArray()) {
-        if (isPlayerLoggedIn(player)) {
-            if (isAdmin(player, 1, true)) {
-                list.push(player);
-            }
+        if (isPlayerLoggedIn(player) && isAdmin(player, 1, true)) {
+            list.push(player);
         }
     }
 

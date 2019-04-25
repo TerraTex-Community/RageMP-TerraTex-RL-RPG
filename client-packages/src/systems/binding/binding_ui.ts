@@ -3,7 +3,7 @@ let sendNextKey = false;
 let bindingManager = getBindingManager();
 
 
-function openBindingBrowser() {
+function openBindingBrowser(): void {
     if (bindingBrowser) {
         return;
     }
@@ -18,7 +18,7 @@ mp.events.add("browser_bindings_ready", () => {
     addBindsToUI();
 });
 
-function addBindsToUI() {
+function addBindsToUI(): void {
     if (!bindingBrowser) {
         return;
     }
@@ -67,7 +67,7 @@ mp.events.add('browser_bindings_reset', () => {
 
 mp.events.add('browser_bindings_save', (rawKeys) => {
     const keys = JSON.parse(rawKeys);
-    const bindings:Binding[] = [];
+    const bindings: Binding[] = [];
 
     for(const keyBind of keys) {
         bindings.push({

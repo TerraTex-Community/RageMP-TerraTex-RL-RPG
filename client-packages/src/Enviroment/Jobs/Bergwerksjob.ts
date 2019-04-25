@@ -14,7 +14,7 @@ class BergwerksjobClient {
 
     destroyAllMarker(): void  {
         for (const markerListItem of this.markerList) {
-            let {blip, marker} = markerListItem;
+            const {blip, marker} = markerListItem;
 
             blip.destroy();
             marker.destroy();
@@ -26,9 +26,8 @@ class BergwerksjobClient {
     destroyMarker(): void  {
         const markerPosition = mp.players.local.position;
 
-        // tslint:disable-next-line:forin
         for (const index in this.markerList) {
-            let {position, blip, marker} = this.markerList[index];
+            const {position, blip, marker} = this.markerList[index];
             const positionM = new mp.Vector3(markerPosition.x, markerPosition.y, markerPosition.z);
             const positionS = new mp.Vector3(position.x, position.y, position.z);
             if (positionM.subtract(positionS).length() <= 5) {
@@ -42,7 +41,7 @@ class BergwerksjobClient {
     }
 
     createMarker(markerList: Vector3Mp[]): void  {
-        for (let pos of markerList) {
+        for (const pos of markerList) {
             const positionE = new mp.Vector3(pos.x, pos.y, pos.z);
             positionE.add(new mp.Vector3(0,0, 1));
 

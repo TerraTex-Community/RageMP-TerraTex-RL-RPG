@@ -27,13 +27,15 @@ class VersionCreator {
                 let versionS = "unknown";
 
                 for (const versionId in versions) {
-                    if (versions.hasOwnProperty(versionId) &&
-                        versions[versionId].released &&
-                        !versions[versionId].obsolete) {
-                        if (new Date(versions[versionId].timestamp) > nextDate) {
-                            versionS = versions[versionId].name;
-                            nextDate = new Date(versions[versionId].timestamp);
-                        }
+                    if (
+                        versions.hasOwnProperty(versionId)
+                        && versions[versionId].released
+                        && !versions[versionId].obsolete
+                        && new Date(versions[versionId].timestamp) > nextDate
+                    ) {
+                        versionS = versions[versionId].name;
+                        nextDate = new Date(versions[versionId].timestamp);
+
                     }
                 }
 

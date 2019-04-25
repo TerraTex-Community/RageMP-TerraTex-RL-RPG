@@ -1,4 +1,4 @@
-let loginProcessBrowser :BrowserMp|null = null;
+let loginProcessBrowser: BrowserMp|null = null;
 
 mp.events.add("login_startLoginProcess", (isRegistered, showPwError = false) => {
     if (loginProcessBrowser) {

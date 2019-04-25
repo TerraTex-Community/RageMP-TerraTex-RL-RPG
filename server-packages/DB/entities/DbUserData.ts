@@ -52,7 +52,7 @@ export class DbUserData extends BaseEntity {
     };
 
     @AfterLoad()
-    resetPayDayData() {
+    resetPayDayData(): void {
         if (this.paydayData === null) {
             this.paydayData = {
                 current: {

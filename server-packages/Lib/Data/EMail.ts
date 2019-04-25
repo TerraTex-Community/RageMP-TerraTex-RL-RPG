@@ -1,9 +1,9 @@
 import * as nodemailer from "nodemailer";
 import * as config from "../../mailconfig.json";
 
-export default async function sendMail(to: string, subject: string, html: string) {
+export async function sendMail(to: string, subject: string, html: string): Promise<void> {
 
-    let mailOptions = {
+    const mailOptions = {
         from: `"${config.sendName}" <${config.sendMail}>`,
         to,
         subject,
@@ -21,6 +21,6 @@ export default async function sendMail(to: string, subject: string, html: string
         tls: { rejectUnauthorized: false }
     });
 
-    return await transporter.sendMail(mailOptions);
+    return transporter.sendMail(mailOptions);
 }
 
