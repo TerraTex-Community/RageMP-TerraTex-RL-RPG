@@ -1,0 +1,23 @@
+{
+    "type": "mariadb",
+    "host": "localhost",
+    "port": 3306,
+    "username": "developer",
+    "cache": false,
+    "password": "-dev-co1992we-",
+    "database": "ragemp_terratex_reallife_dev",
+    "logging": "all",
+    "synchronize": true,
+    "maxQueryExecutionTime": 5000,
+    "insecureAuth": true,
+    "logger": "advanced-console",
+    "entities": [
+        "packages/TerraTex/DB/entities/**/*.ts"
+    ],
+    "migrations": [
+        "packages/TerraTex/DB/migrations/**/*.ts"
+    ],
+    "subscribers": [
+        "packages/TerraTex/DB/subscribers/**/*.ts"
+    ]
+}

@@ -1,16 +1,16 @@
-import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, BaseEntity, ManyToOne} from 'typeorm';
-import {DbUser} from './DbUser';
+import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, BaseEntity, ManyToOne} from "typeorm";
+import {DbUser} from "./DbUser";
 
 @Entity({
-    name: 'admin_bans'
+    name: "admin_bans"
 })
 export class DbAdminBans extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
     @ManyToOne(type => DbUser, user => user.bans, {
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
     })
     user: DbUser;
 
@@ -19,8 +19,8 @@ export class DbAdminBans extends BaseEntity {
 
     @ManyToOne(type => DbUser, user => user.id, {
         nullable: true,
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL"
     })
     admin: DbUser;
 
@@ -30,7 +30,7 @@ export class DbAdminBans extends BaseEntity {
     })
     systemName: string;
 
-    @Column({type: 'longtext'})
+    @Column({type: "longtext"})
     reason: string;
 
     @CreateDateColumn({readonly: true})

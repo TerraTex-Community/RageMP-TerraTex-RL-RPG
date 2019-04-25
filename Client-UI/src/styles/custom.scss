@@ -1,7 +1,12 @@
+$font-family-custom: "Arial Black", Gadget, sans-serif;
+$text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+$text-shadow-white: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+
 body {
     width: 100vw;
     height:100vh;
     overflow: hidden;
+
 }
 
 @function rgba($r, $g, $b, $a) {
@@ -62,9 +67,6 @@ textarea {
     margin-left: auto;
 }
 
-.clickable {
-    cursor: pointer;
-}
 
 #ban-list  {
     .card-block {
@@ -124,6 +126,19 @@ table {
     background-color: rgba(150, 150, 150, .5);
 }
 
+
+.blink {
+    animation: blink-animation 3s ease-in-out infinite;
+
+}
+
+@keyframes blink-animation {
+    0% {opacity: 0}
+    50% {opacity: 1}
+    100% {opacity: 0}
+}
+
+
 .playerlist {
     td, th {
         &:nth-child(1) {
@@ -159,4 +174,13 @@ table {
     th {
         white-space: nowrap;
     }
+}
+
+div.hud {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    @import "hud";
+
 }

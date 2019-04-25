@@ -1,8 +1,10 @@
-import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, BaseEntity, OneToMany} from 'typeorm';
-import {DbAdminBans} from './DbAdminBans';
+import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, BaseEntity, OneToMany, OneToOne} from "typeorm";
+import {DbAdminBans} from "./DbAdminBans";
+import {DbUserData} from "./DbUserData";
+import {DbUserInventory} from "./DbUserInventory";
 
 @Entity({
-    name: 'user'
+    name: "user"
 })
 export class DbUser extends BaseEntity {
     @PrimaryGeneratedColumn()
@@ -27,7 +29,7 @@ export class DbUser extends BaseEntity {
     lastname: string;
 
     @Column({
-        type: 'enum',
+        type: "enum",
         enum: ["male", "female", "other"]
     })
     gender: string;
@@ -36,7 +38,7 @@ export class DbUser extends BaseEntity {
     birthday: Date;
 
     @Column({
-        type: 'longtext'
+        type: "longtext"
     })
     history: string;
 
@@ -44,11 +46,6 @@ export class DbUser extends BaseEntity {
         default: 0
     })
     admin: number;
-
-    @Column({
-        default: 0
-    })
-    dev: number;
 
     @CreateDateColumn({readonly: true})
     created: Date;
@@ -58,4 +55,16 @@ export class DbUser extends BaseEntity {
 
     @OneToMany(type => DbAdminBans, ban => ban.user)
     bans: Promise<DbAdminBans[]>;
+
+    @OneToOne(type => DbUserData, userData => userData.user, {
+        cascade: true,
+        eager: true
+    })
+    data: DbUserData;
+
+    @OneToOne(type => DbUserInventory, userData => userData.user, {
+        cascade: true,
+        eager: true
+    })
+    inventory: DbUserInventory;
 }

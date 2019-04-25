@@ -20,5 +20,8 @@
     ],
     "subscribers": [
         "packages/TerraTex/DB/subscribers/**/*.ts"
-    ]
+    ],
+    "cli": {
+        "migrationsDir": "DB/migrations"
+    }
 }

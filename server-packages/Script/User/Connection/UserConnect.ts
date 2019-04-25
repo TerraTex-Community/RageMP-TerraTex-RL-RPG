@@ -1,10 +1,13 @@
-import {DbUser} from '../../../DB/entities/DbUser';
-import {DbAdminBans} from '../../../DB/entities/DbAdminBans';
+import {DbUser} from "../../../DB/entities/DbUser";
+import {DbAdminBans} from "../../../DB/entities/DbAdminBans";
+import Player = RageMP.Player;
+import {ShutdownService} from "../../../Lib/Services/ShutdownService";
+import isServerShuttingDown = ShutdownService.isServerShuttingDown;
 
 /**
  * Player starts to connect => check ban table
  */
-async function checkBans(player: PlayerMp): Promise<boolean> {
+async function checkBans(player: Player): Promise<boolean> {
     console.log(`Checks Bans of ${player.name}!`);
 
     // @ts-ignore
@@ -17,19 +20,19 @@ async function checkBans(player: PlayerMp): Promise<boolean> {
         }
     });
 
-    if (user[1] !== 0) {
-        if ((await user[0][0].bans).length > 0) {
-            player.outputChatBox("!{#ff0000} You are banned from this server.");
-            console.error(`${player.name} is already banned.`);
-            player.kick("You are banned from this server.");
+    if (user[1] !== 0 && (await user[0][0].bans).length > 0) {
 
-            return false;
-        }
+        player.outputChatBox("!{#ff0000} You are banned from this server.");
+        console.error(`${player.name} is already banned.`);
+        player.kick("You are banned from this server.");
+
+        return false;
+
     }
 
     const serialBans = await DbAdminBans.findAndCount({
         where: {
-            serial: serial
+            serial
         }
     });
 
@@ -46,11 +49,16 @@ async function checkBans(player: PlayerMp): Promise<boolean> {
 /**
  * Player Connected => show Register or Login
  */
-export async function playerConnect(player: PlayerMp) {
+export async function playerConnect(player: Player): Promise<void|false> {
     // hide player
     player.alpha = 0;
-    player.position = new mp.Vector3(0,0,200);
+    player.position = new mp.Vector3(0, 0, 200);
     player.dimension = 1;
+
+    if (isServerShuttingDown) {
+        player.call("setShutDownView");
+        return;
+    }
 
     try {
         const result = await checkBans(player);

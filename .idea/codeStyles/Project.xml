@@ -4,9 +4,8 @@
       <option name="SPACES_AROUND_KEY_VALUE_DELIMITER" value="true" />
       <option name="KEEP_BLANK_LINES" value="true" />
     </Properties>
-    <TypeScriptCodeStyleSettings version="0">
+    <TypeScriptCodeStyleSettings version="1">
       <option name="FORCE_SEMICOLON_STYLE" value="true" />
-      <option name="USE_DOUBLE_QUOTES" value="false" />
       <option name="FORCE_QUOTE_STYlE" value="true" />
     </TypeScriptCodeStyleSettings>
     <codeStyleSettings language="CSS">
@@ -47,12 +46,6 @@
     <codeStyleSettings language="SCSS">
       <indentOptions>
         <option name="CONTINUATION_INDENT_SIZE" value="2" />
-      </indentOptions>
-    </codeStyleSettings>
-    <codeStyleSettings language="SQL">
-      <indentOptions>
-        <option name="INDENT_SIZE" value="4" />
-        <option name="TAB_SIZE" value="4" />
       </indentOptions>
     </codeStyleSettings>
     <codeStyleSettings language="Stylus">

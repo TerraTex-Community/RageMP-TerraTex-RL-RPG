@@ -1,9 +1,8 @@
-import {DbUser} from '../../../DB/entities/DbUser';
+import {DbUser} from "../../../DB/entities/DbUser";
 import * as crypto from "crypto";
-import {getDatabase} from '../../../Lib/Data/Database';
-import {getConnection} from 'typeorm';
+import Player = RageMP.Player;
 
-export async function registerPlayer(player: PlayerMp, data: any) {
+export async function registerPlayer(player: Player, data: any): Promise<void> {
     /**
      * @type {}
      * @property {string} forename
@@ -16,10 +15,10 @@ export async function registerPlayer(player: PlayerMp, data: any) {
      */
     const parsedData = JSON.parse(data);
 
-    let newUser = new DbUser();
-    // @ts-ignore
+    const newUser = new DbUser();
+
     newUser.serial = player.serial;
-    newUser.password = crypto.createHash('sha256').update(parsedData.password).digest('hex');
+    newUser.password = crypto.createHash("sha256").update(parsedData.password).digest("hex");
     newUser.gender = parsedData.gender;
     newUser.email = parsedData.email;
     newUser.forename = parsedData.forename;
@@ -27,11 +26,11 @@ export async function registerPlayer(player: PlayerMp, data: any) {
     newUser.nickname = player.name;
     newUser.birthday = new Date(parsedData.birthday);
     newUser.history = parsedData.history;
-    //
+
+
     console.debug("start creating ", newUser);
 
     await newUser.save();
-    console.debug(newUser.id);
 
     console.info(`Account ${newUser.nickname} (${newUser.id}) created.`);
 
