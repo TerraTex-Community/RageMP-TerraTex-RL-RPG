@@ -1,6 +1,7 @@
 export enum VehicleCategory {
     Bicycle = "Bicycle",
     Bike = "Bike",
+    Boat = "Boat",
     Bus = "Bus",
     Classic = "Classic",
     Compact = "Compact",
@@ -10,6 +11,7 @@ export enum VehicleCategory {
     Sedans = "Sedans",
     Sport = "Sport",
     SuperSport = "SuperSport",
+    SUV = "SUV",
     Truck = "Truck",
     Utility = "Utility",
     Van = "Van",
@@ -18,6 +20,10 @@ export enum VehicleCategory {
     Trailer = "Trailer",
     Quad = "Quad",
     Military = "Military",
-    Stunt = "Stunt"
+    Stunt = "Stunt",
+    Emergency = "Emergency",
+    Industrial = "Industrial",
+    Other = "Other",
+    Train = "Train"
 }
 

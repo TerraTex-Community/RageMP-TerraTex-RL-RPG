@@ -3,7 +3,7 @@ import {isAdmin} from "./AdminHelper";
 import {ShutdownService} from "../../Lib/Services/ShutdownService";
 import {TimeHelper} from "../Helper/TimeHelper";
 import Timeout = NodeJS.Timeout;
-import * as Moment from "moment";
+import Moment from "moment";
 import {Chat} from "../System/Chat/Chat";
 import {scheduleJob} from "node-schedule";
 
@@ -59,7 +59,6 @@ mp.events.addCommand("shutdown", (player: Player, fullText, timestring: string =
             }, time);
 
             lastShutDownInterval = setInterval(sendTimeUntilShutdown, time >= 20000 ? 10000 : 1000);
-
 
             Moment.relativeTimeThreshold("ss", 0);
             Moment.locale("de");
