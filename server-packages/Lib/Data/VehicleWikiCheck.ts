@@ -9,7 +9,6 @@ export async function checkVehicleListAgainsWiki(): Promise<void> {
         const result = await request(wikiUrl);
         const $ = cheerio.load(result);
         $(".gallerybox .gallerytext code").each(function(i: number, ele: CheerioElement): void {
-            // tslint:disable-next-line:no-invalid-this
             // @ts-ignore
             const name = $(this).text().trim();
             if(!getVehicleListItemByName(name)) {
