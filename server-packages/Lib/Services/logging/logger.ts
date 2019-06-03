@@ -38,7 +38,7 @@ function replaceErrors(fKey: any, value: any): any {
 
 function myFormat(): any {
     return format.printf((info) => {
-        const data = Object.getOwnPropertySymbols(info).find((value) => value.description === "message");
+        const data = Object.getOwnPropertySymbols(info).find((value) => value.toString() === "Symbol(message)");
         // @ts-ignore
         const additional = info[data] ? info[data] : "";
         return `[${info.timestamp}][${info.level}][${info.type}] ${info.message} - ${additional}`;
