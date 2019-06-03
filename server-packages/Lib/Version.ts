@@ -5,13 +5,14 @@ import * as fs from "fs";
 
 import Player = RageMP.Player;
 import sendChatNotificationToPlayer = Chat.sendChatNotificationToPlayer;
+import {logger} from "./Services/logging/logger";
 
 class VersionCreator {
     versionIdentifier: string;
     currentVersion: string;
 
     constructor() {
-        this.loadVersion().catch(e => console.error(e));
+        this.loadVersion().catch(e => logger.error(e.message, {error: e}));
     }
 
     async loadVersion(): Promise<void> {
@@ -58,8 +59,8 @@ class VersionCreator {
     }
 
     printConsoleLog(): void {
-        console.info(`Current Version: ${this.currentVersion}`);
-        console.info(`Current VersionIdentifier: ${this.versionIdentifier}`);
+        logger.info(`Current Version: ${this.currentVersion}`);
+        logger.info(`Current VersionIdentifier: ${this.versionIdentifier}`);
     }
 
     printVersionToPlayer(player: Player): void {
