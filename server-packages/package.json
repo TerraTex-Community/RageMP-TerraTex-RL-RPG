@@ -25,7 +25,8 @@
         "tslint": "^5.12.1",
         "typeorm": "^0.3.0-alpha.22",
         "typescript": "^3.2.4",
-        "uuid": "^3.3.2"
+        "uuid": "^3.3.2",
+        "winston": "^3.2.1"
     },
     "devDependencies": {
         "@types/ragemp-s": "github:TerraTex-Community/types-ragemp-s#0.4",
