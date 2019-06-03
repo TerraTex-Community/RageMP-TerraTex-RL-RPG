@@ -11,7 +11,7 @@ export const logger = createLogger({
     transports: [
         new transports.File({
             filename: "server.log",
-            dirname: "../logs",
+            dirname: "logs",
             maxsize: 104857600
         }),
         new transports.Console({
