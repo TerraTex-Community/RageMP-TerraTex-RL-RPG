@@ -6,6 +6,7 @@ import {checkCodeAndSetPassword, getHiddenEMail, sendEmailCode} from "./Password
 import Player = RageMP.Player;
 // additional imports for login/save/disconnect Process
 import "./SaveTimer";
+import {logger} from "../../../Lib/Services/logging/logger";
 
 mp.events.add("execute_login_password_forgotten_getEmailHidden",
     (player: Player) => EventHelper.resolveEventAsync(getHiddenEMail, player));
@@ -23,6 +24,6 @@ mp.events.add("execute_login_login",
     (player: Player, password: string) => EventHelper.resolveEventAsync(loginPlayer, player, password));
 
 mp.events.add(RageMP.Enums.Event.PLAYER_READY,
-    (player: Player) => playerConnect(player).catch(console.error));
+    (player: Player) => playerConnect(player).catch(error => logger.error(error.message, {error})));
 
 

@@ -8,6 +8,7 @@ import "./Lib/Version";
 import "./Lib/Services/index";
 import "./Script/System/index";
 import {checkVehicleListAgainsWiki} from "./Lib/Data/VehicleWikiCheck";
+import {logger} from "./Lib/Services/logging/logger";
 
 async function initGameMode(): Promise<void> {
     await initDb();
@@ -16,5 +17,5 @@ async function initGameMode(): Promise<void> {
 }
 
 initGameMode()
-    .then(() => console.log("GameMode started successfully"))
-    .catch(e => console.error("error during startup:", e));
+    .then(() => logger.info("GameMode started successfully"))
+    .catch(error => logger.error("error during startup: " + error.message, {error}));

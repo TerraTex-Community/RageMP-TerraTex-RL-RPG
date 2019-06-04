@@ -36,12 +36,6 @@ module.exports = function(grunt) {
                     args: ['build'],
                     cwd: '../Client-UI'
                 }
-            },
-            extras_console: {
-                options: {
-                    cmd: 'install',
-                    cwd: '../Extras/packages/_rage-console'
-                }
             }
         },
         'mkdir': {
@@ -108,7 +102,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.registerTask('pre', ['clean:pre']);
-    grunt.registerTask('install', ['npm-command:ui_install','npm-command:serverpackages_install','npm-command:clientpackages_install', "npm-command:extras_console"]);
+    grunt.registerTask('install', ['npm-command:ui_install','npm-command:serverpackages_install','npm-command:clientpackages_install']);
     grunt.registerTask('build', ['npm-command:ui_build', 'npm-command:clientpackages_build']);
     grunt.registerTask('publish', ['mkdir', 'copy:ui', 'copy:client','copy:dlc', 'copy:server', 'copy:extras', 'clean:scss']);
 

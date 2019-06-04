@@ -3,12 +3,13 @@ import {DbAdminBans} from "../../../DB/entities/DbAdminBans";
 import Player = RageMP.Player;
 import {ShutdownService} from "../../../Lib/Services/ShutdownService";
 import isServerShuttingDown = ShutdownService.isServerShuttingDown;
+import {logger} from "../../../Lib/Services/logging/logger";
 
 /**
  * Player starts to connect => check ban table
  */
 async function checkBans(player: Player): Promise<boolean> {
-    console.log(`Checks Bans of ${player.name}!`);
+    logger.info(`Checks Bans of ${player.name}!`);
 
     // @ts-ignore
     const serial = player.serial;
@@ -23,7 +24,7 @@ async function checkBans(player: Player): Promise<boolean> {
     if (user[1] !== 0 && (await user[0][0].bans).length > 0) {
 
         player.outputChatBox("!{#ff0000} You are banned from this server.");
-        console.error(`${player.name} is already banned.`);
+        logger.error(`${player.name} is already banned.`);
         player.kick("You are banned from this server.");
 
         return false;
@@ -38,7 +39,7 @@ async function checkBans(player: Player): Promise<boolean> {
 
     if (serialBans[1] !== 0) {
         player.outputChatBox("!{#ff0000} You are banned from this server.");
-        console.error(`${player.name} is already banned.`);
+        logger.error(`${player.name} is already banned.`);
         player.kick("You are banned from this server.");
         return false;
     }
@@ -66,12 +67,12 @@ export async function playerConnect(player: Player): Promise<void|false> {
             return false;
         }
     } catch (e) {
-        console.error(e);
+        logger.error(e.message, {e});
     }
 
     const playerName = player.name;
 
-    console.log(`${player.name} connected!`);
+    logger.info(`${player.name} connected!`);
 
     const user = await DbUser.findAndCount({
         where: {
