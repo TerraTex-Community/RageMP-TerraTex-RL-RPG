@@ -1,21 +1,40 @@
-import request from "request-promise";
-import cheerio from "cheerio";
+import {logger} from "../Services/logging/logger";
 import {getVehicleListItemByName} from "../../Script/System/Vehicle/VehicleList";
+import puppeteer from 'puppeteer';
+import {waitForBrowserTitleToContain} from "../../Script/Helper/PuppeteerHelper";
+import {LOG_TYPES} from "../Services/logging/log_types";
 
 const wikiUrl = "https://wiki.rage.mp/index.php?title=Vehicles";
 
 export async function checkVehicleListAgainsWiki(): Promise<void> {
     try {
-        const result = await request(wikiUrl);
-        const $ = cheerio.load(result);
-        $(".gallerybox .gallerytext code").each(function(i: number, ele: CheerioElement): void {
-            // @ts-ignore
-            const name = $(this).text().trim();
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.goto(wikiUrl);
+        await waitForBrowserTitleToContain(page, "vehicle");
+        const contents = await page.$$(".gallerybox .gallerytext code");
+
+        const listOfMissingVehicles: string[] = [];
+        for (const element of contents) {
+            const name = (await (await element.getProperty("textContent")).jsonValue()).trim();
             if(!getVehicleListItemByName(name)) {
-                console.error(`Missing Vehicle in List: ${name}`);
+                listOfMissingVehicles.push(name);
             }
-        });
+        }
+
+        if (listOfMissingVehicles.length > 0) {
+            logger.warn("Vehicles in List (compared to Wiki) are Missing", {
+                missingItems: listOfMissingVehicles,
+                type: LOG_TYPES.MISSING_ITEMS
+            });
+        }
+
+        browser.close();
     } catch (e) {
-        console.error(`Could not load wiki vehicle list`, e);
+        logger.error(`Could not load wiki vehicle list`, {error: e});
     }
 }
+
+checkVehicleListAgainsWiki();
+
+
