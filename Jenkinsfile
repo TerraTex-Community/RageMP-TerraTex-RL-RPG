@@ -49,7 +49,7 @@ gitlabCommitStatus {
         }
 
 		stage('Build-Server') {
-		    if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop') {
+		    if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop' || params.DEPLOY_NON_DEV) {
                 if (env.BRANCH_NAME == 'develop') {
                     bat 'cd server-packages && del /f ormconfig.json'
                     bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
@@ -57,6 +57,7 @@ gitlabCommitStatus {
                     bat 'cd server-packages && del /f ormconfig.json'
                     bat 'cd server-packages && copy ormconfig.prod.json ormconfig.json'
                 } else if (params.DEPLOY_NON_DEV) {
+                    bat 'cd server-packages && del /f ormconfig.json'
                     bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
                 }
                 bat 'cd Build-stuff && npm i'
@@ -78,7 +79,7 @@ gitlabCommitStatus {
         }
 
         stage('Artifacts Client') {
-            if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop' || env.DEPLOY_NON_DEV) {
+            if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop' || params.DEPLOY_NON_DEV) {
                 archiveArtifacts artifacts: 'Build-stuff/dist/client_packages/**/*', fingerprint: true
             }
         }
