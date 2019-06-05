@@ -9,7 +9,8 @@ gitlabCommitStatus {
 
         script {
             def list = []
-            if (env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'develop') {
+            if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop') {}
+            else {
                 list.add(booleanParam(name: 'DEPLOY_NON_DEV', defaultValue: false, description: 'If this is a non dev build toggle this if you want deploy'))
             }
 
@@ -17,7 +18,7 @@ gitlabCommitStatus {
             properties([parameters(list)])
 
             final scmVars = checkout(scm)
-            // echo "scmVars: ${scmVars}"
+            // echo "scmVars: ${DEPLOY_NON_DEV}"
 
             JSONVERSION = "{\"versionTimestamp\":\"${env.BUILD_TIMESTAMP}\", \
             \"versionBuildId\":\"${env.BUILD_ID}\", \
