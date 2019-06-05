@@ -41,7 +41,7 @@ export async function checkWeaponListAgainsWiki(): Promise<void> {
             });
         }
 
-        browser.close();
+        page.close();
     } catch (e) {
         logger.error(`Could not load wiki vehicle list`, {error: e});
     }
