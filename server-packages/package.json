@@ -3,8 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "sync_schema": "ts-node ./node_modules/typeorm/cli.js schema:sync",
-        "generate_list_definitions": "cd Lib/Lists && json-ts --rootName WeaponListJson weapons.json > IWeaponListJson.d.ts"
+        "sync_schema": "ts-node ./node_modules/typeorm/cli.js schema:sync"
     },
     "dependencies": {
         "@types/cheerio": "^0.22.11",

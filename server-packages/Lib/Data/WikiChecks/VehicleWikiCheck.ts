@@ -1,9 +1,9 @@
-import {logger} from "../Services/logging/logger";
-import {getVehicleListItemByName} from "../../Script/System/Vehicle/VehicleList";
+import {logger} from "../../Services/logging/logger";
+import {getVehicleListItemByName} from "../../../Script/System/Vehicle/VehicleList";
 import puppeteer from "puppeteer";
-import {waitForBrowserTitleToContain} from "../../Script/Helper/PuppeteerHelper";
-import {LOG_TYPES} from "../Services/logging/log_types";
-import {VEHICLE_BUY_MODE, VehicleListItem} from "../../Script/System/Vehicle/VehicleListItem";
+import {waitForBrowserTitleToContain} from "../../../Script/Helper/PuppeteerHelper";
+import {LOG_TYPES} from "../../Services/logging/log_types";
+import {VEHICLE_BUY_MODE, VehicleListItem} from "../../../Script/System/Vehicle/VehicleListItem";
 
 const wikiUrl = "https://wiki.rage.mp/index.php?title=Vehicles";
 
@@ -46,7 +46,5 @@ export async function checkVehicleListAgainsWiki(): Promise<void> {
         logger.error(`Could not load wiki vehicle list`, {error: e});
     }
 }
-
-checkVehicleListAgainsWiki();
 
 

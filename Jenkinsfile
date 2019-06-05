@@ -3,9 +3,17 @@ def JSONVERSION
 
 gitlabCommitStatus {
     node('windows'){
+
+
         deleteDir()
 
         script {
+            if (env.BRANCH_NAME != 'master' && env.BRANCH_NAME != 'develop') {
+                parameters {
+                    booleanParam(name: 'DEPLOY_NON_DEV', defaultValue: false, description: 'If this is a non dev build toggle this if you want deploy')
+                }
+            }
+
             final scmVars = checkout(scm)
             // echo "scmVars: ${scmVars}"
 

@@ -7,13 +7,13 @@ import "./Script/User/Spawn/Death";
 import "./Lib/Version";
 import "./Lib/Services/index";
 import "./Script/System/index";
-import {checkVehicleListAgainsWiki} from "./Lib/Data/VehicleWikiCheck";
 import {logger} from "./Lib/Services/logging/logger";
+import {runWikiChecks} from "./Lib/Data/WikiChecks/wikiChecks";
 
 async function initGameMode(): Promise<void> {
     await initDb();
-    checkVehicleListAgainsWiki();
 
+    runWikiChecks();
 }
 
 initGameMode()
