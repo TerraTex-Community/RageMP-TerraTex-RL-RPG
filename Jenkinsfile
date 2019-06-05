@@ -53,9 +53,11 @@ gitlabCommitStatus {
                 if (env.BRANCH_NAME == 'develop') {
                     bat 'cd server-packages && del /f ormconfig.json'
                     bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
-                } else {
+                } else if (env.BRANCH_NAME == 'master') {
                     bat 'cd server-packages && del /f ormconfig.json'
                     bat 'cd server-packages && copy ormconfig.prod.json ormconfig.json'
+                } else if (${DEPLOY_NON_DEV}) {
+                    bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
                 }
                 bat 'cd Build-stuff && npm i'
                 bat 'cd Build-stuff && grunt'
@@ -69,11 +71,14 @@ gitlabCommitStatus {
             } else if (env.BRANCH_NAME == 'develop') {
                 bat 'cd Build-stuff && grunt deploy --path=D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2\\develop\\server-files'
                 bat 'cd server-packages && npm run sync_schema'
-            }
+            } else if (${DEPLOY_NON_DEV}) {
+                bat 'cd Build-stuff && grunt deploy --path=D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2\\develop\\server-files'
+                bat 'cd server-packages && npm run sync_schema'
+             }
         }
 
         stage('Artifacts Client') {
-            if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop') {
+            if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop' || ${DEPLOY_NON_DEV}) {
                 archiveArtifacts artifacts: 'Build-stuff/dist/client_packages/**/*', fingerprint: true
             }
         }
