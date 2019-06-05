@@ -56,7 +56,7 @@ gitlabCommitStatus {
                 } else if (env.BRANCH_NAME == 'master') {
                     bat 'cd server-packages && del /f ormconfig.json'
                     bat 'cd server-packages && copy ormconfig.prod.json ormconfig.json'
-                } else if (env.DEPLOY_NON_DEV) {
+                } else if (params.DEPLOY_NON_DEV) {
                     bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
                 }
                 bat 'cd Build-stuff && npm i'
@@ -71,7 +71,7 @@ gitlabCommitStatus {
             } else if (env.BRANCH_NAME == 'develop') {
                 bat 'cd Build-stuff && grunt deploy --path=D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2\\develop\\server-files'
                 bat 'cd server-packages && npm run sync_schema'
-            } else if (env.DEPLOY_NON_DEV) {
+            } else if (params.DEPLOY_NON_DEV) {
                 bat 'cd Build-stuff && grunt deploy --path=D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2\\develop\\server-files'
                 bat 'cd server-packages && npm run sync_schema'
              }
