@@ -1,4 +1,4 @@
-import {randomNumbers} from "../Helper/NumberHelper";
+import {randomNumbers} from "../../Helper/NumberHelper";
 
 function getBaseRookieVehOptions(heading: number): any {
     return {
@@ -11,6 +11,8 @@ function getBaseRookieVehOptions(heading: number): any {
         dimension: 0
     }
 }
+
+// @todo: replace to respawning vehicles
 
 mp.vehicles.new(mp.joaat("faggio"), new mp.Vector3(296.731171, -1179.04529, 28.88412), getBaseRookieVehOptions(141.525116));
 mp.vehicles.new(mp.joaat("faggio2"), new mp.Vector3(298.578278, -1178.75635, 28.8814621), getBaseRookieVehOptions(136.83107));
