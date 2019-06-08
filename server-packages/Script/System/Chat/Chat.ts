@@ -1,5 +1,6 @@
 import "./ChatCommands";
 import Player = RageMP.Player;
+import {logger} from "../../../Lib/Services/logging/logger";
 
 export namespace Chat {
 
@@ -44,7 +45,6 @@ export namespace Chat {
 
     export function sendChatAlertToPlayer(player: Player | Player[], alertClass: string, message: string, title: string = ""): void {
         const notification = createChatAlert(alertClass, message, title);
-        console.log(notification);
         if (Array.isArray(player)) {
             mp.players.call(player, "addHTML", [notification]);
         } else {

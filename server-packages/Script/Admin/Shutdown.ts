@@ -6,6 +6,7 @@ import Timeout = NodeJS.Timeout;
 import Moment from "moment";
 import {Chat} from "../System/Chat/Chat";
 import {scheduleJob} from "node-schedule";
+import {logger} from "../../Lib/Services/logging/logger";
 
 let lastShutDownTimer: null | Timeout = null;
 let lastShutDownInterval: null | Timeout = null;
@@ -71,7 +72,7 @@ mp.events.addCommand("shutdown", (player: Player, fullText, timestring: string =
             );
 
         } catch (e) {
-            console.error(e);
+            logger.error(e.message, {e});
             player.notify("~r~Invalid Timestring!");
         }
     }
