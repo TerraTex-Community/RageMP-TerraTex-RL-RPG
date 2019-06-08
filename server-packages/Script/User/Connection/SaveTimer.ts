@@ -2,6 +2,7 @@ import {DbUser} from "../../../DB/entities/DbUser";
 import Player = RageMP.Player;
 import {isAdmin} from "../../Admin/AdminHelper";
 import {ShutdownService} from "../../../Lib/Services/ShutdownService";
+import {logger} from "../../../Lib/Services/logging/logger";
 
 
 setInterval(savePlayers, 1800000);
@@ -14,8 +15,8 @@ function savePlayers(): Promise<any> {
             const promise: Promise<DbUser> = (<DbUser>player.customData.dbUser).save();
             allPromises.push(promise);
             promise.then(() => {
-                console.log(`Datastore: ${player.name} saved.`);
-            }).catch((e: any) => console.error(e));
+                logger.info(`Datastore: ${player.name} saved.`);
+            }).catch((error) => logger.error(error.message, {error}));
         }
     }
 
