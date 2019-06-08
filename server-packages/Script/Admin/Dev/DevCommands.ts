@@ -1,6 +1,5 @@
 import Player = RageMP.Player;
 import {isAdmin, isDevServer} from '../AdminHelper';
-import {ShutdownService} from '../../../Lib/Services/ShutdownService';
 
 mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => {
     if (!isAdmin(player, 4)) return;
@@ -12,6 +11,7 @@ mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => 
 mp.events.addCommand('giveweapons', ((player, fullText) => {
     if (!isAdmin(player, 4)) return;
 
+    // @todo: change to work with weapon list items
     for (const weapon in Weapon) {
         player.giveWeapon(Weapon[weapon], 10000);
     }
