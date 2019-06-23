@@ -55,13 +55,13 @@ export interface VehicleOptions {
 }
 
 export interface ScriptedVehicle extends Vehicle {
-    respawnTime?: number|undefined;
-    idleRespawnTime?: number|undefined;
+    respawnTime?: number;
+    idleRespawnTime?: number;
     lastDeathTime?: Date|null;
     lastExistTime?: Date|null;
     lastDriver?: {name: string|null, id: number|null, player: Player|null },
     originalOptions?: VehicleOptions,
     originalPos?: Vector3,
     originalRotation?: Vector3,
-    ownerId?: number|undefined
+    ownerId?: number
 }
