@@ -2,7 +2,7 @@ export enum WeaponCategory {
     Melee = "Melee",
     Handguns = "Handguns",
     SubmachineGuns = "Submachine Guns",
-    Shutgungs = "Shutguns",
+    Shutguns = "Shutguns",
     AssaultRifles = "Assault Rifles",
     LightMachineGuns = "Light Machine Guns",
     SniperRifles = "Sniper Rifles",
