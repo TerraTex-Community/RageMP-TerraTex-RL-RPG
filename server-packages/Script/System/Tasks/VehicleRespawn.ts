@@ -1,49 +1,56 @@
-import {scheduleJob} from "node-schedule";
 import {ScriptedVehicle} from "../Vehicle/ScriptedVehicle";
-import VehicleSeat = RageMP.Enums.VehicleSeat;
 import Player = RageMP.Player;
 
-scheduleJob("0 0/5 0 ? *", () => {
+setInterval(() => {
     mp.vehicles.forEach((vehicle: ScriptedVehicle) => {
         if (vehicle.idleRespawnTime
             && vehicle.idleRespawnTime > 0
             && vehicle.lastExistTime
             && new Date().getTime() - vehicle.lastExistTime.getTime() > vehicle.idleRespawnTime
-            && !vehicle.getOccupant(VehicleSeat.DRIVER)
-            && vehicle.originalPos && vehicle.originalRotation
+            && vehicle.getOccupants().length === 0
         ) {
-            vehicle.engine = false;
-            vehicle.repair();
-            vehicle.position = vehicle.originalPos;
-            vehicle.rotation = vehicle.originalRotation;
+            resetVeh(vehicle);
         }
 
         if (vehicle.respawnTime
             && vehicle.respawnTime > 0
             && vehicle.lastDeathTime
             && new Date().getTime() - vehicle.lastDeathTime.getTime() > vehicle.respawnTime
-            && !vehicle.getOccupant(VehicleSeat.DRIVER)
-            && vehicle.originalPos && vehicle.originalRotation
+            && vehicle.getOccupants().length === 0
             && vehicle.dead
+            && vehicle.originalPos
         ) {
             vehicle.spawn(vehicle.originalPos, 0);
-            vehicle.engine = false;
-            vehicle.repair();
-            vehicle.position = vehicle.originalPos;
-            vehicle.rotation = vehicle.originalRotation;
+            resetVeh(vehicle);
         }
     });
-});
+}, 300000);
+
+function resetVeh(vehicle: ScriptedVehicle): void {
+    vehicle.engine = false;
+    vehicle.repair();
+    if (vehicle.originalPos && vehicle.originalRotation) {
+        vehicle.position = vehicle.originalPos;
+        vehicle.rotation = vehicle.originalRotation;
+    }
+    vehicle.lastExistTime = null;
+    vehicle.lastDeathTime = null;
+    vehicle.lastDriver = {name: null, player: null, id: null}
+}
 
 mp.events.add(RageMP.Enums.Event.PLAYER_EXIT_VEHICLE, (player, vehicle: ScriptedVehicle) => {
-    vehicle.lastExistTime = new Date();
+    if (vehicle.getOccupants().length === 0) {
+        vehicle.lastExistTime = new Date();
+    }
 });
 mp.events.add(RageMP.Enums.Event.PLAYER_ENTER_VEHICLE, (player: Player, vehicle: ScriptedVehicle) => {
     vehicle.lastExistTime = null;
-    vehicle.lastDriver = {
-        id: player.customData.dbUser.id,
-        name: player.name,
-        player
+    if (player.seat === -1) {
+        vehicle.lastDriver = {
+            id: player.customData.dbUser.id,
+            name: player.name,
+            player
+        }
     }
 });
 mp.events.add("vehicleDeath", (vehicle: ScriptedVehicle) => {
