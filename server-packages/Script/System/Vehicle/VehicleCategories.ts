@@ -1,3 +1,5 @@
+import {ShopType} from "./Shop/ShopPosition";
+
 export enum VehicleCategory {
     Bicycle = "Bicycle",
     Bike = "Bike",
@@ -26,4 +28,3 @@ export enum VehicleCategory {
     Other = "Other",
     Train = "Train"
 }
-
