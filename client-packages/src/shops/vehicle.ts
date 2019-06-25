@@ -18,7 +18,7 @@ mp.events.add("openVehicleShop", (name, buymode, data) => {
     currentVehicleBuyMode = buymode;
     const dataParsed = JSON.parse(data);
 
-    const {x, y} = mp.game.graphics.getScreenActiveResolution(0, 0)
+    const {x, y} = mp.game.graphics.getScreenActiveResolution(0, 0);
     // @ts-ignore
     vehicleUI = new Menu(name, "Drive, Fly and Sail Corp", new Point(x-500, Math.round(y/2-250)));
 
