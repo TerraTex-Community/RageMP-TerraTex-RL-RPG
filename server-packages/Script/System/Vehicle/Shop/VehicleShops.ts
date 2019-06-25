@@ -6,7 +6,7 @@ import Colshape = RageMP.Colshape;
 
 export const vehicleShops: ShopPosition[] = [
     new ShopPosition(new mp.Vector3(828.7191, -1067.81934, 27.6868439), new mp.Vector3(825.343445, -1060.83252, 28.7931423), 179.990662, ShopType.LandVehicles),
-    new ShopPosition(new mp.Vector3(-41.82806, -1109.724, 25.4378), new mp.Vector3(-52.46864, -1111.139, 26.07097), 68.88418, ShopType.LandVehicles),
+    new ShopPosition(new mp.Vector3(-41.82806, -1109.724, 25.4378), new mp.Vector3(-52.46864, -1111.139, 26.07097), 158.88418, ShopType.LandVehicles),
 ];
 
 function createShops(): void {
@@ -39,12 +39,18 @@ function createShops(): void {
 }
 createShops();
 
+mp.events.add("tryToBuyVehicle", (player: Player, veh) => {
+   console.log("try to buy " + veh);
+});
+
 function playerEnterShopColshape(player: Player, shape: Colshape): void {
     if (!shape.isCarDealer) return;
+    if (player.vehicle) return;
 
     const shopVehicles: VehicleListItem[] = getShopVehicles(shape.carDealerData);
 
-    player.call("openVehicleShop", [getShopTypeName(shape.carDealerData.shopType), getShopTypeBuyMode(shape.carDealerData.shopType), JSON.stringify(shopVehicles)])
+    player.call("openVehicleShop",
+        [getShopTypeName(shape.carDealerData.shopType), getShopTypeBuyMode(shape.carDealerData.shopType), JSON.stringify(shopVehicles)])
 }
 
 function getShopVehicles(shop: ShopPosition): VehicleListItem[] {
@@ -57,3 +63,4 @@ function getShopVehicles(shop: ShopPosition): VehicleListItem[] {
 
     return vehicles;
 }
+

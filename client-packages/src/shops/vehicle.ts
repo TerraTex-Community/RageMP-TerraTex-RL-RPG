@@ -1,6 +1,7 @@
 import * as NativeUI from "../External/NativeUI/index";
+import {closeNativeMenuOnDistance, getCurrentSelectedItem} from "../helper/NativeUIHelper";
+import {UIMenuItem} from "../External/NativeUI/index";
 const Menu = NativeUI.Menu;
-const UIMenuItem = NativeUI.UIMenuItem;
 const UIMenuListItem = NativeUI.UIMenuListItem;
 const UIMenuCheckboxItem = NativeUI.UIMenuCheckboxItem;
 const UIMenuSliderItem = NativeUI.UIMenuSliderItem;
@@ -11,16 +12,31 @@ const Color = NativeUI.Color;
 const ListItem = NativeUI.ListItem;
 let currentVehicleBuyMode = 0;
 let vehicleUI: null|any = null;
-
-// @todo add script to automatic closing NativeUI
+let currentPreviewVehicle: null|VehicleMp = null;
+const previewPos = new mp.Vector3(-52.46864, -1111.139, 26.07097);
+const previewHeading = 68.88418;
+let vehicleCamera: CameraMp|null = null;
 
 mp.events.add("openVehicleShop", (name, buymode, data) => {
+    if (currentPreviewVehicle) {
+        currentPreviewVehicle.destroy();
+    }
+
+    currentPreviewVehicle = mp.vehicles.new(mp.game.joaat("sultan"), previewPos, {heading: previewHeading});
+
+    vehicleCamera = mp.cameras.new('vehicleShop', new mp.Vector3(-41.82806, -1109.724, 30.4378), new mp.Vector3(0,0,90), 60);
+    vehicleCamera.pointAtCoord(-52.46864, -1111.139, 26.07097);
+    vehicleCamera.setActive(true);
+
+    mp.game.cam.renderScriptCams(true, false, 0, true, false);
+
     currentVehicleBuyMode = buymode;
     const dataParsed = JSON.parse(data);
 
     const {x, y} = mp.game.graphics.getScreenActiveResolution(0, 0);
     // @ts-ignore
     vehicleUI = new Menu(name, "Drive, Fly and Sail Corp", new Point(x-500, Math.round(y/2-250)));
+    closeNativeMenuOnDistance(vehicleUI, 10, onMenuVehicleShopClose);
 
     const categories: any = {};
     for (const vehData of dataParsed) {
@@ -60,30 +76,51 @@ mp.events.add("openVehicleShop", (name, buymode, data) => {
             subMenu.AddItem(vehItem);
         }
         subMenu.Close();
+
+        subMenu.ItemSelect.on((menuItem: any) => {
+            tryToBuy(menuItem);
+        });
+        subMenu.IndexChange.on((function (index: any): void {
+            const sitem = getCurrentSelectedItem(this);
+            currentPreviewVehicle.model = mp.game.joaat(sitem.Text);
+        }).bind(subMenu));
     }
+    vehicleUI.ItemSelect.on((menuItem: UIMenuItem) => {
+        currentPreviewVehicle.model = mp.game.joaat(vehicleUI.Children.get(menuItem.Id).MenuItems[0].Text);
+    });
+
+    vehicleUI.MenuClose.on(onMenuVehicleShopClose);
 
     vehicleUI.Open();
 
 });
 
-mp.events.add("MenuClose", () => {
+function tryToBuy(menuItem: UIMenuItem): void {
+    const veh = menuItem.Text;
+    onMenuVehicleShopClose();
+    mp.events.callRemote("tryToBuyVehicle", veh);
+}
+
+
+function onMenuVehicleShopClose(): void {
     if (currentVehicleBuyMode > 0 && vehicleUI !== null) {
-        vehicleUI = null;
         currentVehicleBuyMode = 0;
+
+        currentPreviewVehicle.destroy();
+        currentPreviewVehicle = null;
+
+        mp.game.cam.renderScriptCams(false, false, 0, true, false);
+        vehicleCamera.destroy(true);
+        vehicleCamera = null;
+
+        vehicleUI.Children.forEach(value => value.Close());
+        vehicleUI = null;
+    }
+}
+
+mp.events.add("render", () => {
+    if (currentPreviewVehicle) {
+        currentPreviewVehicle.setHeading(currentPreviewVehicle.getHeading() + 0.333);
     }
 });
 
-//@todo add method for update preview and reset camera
-
-
-//
-// ui.ItemSelect.on((item: any) => {
-//     if (item instanceof UIMenuListItem) {
-//         console.log(item.SelectedItem.DisplayText, item.SelectedItem.Data);
-//     } else if (item instanceof UIMenuSliderItem) {
-//         console.log(item.Text, item.Index, item.IndexToItem(item.Index));
-//     } else {
-//         console.log(item.Text);
-//     }
-// });
-// ui.Open();
