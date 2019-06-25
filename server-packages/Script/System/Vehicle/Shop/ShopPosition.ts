@@ -26,8 +26,8 @@ export function getShopTypeName(shopType: ShopType): string {
         case ShopType.AirVehicles: return "Aircraft Shop";
         case ShopType.LandVehicles: return "Fahrzeug Shop";
         case ShopType.WaterVehicles: return "Boot Shop";
+        default: return "unknown";
     }
-    return "unknown";
 }
 
 export function getShopTypeIcon(shopType: ShopType): number {
@@ -35,13 +35,14 @@ export function getShopTypeIcon(shopType: ShopType): number {
         case ShopType.AirVehicles: return 307;
         case ShopType.LandVehicles: return 225;
         case ShopType.WaterVehicles: return 427;
+        default: return 642;
     }
-    return 642;
 }
 export function getShopTypeBuyMode(shopType: ShopType): number {
     switch (shopType) {
         case ShopType.AirVehicles: return VEHICLE_BUY_MODE.FLIGHT_SHOPS;
         case ShopType.LandVehicles: return VEHICLE_BUY_MODE.VEHICLE_SHOPS;
         case ShopType.WaterVehicles: return VEHICLE_BUY_MODE.BOAT_SHOPS;
+        default: return VEHICLE_BUY_MODE.NOT_BUYABLE
     }
 }
