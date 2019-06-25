@@ -1,1 +1,1 @@
-import 'src/shops/vehicle';
+import './vehicle';

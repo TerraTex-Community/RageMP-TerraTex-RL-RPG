@@ -44,7 +44,7 @@ function playerEnterShopColshape(player: Player, shape: Colshape): void {
 
     const shopVehicles: VehicleListItem[] = getShopVehicles(shape.carDealerData);
 
-    player.call("openVehicleShop", [getShopTypeName(shape.carDealerData.shopType), JSON.stringify(shopVehicles)])
+    player.call("openVehicleShop", [getShopTypeName(shape.carDealerData.shopType), getShopTypeBuyMode(shape.carDealerData.shopType), JSON.stringify(shopVehicles)])
 }
 
 function getShopVehicles(shop: ShopPosition): VehicleListItem[] {

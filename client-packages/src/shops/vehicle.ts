@@ -1,4 +1,4 @@
-import * as NativeUI from "nativeui-1.4.1.js";
+import * as NativeUI from "../External/NativeUI/index";
 const Menu = NativeUI.Menu;
 const UIMenuItem = NativeUI.UIMenuItem;
 const UIMenuListItem = NativeUI.UIMenuListItem;
@@ -9,12 +9,18 @@ const Point = NativeUI.Point;
 const ItemsCollection = NativeUI.ItemsCollection;
 const Color = NativeUI.Color;
 const ListItem = NativeUI.ListItem;
+let currentVehicleBuyMode = 0;
+let vehicleUI: null|any = null;
 
-mp.events.add("openVehicleShop", (name, data) => {
+// @todo add script to automatic closing NativeUI
+
+mp.events.add("openVehicleShop", (name, buymode, data) => {
+    currentVehicleBuyMode = buymode;
     const dataParsed = JSON.parse(data);
 
     const {x, y} = mp.game.graphics.getScreenActiveResolution(0, 0)
-    const ui = new Menu(name, "Drive, Fly and Sail Corp", new Point(x-500, Math.round(y/2-250)));
+    // @ts-ignore
+    vehicleUI = new Menu(name, "Drive, Fly and Sail Corp", new Point(x-500, Math.round(y/2-250)));
 
     const categories: any = {};
     for (const vehData of dataParsed) {
@@ -29,10 +35,11 @@ mp.events.add("openVehicleShop", (name, data) => {
         if (!categories.hasOwnProperty(category)) continue;
 
         const item = new UIMenuItem(category,"");
-        ui.AddItem(item);
+        vehicleUI.AddItem(item);
 
+        // @ts-ignore
         const subMenu = new Menu(category, "Drive, Fly and Sail Corp", new Point(x-500, Math.round(y/2-250)));
-        ui.BindMenuToItem(subMenu, item);
+        vehicleUI.BindMenuToItem(subMenu, item);
 
         for (const veh of categories[category]) {
             const vehItem = new UIMenuItem(veh.displayName);
@@ -55,19 +62,20 @@ mp.events.add("openVehicleShop", (name, data) => {
         subMenu.Close();
     }
 
-    ui.Open();
+    vehicleUI.Open();
 
 });
 
-// const ui = new Menu("Test UI", "Test UI Subtitle", new Point(50, 50));
+mp.events.add("MenuClose", () => {
+    if (currentVehicleBuyMode > 0 && vehicleUI !== null) {
+        vehicleUI = null;
+        currentVehicleBuyMode = 0;
+    }
+});
 
-// ui.AddItem(new UIMenuSliderItem(
-//     "Slider Item",
-//     ["Fugiat", "pariatur", "consectetur", "ex", "duis", "magna", "nostrud", "et", "dolor", "laboris"],
-//     5,
-//     "Fugiat pariatur consectetur ex duis magna nostrud et dolor laboris est do pariatur amet sint.",
-//     true
-// ));
+//@todo add method for update preview and reset camera
+
+
 //
 // ui.ItemSelect.on((item: any) => {
 //     if (item instanceof UIMenuListItem) {
