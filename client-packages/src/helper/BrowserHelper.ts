@@ -1,4 +1,4 @@
-let closeBrowserColshapes: any = {};
+const closeBrowserColshapes: any = {};
 
 export function closeBrowserOnDistance(browser: BrowserMp, distance: number, callAfter: Function | null = null): void {
     const position = mp.players.local.position;

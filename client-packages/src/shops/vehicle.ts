@@ -1,15 +1,5 @@
-import * as NativeUI from "../External/NativeUI/index";
 import {closeNativeMenuOnDistance, getCurrentSelectedItem} from "../helper/NativeUIHelper";
-import {UIMenuItem} from "../External/NativeUI/index";
-const Menu = NativeUI.Menu;
-const UIMenuListItem = NativeUI.UIMenuListItem;
-const UIMenuCheckboxItem = NativeUI.UIMenuCheckboxItem;
-const UIMenuSliderItem = NativeUI.UIMenuSliderItem;
-const BadgeStyle = NativeUI.BadgeStyle;
-const Point = NativeUI.Point;
-const ItemsCollection = NativeUI.ItemsCollection;
-const Color = NativeUI.Color;
-const ListItem = NativeUI.ListItem;
+import {UIMenuItem, Menu, Point, Color} from "../External/NativeUI/index";
 let currentVehicleBuyMode = 0;
 let vehicleUI: null|any = null;
 let currentPreviewVehicle: null|VehicleMp = null;

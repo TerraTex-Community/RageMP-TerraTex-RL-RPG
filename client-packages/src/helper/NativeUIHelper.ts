@@ -1,6 +1,6 @@
 import {Menu, UIMenuItem, UIMenuCheckboxItem, UIMenuListItem, UIMenuSliderItem} from "../External/NativeUI/index";
 
-let closeNativeUIColshapes: any = {};
+const closeNativeUIColshapes: any = {};
 
 export function closeNativeMenuOnDistance(menu: Menu, distance: number, callAfter: Function | null = null): void {
     const position = mp.players.local.position;
@@ -10,7 +10,8 @@ export function closeNativeMenuOnDistance(menu: Menu, distance: number, callAfte
     };
 }
 
-export function getCurrentSelectedItem(menu: Menu): null | UIMenuItem | UIMenuListItem | UIMenuSliderItem | UIMenuCheckboxItem {
+type uiItem = UIMenuItem | UIMenuListItem | UIMenuSliderItem | UIMenuCheckboxItem;
+export function getCurrentSelectedItem(menu: Menu): null | uiItem {
     for(const menuItem of menu.MenuItems) {
         if (menuItem.Selected) return menuItem;
     }

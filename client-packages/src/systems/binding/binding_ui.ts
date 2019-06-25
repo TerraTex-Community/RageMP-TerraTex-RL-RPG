@@ -2,7 +2,7 @@ import {Binding, Bindings, getBindingManager} from "./bindings";
 
 let bindingBrowser: BrowserMp | null = null;
 let sendNextKey = false;
-let bindingManager = getBindingManager();
+const bindingManager = getBindingManager();
 
 function openBindingBrowser(): void {
     if (bindingBrowser) {
