@@ -51,7 +51,7 @@ mp.events.add("openVehicleShop", (name, buymode, data) => {
             const vehItem = new UIMenuItem(veh.displayName);
             if (veh.price === -1) {
                 vehItem.Enabled = false;
-                vehItem.Description = "Für dieses Fahrzeug/Flugzeug/Helicopter/Boot wurde noch kein Preis festgelegt und kann daher nicht verkauft werden.";
+                vehItem.Description = "Für dieses Fahrzeug/Flugzeug/Helicopter/Boot wurde noch kein Preis festgelegt... Coming Soon!?";
                 vehItem.SetRightLabel("-1");
                 vehItem.ForeColor = new Color(146, 146, 147, 150);
             } else if (veh.price > bank && veh.price > money) {
