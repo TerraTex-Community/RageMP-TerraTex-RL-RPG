@@ -1,8 +1,16 @@
 import {getShopTypeBuyMode, getShopTypeIcon, getShopTypeName, ShopPosition, ShopType} from "./ShopPosition";
 import {VehicleListItem} from "../VehicleListItem";
-import {VEHICLE_LIST} from "../VehicleList";
+import {getVehicleListItemByName, VEHICLE_LIST} from "../VehicleList";
+import {payByBankOrHand} from "../../Money/money";
+import {MoneyCategory} from "../../Money/MoneyCategories";
 import Player = RageMP.Player;
 import Colshape = RageMP.Colshape;
+import {Chat} from "../../Chat/Chat";
+import {createScriptedVehicle} from "../ScriptedVehicle";
+import Vector3 = RageMP.Vector3;
+import {DbUser} from "../../../../DB/entities/DbUser";
+import {DbUserVehicle} from "../../../../DB/entities/DbUserVehicle";
+import {VehicleHelper} from "../../../Helper/VehicleHelper";
 
 export const vehicleShops: ShopPosition[] = [
     new ShopPosition(new mp.Vector3(828.7191, -1067.81934, 27.6868439), new mp.Vector3(825.343445, -1060.83252, 28.7931423), 179.990662, ShopType.LandVehicles),
@@ -39,8 +47,33 @@ function createShops(): void {
 }
 createShops();
 
-mp.events.add("tryToBuyVehicle", (player: Player, veh) => {
-   console.log("try to buy " + veh);
+mp.events.add("tryToBuyVehicle", async (player: Player, veh) => {
+    const vehListItem: VehicleListItem|false = getVehicleListItemByName(veh);
+    const shopPos = getClosestShopPosition(player.position);
+    if (!vehListItem || !shopPos) return;
+
+    if (payByBankOrHand(player, vehListItem.price, MoneyCategory.Purchase, {"item": "vehicle", "model": vehListItem.displayName})) {
+        const dbEntry = new DbUserVehicle();
+        dbEntry.model = vehListItem.displayName;
+        dbEntry.owner = player.customData.dbUser;
+        await dbEntry.save();
+        await dbEntry.reload();
+
+        const vehicle = await createScriptedVehicle(vehListItem.hash, shopPos.spawnPosition, {
+            heading: shopPos.spawnHeading,
+            numberPlate: "TT-" + dbEntry.id.toString(36)
+        }, {
+            ownerId: (<DbUser>player.customData.dbUser).id,
+            dbEntry
+        });
+
+        await VehicleHelper.ensurePlayerInVehicle(player, vehicle);
+
+        Chat.sendChatAlertToPlayer(player, "success",
+            "Du hast erfolgreich ein Fahrzeug gekauft! Es spawned dort, wo du es mit /park abstellst.", "Fahrzeugkauf");
+    } else {
+        Chat.sendChatAlertToPlayer(player, "alert", "Du hast nicht genug Geld für dieses Fahrzeug!", "Fahrzeugkauf");
+    }
 });
 
 function playerEnterShopColshape(player: Player, shape: Colshape): void {
@@ -64,3 +97,9 @@ function getShopVehicles(shop: ShopPosition): VehicleListItem[] {
     return vehicles;
 }
 
+function getClosestShopPosition(position: Vector3): ShopPosition|false {
+    for (const posDef of vehicleShops) {
+        if (posDef.position.subtract(position).length() <= 10) return posDef;
+    }
+    return false;
+}

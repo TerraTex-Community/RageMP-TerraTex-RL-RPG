@@ -4,6 +4,7 @@ import RGB = RageMP.RGB;
 import Array2d = RageMP.Array2d;
 import Vehicle = RageMP.Vehicle;
 import Player = RageMP.Player;
+import {DbUserVehicle} from "../../../DB/entities/DbUserVehicle";
 
 export async function createScriptedVehicle(
     model: RageMP.Hashes.Vehicle | HashOrString, position: Vector3,
@@ -21,6 +22,7 @@ export async function createScriptedVehicle(
     vehicle.lastExistTime = null;
     vehicle.lastDeathTime = null;
     vehicle.originalRotation = vehicle.rotation;
+    vehicle.vehDb = scriptOptions.dbEntry;
 
     if (scriptOptions.autoRespawn) {
         vehicle.respawnTime = typeof scriptOptions.autoRespawn === "number" ? scriptOptions.autoRespawn : 600000;
@@ -43,6 +45,7 @@ interface ScriptedVehicleOptions {
      */
     idleRespawn?: number|boolean;
     ownerId?: number;
+    dbEntry?: DbUserVehicle;
 }
 
 export interface VehicleOptions {
@@ -63,5 +66,6 @@ export interface ScriptedVehicle extends Vehicle {
     originalOptions?: VehicleOptions,
     originalPos?: Vector3,
     originalRotation?: Vector3,
-    ownerId?: number
+    ownerId?: number,
+    vehDb?: DbUserVehicle
 }
