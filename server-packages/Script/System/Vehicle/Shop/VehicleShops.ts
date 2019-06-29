@@ -64,7 +64,8 @@ mp.events.add("tryToBuyVehicle", async (player: Player, veh) => {
             numberPlate: "TT-" + dbEntry.id.toString(36)
         }, {
             ownerId: (<DbUser>player.customData.dbUser).id,
-            dbEntry
+            dbEntry,
+            autoRespawn: 900000
         });
 
         await VehicleHelper.ensurePlayerInVehicle(player, vehicle);
