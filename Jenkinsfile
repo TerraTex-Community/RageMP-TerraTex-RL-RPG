@@ -1,5 +1,3 @@
-properties([gitLabConnection('terratex')])
-properties [[$class: 'GitLabConnectionProperty', gitLabConnection: 'terratex']]
 def JSONVERSION
 
 gitlabCommitStatus {
@@ -15,7 +13,7 @@ gitlabCommitStatus {
             }
 
             //finally
-            properties([parameters(list)])
+            properties([parameters(list), gitLabConnection('terratex')])
 
             final scmVars = checkout(scm)
             // echo "scmVars: ${DEPLOY_NON_DEV}"
