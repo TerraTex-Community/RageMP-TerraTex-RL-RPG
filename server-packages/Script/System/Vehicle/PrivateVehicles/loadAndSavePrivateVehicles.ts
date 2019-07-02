@@ -18,10 +18,6 @@ async function saveAllVehicles(): Promise<void> {
         saves.push(vehs.save());
     }
 
-    if (true == 1) {
-        asd();
-    }
-
     await Promise.all(saves);
 }
 setInterval(saveAllVehicles, 1800000);
