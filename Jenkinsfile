@@ -4,7 +4,6 @@ def JSONVERSION
 gitlabCommitStatus {
     node('windows'){
 
-
         deleteDir()
 
         script {
@@ -83,5 +82,14 @@ gitlabCommitStatus {
                 archiveArtifacts artifacts: 'Build-stuff/dist/client_packages/**/*', fingerprint: true
             }
         }
+
+        post {
+              failure {
+                updateGitlabCommitStatus name: 'build', state: 'failed'
+              }
+              success {
+                updateGitlabCommitStatus name: 'build', state: 'success'
+              }
+            }
     }
 }
