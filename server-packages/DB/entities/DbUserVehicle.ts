@@ -5,7 +5,7 @@ import {
     UpdateDateColumn,
     BaseEntity,
     OneToOne,
-    JoinColumn, CreateDateColumn, AfterLoad
+    JoinColumn, CreateDateColumn, AfterLoad, ManyToOne
 } from "typeorm";
 import {DbUser} from "./DbUser";
 
@@ -20,10 +20,11 @@ export class DbUserVehicle extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(type => DbUser, user => user.id, {
+    @ManyToOne(type => DbUser, user => user.id, {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
-        persistence: true
+        persistence: true,
+        eager: true
     })
     @JoinColumn()
     owner: DbUser;
@@ -43,7 +44,8 @@ export class DbUserVehicle extends BaseEntity {
 
     @AfterLoad()
     setNumberPlate(): void {
-        if (this.numberPlate === null) {
+        if (!this.numberPlate) {
+            console.log(this.id.toString(36));
             this.numberPlate = this.id.toString(36);
         }
     }
@@ -52,7 +54,7 @@ export class DbUserVehicle extends BaseEntity {
         type: "json",
         default: "{\"x\":0,\"y\":0,\"z\":0,\"heading\":0}"
     })
-    positionData: { x: 0, y: 0, z: 0, heading: 0 };
+    positionData: { x: number, y: number, z: number, heading: number};
 
     @UpdateDateColumn({
         default: null,

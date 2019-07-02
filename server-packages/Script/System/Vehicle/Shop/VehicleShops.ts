@@ -11,11 +11,13 @@ import Vector3 = RageMP.Vector3;
 import {DbUser} from "../../../../DB/entities/DbUser";
 import {DbUserVehicle} from "../../../../DB/entities/DbUserVehicle";
 import {VehicleHelper} from "../../../Helper/VehicleHelper";
+import {PrivateVehicle} from "../PrivateVehicles/PrivateVehicle";
 
 export const vehicleShops: ShopPosition[] = [
     new ShopPosition(new mp.Vector3(828.7191, -1067.81934, 27.6868439), new mp.Vector3(825.343445, -1060.83252, 28.7931423), 179.990662, ShopType.LandVehicles),
     new ShopPosition(new mp.Vector3(-41.82806, -1109.724, 25.4378), new mp.Vector3(-52.46864, -1111.139, 26.07097), 158.88418, ShopType.LandVehicles),
 ];
+
 
 function createShops(): void {
     for (const shop of vehicleShops) {
@@ -63,10 +65,10 @@ mp.events.add("tryToBuyVehicle", async (player: Player, veh) => {
             heading: shopPos.spawnHeading,
             numberPlate: "TT-" + dbEntry.id.toString(36)
         }, {
-            ownerId: (<DbUser>player.customData.dbUser).id,
             dbEntry,
             autoRespawn: 900000
         });
+        vehicle.privateVehicle = new PrivateVehicle((player.customData.dbUser as DbUser), dbEntry, vehicle);
 
         await VehicleHelper.ensurePlayerInVehicle(player, vehicle);
 

@@ -5,12 +5,13 @@ import Array2d = RageMP.Array2d;
 import Vehicle = RageMP.Vehicle;
 import Player = RageMP.Player;
 import {DbUserVehicle} from "../../../DB/entities/DbUserVehicle";
+import {PrivateVehicle} from "./PrivateVehicles/PrivateVehicle";
 
 export async function createScriptedVehicle(
     model: RageMP.Hashes.Vehicle | HashOrString, position: Vector3,
     options: VehicleOptions,
     scriptOptions: ScriptedVehicleOptions
-): Promise<Vehicle> {
+): Promise<ScriptedVehicle> {
     const vehicle: ScriptedVehicle = mp.vehicles.new(model, position, options);
     vehicle.originalPos = position;
     vehicle.originalOptions = options;
@@ -44,7 +45,7 @@ interface ScriptedVehicleOptions {
      * is idlerespawning? value in ms if true default = 10 min / 600s
      */
     idleRespawn?: number|boolean;
-    ownerId?: number;
+    privateVehicle?: PrivateVehicle;
     dbEntry?: DbUserVehicle;
 }
 
@@ -66,6 +67,6 @@ export interface ScriptedVehicle extends Vehicle {
     originalOptions?: VehicleOptions,
     originalPos?: Vector3,
     originalRotation?: Vector3,
-    ownerId?: number,
+    privateVehicle?: PrivateVehicle,
     vehDb?: DbUserVehicle
 }

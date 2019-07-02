@@ -1,4 +1,9 @@
 {
+  "linterOptions": {
+    "exclude": [
+      "**/migrations/**/*"
+    ]
+  },
   "rules": {
     "no-any": false,
     "no-internal-module": false,

@@ -7,7 +7,7 @@
     "password": "-dev-co1992we-",
     "database": "ragemp_terratex_reallife_dev",
     "logging": "all",
-    "synchronize": true,
+    "synchronize": false,
     "maxQueryExecutionTime": 5000,
     "insecureAuth": true,
     "logger": "advanced-console",

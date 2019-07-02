@@ -3,7 +3,8 @@
         "exclude": [
             "**/External/**/*",
             "node_modules/**",
-            "**/*.d.ts"
+            "**/*.d.ts",
+            "**/migrations/**/*"
         ]
     },
     "rules": {

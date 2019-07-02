@@ -9,9 +9,11 @@ import "./Lib/Services/index";
 import "./Script/System/index";
 import {logger} from "./Lib/Services/logging/logger";
 import {runWikiChecks} from "./Lib/Data/WikiChecks/wikiChecks";
+import {loadAllPrivateVehicle} from "./Script/System/Vehicle/PrivateVehicles/loadAndSavePrivateVehicles";
 
 async function initGameMode(): Promise<void> {
     await initDb();
+    await loadAllPrivateVehicle();
 
     runWikiChecks();
 }

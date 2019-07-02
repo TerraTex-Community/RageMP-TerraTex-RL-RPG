@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "sync_schema": "ts-node ./node_modules/typeorm/cli.js schema:sync"
+        "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
     },
     "dependencies": {
         "@types/cheerio": "^0.22.11",
@@ -28,7 +28,7 @@
         "request-promise": "^4.2.2",
         "ts-node": "^7.0.1",
         "tslint": "^5.12.1",
-        "typeorm": "^0.3.0-alpha.22",
+        "typeorm": "^0.3.0-alpha.23",
         "typescript": "^3.2.4",
         "uuid": "^3.3.2",
         "winston": "^3.2.1"
