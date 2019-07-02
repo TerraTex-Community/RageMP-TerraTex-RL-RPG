@@ -1,4 +1,5 @@
 properties([gitLabConnection('terratex')])
+properties [[$class: 'GitLabConnectionProperty', gitLabConnection: 'terratex']]
 def JSONVERSION
 
 gitlabCommitStatus {
