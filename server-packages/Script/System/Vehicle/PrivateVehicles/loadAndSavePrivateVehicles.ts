@@ -5,7 +5,6 @@ import addToShutdownService = ShutdownService.addToShutdownService;
 
 export async function loadAllPrivateVehicle(): Promise<void> {
     const allPrivateVehicles = await DbUserVehicle.find();
-    console.log(allPrivateVehicles);
 
     for (const pVeh of allPrivateVehicles) {
         // tslint:disable-next-line:no-unused-expression
@@ -16,7 +15,7 @@ export async function loadAllPrivateVehicle(): Promise<void> {
 async function saveAllVehicles(): Promise<void> {
     const saves: Promise<any>[] = [];
     for (const vehs of privateVehicles) {
-        // saves.push(vehs.save());
+        saves.push(vehs.save());
     }
 
     await Promise.all(saves);

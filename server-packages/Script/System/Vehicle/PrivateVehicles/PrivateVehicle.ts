@@ -31,25 +31,22 @@ export class PrivateVehicle {
     /**u
      * Starts to save this instance of PrivateVehicle
      */
-    // public async save(): Promise<DbUserVehicle> {
-    //     return this.vehData.save();
-    // }
+    public async save(): Promise<DbUserVehicle> {
+        return this.vehData.save();
+    }
 
     private async runCreation(): Promise<void> {
-        console.info("run creation");
         if (this.referencedVehicle === null) {
-            console.info(this.vehData.positionData);
-            // const {x, y, z, heading} = this.vehData.positionData;
-            // const spawnVector = new mp.Vector3(x,y,z);
-            // console.info("create vehicle at ", spawnVector);
-            // this.referencedVehicle = await createScriptedVehicle(mp.joaat(this.vehData.model), spawnVector, {
-            //     heading,
-            //     numberPlate: "TT-" + this.vehData.id.toString(36)
-            // }, {
-            //     dbEntry: this.vehData,
-            //     privateVehicle: this,
-            //     autoRespawn: 900000
-            // });
+            const {x, y, z, heading} = this.vehData.positionData;
+            const spawnVector = new mp.Vector3(x,y,z);
+            this.referencedVehicle = await createScriptedVehicle(mp.joaat(this.vehData.model), spawnVector, {
+                heading,
+                numberPlate: "TT-" + this.vehData.id.toString(36)
+            }, {
+                dbEntry: this.vehData,
+                privateVehicle: this,
+                autoRespawn: 900000
+            });
         }
     }
 }
