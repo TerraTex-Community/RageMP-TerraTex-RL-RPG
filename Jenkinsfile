@@ -66,13 +66,10 @@ gitlabCommitStatus {
         stage('Deploy') {
             if (env.BRANCH_NAME == 'master') {
                 bat 'cd Build-stuff && grunt deploy --path=D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2\\master\\server-files'
-                bat 'cd server-packages && npm run sync_schema'
             } else if (env.BRANCH_NAME == 'develop') {
                 bat 'cd Build-stuff && grunt deploy --path=D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2\\develop\\server-files'
-                bat 'cd server-packages && npm run sync_schema'
             } else if (params.DEPLOY_NON_DEV) {
                 bat 'cd Build-stuff && grunt deploy --path=D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2\\develop\\server-files'
-                bat 'cd server-packages && npm run sync_schema'
              }
         }
 
