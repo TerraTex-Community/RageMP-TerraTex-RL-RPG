@@ -41,7 +41,7 @@ export class PrivateVehicle {
             const spawnVector = new mp.Vector3(x,y,z);
             this.referencedVehicle = await createScriptedVehicle(mp.joaat(this.vehData.model), spawnVector, {
                 heading,
-                numberPlate: "TT-" + this.vehData.id.toString(36)
+                numberPlate: "TT-" + this.vehData.id.toString(36),
             }, {
                 dbEntry: this.vehData,
                 privateVehicle: this,

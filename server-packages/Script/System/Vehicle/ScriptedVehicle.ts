@@ -22,6 +22,7 @@ export async function createScriptedVehicle(
     };
     vehicle.lastExistTime = null;
     vehicle.lastDeathTime = null;
+    vehicle.originalHeading = vehicle.heading;
     vehicle.originalRotation = vehicle.rotation;
     vehicle.vehDb = scriptOptions.dbEntry;
 
@@ -33,6 +34,11 @@ export async function createScriptedVehicle(
     }
 
     vehicle.engine = false;
+
+    if (options.numberPlate) {
+        vehicle.numberPlate = options.numberPlate;
+        vehicle.numberPlateType = 3;
+    }
     return vehicle;
 }
 
@@ -67,6 +73,7 @@ export interface ScriptedVehicle extends Vehicle {
     originalOptions?: VehicleOptions,
     originalPos?: Vector3,
     originalRotation?: Vector3,
+    originalHeading?: number,
     privateVehicle?: PrivateVehicle,
     vehDb?: DbUserVehicle
 }
