@@ -1,5 +1,5 @@
-import 'src/Enviroment/ATMs';
-import 'src/Enviroment/Hud';
-import 'src/Enviroment/Playerlist';
-import 'src/Enviroment/PayDay';
-import 'src/Enviroment/Jobs/index';
+import './ATMs';
+import './Hud';
+import './Playerlist';
+import './PayDay';
+import './Jobs/index';

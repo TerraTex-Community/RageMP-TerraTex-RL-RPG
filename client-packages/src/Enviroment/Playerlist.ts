@@ -27,7 +27,7 @@ function updatePlayerList(): void {
     });
 }
 
-function togglePlayerList(): void {
+export function togglePlayerList(): void {
     if (!playerListBrowser) {
         return;
     }

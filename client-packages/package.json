@@ -3,10 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc"
+    "build": "gulp bundle"
   },
   "devDependencies": {
     "@types/ragemp-c": "github:CocaColaBear/types-ragemp-c#master",
     "typescript": "^3.2.2"
+  },
+  "dependencies": {
+    "NativeUI": "git+https://github.com/XMGamingMaster/RageMP-NativeUI.git",
+    "gulp": "^4.0.2",
+    "gulp-copy": "^4.0.1",
+    "ts-loader": "^6.0.4",
+    "webpack-stream": "^5.2.1"
   }
 }

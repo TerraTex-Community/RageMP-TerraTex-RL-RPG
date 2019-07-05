@@ -1,9 +1,11 @@
-const releaseFunctions = [
+import {executeSpecialFunction, isSpecialFunction} from "./binding_special_func";
+
+export const releaseFunctions = [
     "/voice_push_to_talk",
     "/show_playerlist"
 ];
 
-const controlInputs: any = {
+export const controlInputs: any = {
     LEFT_AXIS_X: 218,
     LEFT_AXIS_Y: 219,
     RIGHT_AXIS_X: 220,
@@ -25,14 +27,14 @@ const controlInputs: any = {
     SELECT: 236
 };
 
-interface Binding {
+export interface Binding {
     func: string;
     isControl: boolean;
     key: number;
     release?: boolean;
 }
 
-class Bindings {
+export class Bindings {
     private bindings: Binding[] = [];
     private isBindingActivated = true;
     private readonly keysPressed: any = {};
@@ -174,14 +176,14 @@ class Bindings {
     }
 }
 
-const bindingsInstance = new Bindings();
+export const bindingsInstance = new Bindings();
 
-function getBindingManager(): Bindings {
+export function getBindingManager(): Bindings {
     return bindingsInstance;
 }
 
 
-const keyboardMap: any = {
+export const keyboardMap: any = {
     8: "Backspace",
     9: "Tab",
     13: "Enter",

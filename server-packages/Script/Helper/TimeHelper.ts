@@ -1,4 +1,4 @@
-import * as Moment from "moment";
+import Moment from "moment";
 import {StringHelper} from "./StringHelper";
 
 export class TimeHelper {

@@ -1,6 +1,6 @@
-let closeBrowserColshapes: any = {};
+const closeBrowserColshapes: any = {};
 
-function closeBrowserOnDistance(browser: BrowserMp, distance: number, callAfter: Function | null): void {
+export function closeBrowserOnDistance(browser: BrowserMp, distance: number, callAfter: Function | null = null): void {
     const position = mp.players.local.position;
     const colshape = mp.colshapes.newSphere(position.x, position.y, position.z, distance);
     closeBrowserColshapes[colshape.handle] = {

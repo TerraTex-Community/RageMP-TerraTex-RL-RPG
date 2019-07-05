@@ -1,4 +1,9 @@
 {
+  "linterOptions": {
+    "exclude": [
+      "**/migrations/**/*"
+    ]
+  },
   "rules": {
     "no-any": false,
     "no-internal-module": false,
@@ -38,7 +43,7 @@
     "no-duplicate-variable": true,
     "no-empty": true,
     "no-eval": true,
-    "no-invalid-this": true,
+    "no-invalid-this": false,
     // "no-null-keyword": true,
     "no-shadowed-variable": true,
     // "no-string-literal": true,

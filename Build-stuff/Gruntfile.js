@@ -68,19 +68,22 @@ module.exports = function(grunt) {
                 expand: true,
                 src: '**/*',
                 dest: './dist/packages/TerraTex',
-                cwd: '../server-packages'
+                cwd: '../server-packages',
+                dot: true
             },
             deploy: {
                 expand: true,
                 src: '**/*',
                 dest: deployPath,
-                cwd: './dist'
+                cwd: './dist',
+                dot: true
             },
             extras: {
                 expand: true,
                 src: '**/*',
                 dest: './dist',
-                cwd: '../Extras'
+                cwd: '../Extras',
+                dot: true
             }
         },
         'clean': {

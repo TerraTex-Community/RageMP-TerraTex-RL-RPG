@@ -1,2 +1,2 @@
-import './src/helper/ServerToClientTriggers.js';
-import './src/helper/BrowserHelper';
+import './ServerToClientTriggers';
+import './BrowserHelper';
