@@ -15,7 +15,7 @@ export const logger = createLogger({
             maxsize: 104857600
         }),
         new transports.Console({
-            format: format.combine(format.timestamp(), myFormat())
+            format: format.combine(format.timestamp(), format.colorize(), myFormat())
         })
     ]
 });

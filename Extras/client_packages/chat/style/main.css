@@ -9,6 +9,7 @@ html, body {
   padding: 0;
   margin: 0;
   color: white;
+  background: transparent !important;
   font-size: 14px;
   -webkit-user-select: none;
 }

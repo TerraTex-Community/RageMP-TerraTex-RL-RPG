@@ -2,185 +2,206 @@ $font-family-custom: "Arial Black", Gadget, sans-serif;
 $text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 $text-shadow-white: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 
-body {
-    width: 100vw;
-    height:100vh;
-    overflow: hidden;
 
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent !important;
+}
+
+html {
+  background: transparent !important;
 }
 
 @function rgba($r, $g, $b, $a) {
-    @return unquote('rgba(#{$r}, #{$g}, #{$b}, #{$a})');
+  @return unquote('rgba(#{$r}, #{$g}, #{$b}, #{$a})');
 }
 
 textarea {
-    height: 150px;
+  height: 150px;
 }
 
 .form-control {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
+  height: auto;
 }
 
 .register-image-logo {
-    text-align: right;
-    height: 100px;
-    float: left;
-    margin-right: 10px;
+  text-align: right;
+  height: 100px;
+  float: left;
+  margin-right: 10px;
 }
 
 .clear {
-    clear: both;
+  clear: both;
 }
 
 .hidden {
-    display: none !important;
+  display: none !important;
 }
 
 .mleft {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .mtop {
-    margin-top: auto;
+  margin-top: auto;
 }
 
 .pftr {
-    position: fixed;
-    right: 0;
-    top: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
 }
 
-.btn-border-white {
+.btn-border {
+  &-white {
     border-width: 1px;
     border-color: #ffffff !important;
+  }
+
+  &-dark-red {
+    border-width: 1px;
+    border-color: darken(#dc3545, 15%) !important;
+  }
 }
 
 .btn {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .flex {
-    display: flex;
+  display: flex;
 }
 
 .flex-right {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 
-#ban-list  {
-    .card-block {
-        padding: 0;
-    }
+#ban-list {
+  .card-block {
+    padding: 0;
+  }
 }
 
 .card-header {
-    &[aria-expanded=true] {
-        .fa-caret-down {
-            display: inline;
-        }
-
-        .fa-caret-right {
-            display: none;
-        }
+  &[aria-expanded=true] {
+    .fa-caret-down {
+      display: inline;
     }
 
-    &[aria-expanded=false] {
-        .fa-caret-down {
-            display: none;
-        }
-
-        .fa-caret-right {
-            display: inline;
-        }
+    .fa-caret-right {
+      display: none;
     }
+  }
+
+  &[aria-expanded=false] {
+    .fa-caret-down {
+      display: none;
+    }
+
+    .fa-caret-right {
+      display: inline;
+    }
+  }
 }
 
 table {
-    &.collapse {
-        &.show {
-            display: table;
-        }
+  &.collapse {
+    &.show {
+      display: table;
     }
+  }
 
-    &.show-bans {
-        margin-bottom: 0;
+  &.show-bans {
+    margin-bottom: 0;
 
-        td:first-child {
-            width: 150px;
-            font-weight: bold;
-        }
+    td:first-child {
+      width: 150px;
+      font-weight: bold;
     }
+  }
 }
 
 
 .body-dark-transparent {
-    background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, .5);
 
-    td, th {
-        color: rgb(255, 255, 255);
-        border-top: 1px solid rgba(100, 100, 100, .5);
-    }
+  td, th {
+    color: rgb(255, 255, 255);
+    border-top: 1px solid rgba(100, 100, 100, .5);
+  }
 }
+
 .body-dark-light-transparent {
-    background-color: rgba(150, 150, 150, .5);
+  background-color: rgba(150, 150, 150, .5);
 }
 
 
 .blink {
-    animation: blink-animation 3s ease-in-out infinite;
+  animation: blink-animation 3s ease-in-out infinite;
 
 }
 
 @keyframes blink-animation {
-    0% {opacity: 0}
-    50% {opacity: 1}
-    100% {opacity: 0}
+  0% {
+    opacity: 0
+  }
+  50% {
+    opacity: 1
+  }
+  100% {
+    opacity: 0
+  }
 }
 
 
 .playerlist {
-    td, th {
-        &:nth-child(1) {
-            width: 100px;
-            text-align: right;
-        }
-
-        &:nth-child(4) {
-            width: 100px;
-            text-align: right;
-        }
-
-        &:nth-child(5) {
-            width: 150px;
-            text-align: right;
-        }
-        &:nth-child(6) {
-            width: 100px;
-            text-align: right;
-        }
+  td, th {
+    &:nth-child(1) {
+      width: 100px;
+      text-align: right;
     }
+
+    &:nth-child(4) {
+      width: 100px;
+      text-align: right;
+    }
+
+    &:nth-child(5) {
+      width: 150px;
+      text-align: right;
+    }
+
+    &:nth-child(6) {
+      width: 100px;
+      text-align: right;
+    }
+  }
 }
 
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #commands_binds {
-    tr > td:first-child {
-        white-space: nowrap;
-    }
+  tr > td:first-child {
+    white-space: nowrap;
+  }
 
-    th {
-        white-space: nowrap;
-    }
+  th {
+    white-space: nowrap;
+  }
 }
 
 div.hud {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    @import "hud";
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  @import "hud";
 
 }

@@ -1,3 +1,5 @@
+import {closeBrowserOnDistance} from "../helper/BrowserHelper";
+
 let atmBrowser: BrowserMp | null = null;
 
 mp.events.add("openATM", () => {

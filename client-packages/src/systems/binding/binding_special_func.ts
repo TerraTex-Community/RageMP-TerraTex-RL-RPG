@@ -1,4 +1,6 @@
-function isSpecialFunction(func: string): boolean {
+import {togglePlayerList} from "../../Enviroment/Playerlist";
+
+export function isSpecialFunction(func: string): boolean {
     const specialFunctions = [
         "/voice_push_to_talk",
         "/show_cursor",
@@ -8,7 +10,7 @@ function isSpecialFunction(func: string): boolean {
     return specialFunctions.indexOf(func) !== -1;
 }
 
-function executeSpecialFunction(func: string, release: boolean = false): void {
+export function executeSpecialFunction(func: string, release: boolean = false): void {
     switch(func) {
         case "/voice_push_to_talk":
             setVoiceChat(release);
@@ -22,10 +24,10 @@ function executeSpecialFunction(func: string, release: boolean = false): void {
     }
 }
 
-function toggleCursor(): void {
+export function toggleCursor(): void {
     mp.gui.cursor.show(!mp.gui.cursor.visible, !mp.gui.cursor.visible);
 }
 
-function setVoiceChat(state: boolean): void {
+export function setVoiceChat(state: boolean): void {
     mp.voiceChat.muted = state;
 }

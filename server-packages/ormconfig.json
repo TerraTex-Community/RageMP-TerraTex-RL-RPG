@@ -7,7 +7,7 @@
     "password": "test",
     "database": "dev_tt_ragemp",
     "logging": "all",
-    "synchronize": true,
+    "synchronize": false,
     "maxQueryExecutionTime": 5000,
     "insecureAuth": true,
     "logger": "advanced-console",
@@ -16,7 +16,8 @@
         "DB/entities/**/*.ts"
     ],
     "migrations": [
-        "packages/TerraTex/DB/migrations/**/*.ts"
+        "packages/TerraTex/DB/migrations/**/*.ts",
+        "DB/migrations/**/*.ts"
     ],
     "subscribers": [
         "packages/TerraTex/DB/subscribers/**/*.ts"
