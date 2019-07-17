@@ -47,7 +47,6 @@ function giftLotteryMoneyToRandomPlayer(amount: number): void {
 }
 
 scheduleJob(`30 ${TimeHelper.getHoursByUTCHour(19)} * * *`, () => {
-    const players = mp.players.toArray();
     const playerNames: string[] = [];
     const playerIds: number[] = [];
 
