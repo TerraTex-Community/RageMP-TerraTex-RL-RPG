@@ -8,6 +8,7 @@ import {Chat} from "../Chat/Chat";
 import sendChatAlertToPlayer = Chat.sendChatAlertToPlayer;
 import AlertClass = Chat.AlertClass;
 import {logger} from "../../../Lib/Services/logging/logger";
+import * as a from "array-tools";
 
 scheduleJob(`0 ${TimeHelper.getHoursByUTCHour(19)} * * *`, () => {
     giftLotteryMoneyToRandomPlayer(3000);
@@ -17,8 +18,18 @@ scheduleJob(`0 ${TimeHelper.getHoursByUTCHour(20)} * * *`, () => {
 });
 
 function giftLotteryMoneyToRandomPlayer(amount: number): void {
-    const players = mp.players.toArray();
-    const winner = players[int(0, players.length - 1)];
+    let players = mp.players.toArray();
+    if (players.length === 0) return;
+
+    let winner = players[int(0, players.length - 1)];
+
+    while(!winner.getVariable("loggedIn") && players.length > 0) {
+        players = a.without(players, {name: winner.name});
+
+        if (players.length > 0) {
+            winner = players[int(0, players.length - 1)];
+        }
+    }
 
     changePlayerMoney(winner, amount, true, MoneyCategory.Lottery, {});
 
@@ -32,3 +43,27 @@ function giftLotteryMoneyToRandomPlayer(amount: number): void {
         amount
     });
 }
+
+scheduleJob(`30 ${TimeHelper.getHoursByUTCHour(19)} * * *`, () => {
+    const players = mp.players.toArray();
+    const playerNames: string[] = [];
+    const playerIds: number[] = [];
+
+    mp.players.forEach(player => {
+        if (player.getVariable("loggedIn")) {
+            changePlayerMoney(player, 2500, false, MoneyCategory.Other, {msg: "Early Access Bonus"});
+            playerNames.push(player.name);
+            playerIds.push(player.customData.dbUser.id);
+        }
+    });
+
+    const msg = `Als Dankeschön für die Nutzung des Servers zu einen solch frühen Zeitpunkt in der Entwicklung (Early Access) 
+    - Erhält jeder Spieler, der gerade online ist 2.500$ auf die Hand!`;
+    sendChatAlertToPlayer(mp.players.toArray(), AlertClass.success, msg);
+
+    logger.debug(`running Early Access Bonus`, {
+        playerNames,
+        playerIds,
+        amount: 2500
+    });
+});
