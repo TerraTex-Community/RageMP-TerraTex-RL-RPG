@@ -23,11 +23,13 @@ function giftLotteryMoneyToRandomPlayer(amount: number): void {
 
     let winner = players[int(0, players.length - 1)];
 
-    while(!winner.getVariable("loggedIn") && players.length > 0) {
+    while(!winner.getVariable("loggedIn")) {
         players = a.without(players, {name: winner.name});
 
         if (players.length > 0) {
             winner = players[int(0, players.length - 1)];
+        } else {
+            return;
         }
     }
 
