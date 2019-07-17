@@ -4,5 +4,6 @@ export enum MoneyCategory {
     PayDay = "PayDay",
     Job = "Job",
     Purchase = "Purchase",
-    Other = "Other"
+    Other = "Other",
+    Lottery = "Lottery"
 }

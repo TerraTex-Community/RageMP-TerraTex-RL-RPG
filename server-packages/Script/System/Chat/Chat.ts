@@ -3,6 +3,16 @@ import Player = RageMP.Player;
 import {logger} from "../../../Lib/Services/logging/logger";
 
 export namespace Chat {
+    export enum AlertClass {
+        primary = "primary",
+        secondary = "secondary",
+        success = "success",
+        danger = "danger",
+        warning = "warning",
+        info = "info",
+        light = "light",
+        dark = "dark",
+    }
 
     mp.events.add("playerChat", (player: Player, message) => {
         message = `${player.getVariable("customChatNameTag")}: ${message}`;
@@ -21,7 +31,7 @@ export namespace Chat {
         return code;
     }
 
-    export function createChatAlert(alertClass: string, message: string, title: string = ""): string {
+    export function createChatAlert(alertClass: AlertClass|string, message: string, title: string = ""): string {
         let code = `<div class='alert alert-${alertClass}'>`;
         if (title.length > 0) {
             code += "<span style='font-weight:bold; text-decoration: underline'>";
