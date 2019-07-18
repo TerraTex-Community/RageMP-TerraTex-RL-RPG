@@ -1,10 +1,9 @@
 import {createLogger, format, transports} from "winston";
 import {LOG_TYPES} from "./log_types";
+import moment from "moment";
 
 const timezoned = (): string => {
-    return new Date().toLocaleString('en-DE', {
-        timeZone: 'Europe/Berlin'
-    });
+    return moment().toISOString(true);
 };
 
 export const logger = createLogger({
