@@ -1,6 +1,5 @@
 // add 24h restart at 4
 import {scheduleJob} from "node-schedule";
-import {TimeHelper} from "../../Helper/TimeHelper";
 import {int} from "random";
 import {changePlayerMoney, getReadableCurrency} from "../Money/money";
 import {MoneyCategory} from "../Money/MoneyCategories";
