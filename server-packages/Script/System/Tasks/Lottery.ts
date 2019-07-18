@@ -47,8 +47,8 @@ function giftLotteryMoneyToRandomPlayer(amount: number): void {
         amount
     });
 }
-
-scheduleJob(`30 ${TimeHelper.getHoursByUTCHour(19)} * * *`, () => {
+// @ts-ignore
+scheduleJob({rule: "30 19 * * *", tz: "Europe/Berlin"}, () => {
     const playerNames: string[] = [];
     const playerIds: number[] = [];
 
