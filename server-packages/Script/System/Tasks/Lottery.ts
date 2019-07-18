@@ -10,10 +10,13 @@ import AlertClass = Chat.AlertClass;
 import {logger} from "../../../Lib/Services/logging/logger";
 import * as a from "array-tools";
 
-scheduleJob(`0 ${TimeHelper.getHoursByUTCHour(19)} * * *`, () => {
+// @ts-ignore
+scheduleJob({rule: "0 19 * * *", tz: "Europe/Berlin"}, () => {
     giftLotteryMoneyToRandomPlayer(3000);
 });
-scheduleJob(`0 ${TimeHelper.getHoursByUTCHour(20)} * * *`, () => {
+
+// @ts-ignore
+scheduleJob({rule: "0 20 * * *", tz: "Europe/Berlin"}, () => {
     giftLotteryMoneyToRandomPlayer(1500);
 });
 

@@ -79,7 +79,8 @@ mp.events.addCommand("shutdown", (player: Player, fullText, timestring: string =
 });
 
 // add 24h restart at 4
-scheduleJob(`0 ${TimeHelper.getHoursByUTCHour(4)} * * *`, () => {
+// @ts-ignore
+scheduleJob({rule: "0 4 * * *", tz: "Europe/Berlin"}, () => {
     lastReason = "24h Neustart";
 
     if (lastShutDownInterval) {

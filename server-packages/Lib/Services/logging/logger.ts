@@ -1,13 +1,19 @@
 import {createLogger, format, transports} from "winston";
 import {LOG_TYPES} from "./log_types";
 
+const timezoned = (): string => {
+    return new Date().toLocaleString('en-DE', {
+        timeZone: 'Europe/Berlin'
+    });
+};
 
 export const logger = createLogger({
     level: "debug",
     defaultMeta: {
         type: LOG_TYPES.SYSTEM
     },
-    format: format.combine(format.timestamp({alias: "@timestamp"}), format.json({replacer: replaceErrors})),
+// @ts-ignore
+    format: format.combine(format.timestamp({alias: "@timestamp", format: timezoned}), format.json({replacer: replaceErrors})),
     transports: [
         new transports.File({
             filename: "server.log",
@@ -15,7 +21,8 @@ export const logger = createLogger({
             maxsize: 104857600
         }),
         new transports.Console({
-            format: format.combine(format.timestamp(), format.colorize(), myFormat())
+// @ts-ignore
+            format: format.combine(format.timestamp({format: timezoned}), format.colorize(), myFormat())
         })
     ]
 });
