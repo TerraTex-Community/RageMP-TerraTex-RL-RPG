@@ -21,7 +21,6 @@ export function isAdmin(player: Player, minAdminLvl: number = 1, checkOnDevServe
 }
 
 export function isDevServer(): boolean {
-    console.log(mp.config.isDevServer);
     return !!mp.config.isDevServer;
 
 }
