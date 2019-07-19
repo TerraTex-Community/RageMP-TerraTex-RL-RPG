@@ -13,7 +13,11 @@ export async function loadAllPrivateVehicle(): Promise<void> {
             const item = getVehicleListItemByName(pVeh.model);
             if (item) {
                 pVeh.owner.inventory.money += item.price * 0.8;
-                logger.info("Vehicle Deleted", {VehicleId: pVeh.id, OwnerId: pVeh.owner.id, OwnerName: pVeh.owner.nickname})
+                logger.info("Vehicle Deleted", {
+                    VehicleId: pVeh.id,
+                    VehicleModel: pVeh.model,
+                    OwnerId: pVeh.owner.id,
+                    OwnerName: pVeh.owner.nickname});
                 await pVeh.owner.save();
             }
             pVeh.remove();
