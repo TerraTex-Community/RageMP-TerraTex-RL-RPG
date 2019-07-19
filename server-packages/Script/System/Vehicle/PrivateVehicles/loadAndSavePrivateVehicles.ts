@@ -2,7 +2,8 @@ import {DbUserVehicle} from "../../../../DB/entities/DbUserVehicle";
 import {PrivateVehicle, privateVehicles} from "./PrivateVehicle";
 import {ShutdownService} from "../../../../Lib/Services/ShutdownService";
 import addToShutdownService = ShutdownService.addToShutdownService;
-import {getVehicleListItemByName, VEHICLE_LIST} from "../VehicleList";
+import {getVehicleListItemByName} from "../VehicleList";
+import {logger} from "../../../../Lib/Services/logging/logger";
 
 export async function loadAllPrivateVehicle(): Promise<void> {
     const allPrivateVehicles = await DbUserVehicle.find();
@@ -12,6 +13,7 @@ export async function loadAllPrivateVehicle(): Promise<void> {
             const item = getVehicleListItemByName(pVeh.model);
             if (item) {
                 pVeh.owner.inventory.money += item.price * 0.8;
+                logger.info("Vehicle Deleted", {VehicleId: pVeh.id, OwnerId: pVeh.owner.id, OwnerName: pVeh.owner.nickname})
                 await pVeh.owner.save();
             }
             pVeh.remove();
