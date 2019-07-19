@@ -59,9 +59,10 @@ class VersionCreator {
         }
     }
 
-    printConsoleLog(): void {
-        logger.info(`Current Version: ${this.currentVersion}`);
-        logger.info(`Current VersionIdentifier: ${this.versionIdentifier}`);
+    printConsoleLog(useLogger: boolean = true): void {
+        const printer = useLogger ? logger : console;
+        printer.info(`Current Version: ${this.currentVersion}`);
+        printer.info(`Current VersionIdentifier: ${this.versionIdentifier}`);
     }
 
     printVersionToPlayer(player: Player): void {
@@ -78,7 +79,7 @@ const vObj = new VersionCreator();
 export const version = vObj;
 
 registerServerCommand("version", () => {
-    vObj.printConsoleLog();
+    vObj.printConsoleLog(false);
 });
 
 mp.events.addCommand("version", (player: Player) => {
