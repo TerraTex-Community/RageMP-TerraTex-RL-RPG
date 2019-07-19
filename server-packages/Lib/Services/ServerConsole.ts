@@ -41,3 +41,7 @@ export function registerServerCommand(cmd: string, func: Function): void {
 
     serverCmds[cmd.toLowerCase()] = func;
 }
+
+registerServerCommand("help", () => {
+    console.info(`Available Commands: ${Object.keys(serverCmds).join(", ")}`);
+});
