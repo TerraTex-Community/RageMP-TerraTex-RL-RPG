@@ -6,6 +6,7 @@
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
     },
     "dependencies": {
+        "@elastic/elasticsearch": "^7.2.0",
         "@types/cheerio": "^0.22.11",
         "@types/html-entities": "^1.2.16",
         "@types/node": "^10.12.18",
