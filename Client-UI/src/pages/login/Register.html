@@ -1,8 +1,26 @@
 ﻿<div style="display: flex; height:100%; width:100%; align-items: center; justify-content: center;">
     <div style="align-self: flex-start"></div>
-    <div style="width: 690px; max-width: 100%; height: 690px; max-height: 100%; overflow-y: scroll; overflow-x: hidden">
+    <div style="width: 690px; max-width: 100%; max-height: 80%; overflow-y: scroll; overflow-x: hidden">
         <div class="container-fluid">
             <form role="form" onsubmit="executeFormCheck(); return false;">
+                <div class="alert alert-warning disclaimer-ea">
+                    <!-- @todo: remove this after 1.0.0 see #149 -->
+                    Das Script ist derzeit noch in einem Early Access Alpha Status. Viele Features fehlen noch oder können
+                    fehlerhaft sein. Weitere Infos dazu gibt es in unserem Forum:
+                    <a href="https://terratex.eu" class="copyToClipOnClick web">https://terratex.eu</a> oder im Bugtracker
+                    <a href="https://bug.terratex.eu" class="copyToClipOnClick web">https://bug.terratex.eu</a>
+                </div>
+                <div id="disclaimer-dev" class="alert alert-warning hidden">
+                    Du befindest dich auf dem DevServer. Einige Features sind unvollständig oder können
+                    fehlerhaft sein.<br/>
+                    <strong>
+                        Deine Daten auf DevServer werden NICHT mit dem LiveServer abgeglichen. Dieser Server ist nur zum Testen gedacht.
+                        Er erlaubt dir auch, die Nutzung einiger <a href="https://forum.terratex.eu/forum/index.php?thread/159-developer-admincommands/" class="copyToClipOnClick web">
+                        Admin-, Entwicklungs- und Testbefehle</a> zum vereinfachten Testing.
+                    </strong> <br/>
+                    Weitere Infos dazu gibt es in unserer FAQ im Forum:
+                    <a href="https://forum.terratex.eu/forum/index.php?thread/128-faq-mit-dem-server-verbinden/&postID=625#post625" class="copyToClipOnClick web">https://terratex.eu</a>
+                </div>
                 <div class="form-control">
                     <h3>Willkommen auf dem TerraTex Reallife Roleplay Game Server</h3>
                     <img src="images/general/logo.png" class="register-image-logo" alt=""/>Willkommen auf dem Server.

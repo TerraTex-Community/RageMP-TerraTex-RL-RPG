@@ -4,6 +4,7 @@ import Player = RageMP.Player;
 import {ShutdownService} from "../../../Lib/Services/ShutdownService";
 import isServerShuttingDown = ShutdownService.isServerShuttingDown;
 import {logger} from "../../../Lib/Services/logging/logger";
+import {isDevServer} from "../../Admin/AdminHelper";
 
 /**
  * Player starts to connect => check ban table
@@ -80,6 +81,6 @@ export async function playerConnect(player: Player): Promise<void|false> {
         }
     });
 
-    player.call("login_startLoginProcess", [user[1] > 0]);
+    player.call("login_startLoginProcess", [user[1] > 0, isDevServer()]);
 
 }

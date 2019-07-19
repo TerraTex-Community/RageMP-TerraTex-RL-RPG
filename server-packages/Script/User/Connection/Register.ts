@@ -2,6 +2,7 @@ import {DbUser} from "../../../DB/entities/DbUser";
 import * as crypto from "crypto";
 import Player = RageMP.Player;
 import {logger} from "../../../Lib/Services/logging/logger";
+import {isDevServer} from "../../Admin/AdminHelper";
 
 export async function registerPlayer(player: Player, data: any): Promise<void> {
     /**
@@ -33,5 +34,5 @@ export async function registerPlayer(player: Player, data: any): Promise<void> {
     logger.info(`Account ${newUser.nickname} (${newUser.id}) created.`);
 
     player.notify(`Dein Account ${player.name} wurde erstellt. Logge dich nun ein.`);
-    player.call("login_startLoginProcess", [true]);
+    player.call("login_startLoginProcess", [true, isDevServer()]);
 }

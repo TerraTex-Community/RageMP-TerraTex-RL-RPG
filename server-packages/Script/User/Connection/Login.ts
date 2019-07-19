@@ -6,6 +6,7 @@ import {DbUserInventory} from "../../../DB/entities/DbUserInventory";
 import {spawnPlayer} from "../Spawn/Spawn";
 import Player = RageMP.Player;
 import {syncPlayerData} from "./UserData";
+import {isDevServer} from "../../Admin/AdminHelper";
 
 export async function loginPlayer(player: Player, password: string): Promise<boolean> {
     const encryptedPw = crypto.createHash("sha256").update(password).digest("hex");
@@ -29,7 +30,7 @@ export async function loginPlayer(player: Player, password: string): Promise<boo
             true
         );
 
-        player.call("login_startLoginProcess", [true, true]);
+        player.call("login_startLoginProcess", [true, isDevServer(), true]);
         return false;
     }
 

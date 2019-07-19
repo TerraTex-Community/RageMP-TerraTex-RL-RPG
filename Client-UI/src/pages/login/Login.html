@@ -1,15 +1,33 @@
 ﻿<div style="display: flex; height:100%; width:100%; align-items: center; justify-content: center;">
     <div style="align-self: flex-start"></div>
-    <div style="width: 690px; max-width: 100%; height: 390px; max-height: 100%;">
+    <div style="width: 690px; max-width: 100%; max-height: 100%;">
         <div class="container-fluid">
             <form role="form" onsubmit="executeFormCheck(); return false;">
+                <div class="alert alert-warning disclaimer-ea">
+                    <!-- @todo: remove this after 1.0.0 see #149 -->
+                    Das Script ist derzeit noch in einem Early Access Alpha Status. Viele Features fehlen noch oder können
+                    fehlerhaft sein. Weitere Infos dazu gibt es in unserem Forum:
+                    <a href="https://terratex.eu" class="web copyToClipOnClick">https://terratex.eu</a> oder im Bugtracker
+                    <a href="https://bug.terratex.eu" class="web copyToClipOnClick">https://bug.terratex.eu</a>
+                </div>
+                <div id="disclaimer-dev" class="alert alert-warning hidden">
+                    Du befindest dich auf dem DevServer. Einige Features sind unvollständig oder können
+                    fehlerhaft sein.<br/>
+                    <strong>
+                        Deine Daten auf DevServer werden NICHT mit dem LiveServer abgeglichen. Dieser Server ist nur zum Testen gedacht.
+                        Er erlaubt dir auch, die Nutzung einiger <a href="https://forum.terratex.eu/forum/index.php?thread/159-developer-admincommands/" class="copyToClipOnClick web">
+                        Admin-, Entwicklungs- und Testbefehle</a> zum vereinfachten Testing.
+                    </strong> <br/>
+                    Weitere Infos dazu gibt es in unserer FAQ im Forum:
+                    <a href="https://forum.terratex.eu/forum/index.php?thread/128-faq-mit-dem-server-verbinden/&postID=625#post625" class="copyToClipOnClick web">https://terratex.eu</a>
+                </div>
                 <div class="form-control">
                     <h3>Willkommen auf dem<br/>TerraTex Reallife Roleplay Game Server</h3>
                     <img src="images/general/logo.png" class="register-image-logo" alt=""/>Willkommen auf dem Server.
                     Unter deinem Pseudonym <strong>"<span data-insert="nickname">${nickname}</span>"</strong> wurde ein Account
                     gefunden.
                     Bitte Authentifiziere dich mit deinem Passwort. Solltest du dein Passwort vergessen haben, kannst du
-                    dich im Forum unter <a href="https://forum.terratex.eu" class="web">https://forum.terratex.eu</a> oder
+                    dich im Forum unter <a href="https://forum.terratex.eu" class="copyToClipOnClick web">https://forum.terratex.eu</a> oder
                     unter der E-Mail <a href="support@terratex.eu" class="web">support@terratex.eu</a>
                     melden.
                     <div class="clear"></div>
