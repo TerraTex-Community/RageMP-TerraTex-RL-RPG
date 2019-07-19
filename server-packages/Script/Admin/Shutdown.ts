@@ -50,7 +50,6 @@ mp.events.addCommand("shutdown", (player: Player, fullText, timestring: string =
         try {
             startShutDownCmd(timestring, reasonA);
         } catch (e) {
-            logger.error(e.message, {e});
             player.notify("~r~Invalid Timestring!");
         }
     }
@@ -82,6 +81,8 @@ function startShutDownCmd(timestring: string, reasonA: string[]): void {
     Moment.relativeTimeThreshold("ss", 0);
     Moment.locale("de");
 
+    logger.info("started server shutdown", {time, reason: lastReason});
+
     Chat.sendChatAlertToPlayer(
         mp.players.toArray(),
         "danger",
@@ -95,32 +96,5 @@ function startShutDownCmd(timestring: string, reasonA: string[]): void {
 scheduleJob({rule: "0 4 * * *", tz: "Europe/Berlin"}, () => {
     lastReason = "24h Neustart";
 
-    if (lastShutDownInterval) {
-        clearInterval(lastShutDownInterval);
-        lastShutDownInterval = null;
-    }
-
-    if (lastShutDownTimer) {
-        clearTimeout(lastShutDownTimer);
-        lastShutDownTimer = null;
-    }
-
-    const time: number = TimeHelper.getTimeFromTimestring("30m");
-    lastFinishTime = Moment(Date.now()).add(time, "ms");
-
-    lastShutDownTimer = setTimeout(() => {
-        ShutdownService.shutdownServer(true);
-    }, time);
-
-    lastShutDownInterval = setInterval(sendTimeUntilShutdown, 10000);
-
-    Moment.relativeTimeThreshold("ss", 0);
-    Moment.locale("de");
-
-    Chat.sendChatAlertToPlayer(
-        mp.players.toArray(),
-        "danger",
-        `Der Server wird ${lastFinishTime.fromNow()} heruntergefahren / neugestartet! Grund: ${lastReason}`,
-        "Shutdown"
-    );
+    startShutDownCmd("30m", [lastReason]);
 });
