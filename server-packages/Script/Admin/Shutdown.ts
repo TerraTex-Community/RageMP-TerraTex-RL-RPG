@@ -7,6 +7,7 @@ import Moment from "moment";
 import {Chat} from "../System/Chat/Chat";
 import {scheduleJob} from "node-schedule";
 import {logger} from "../../Lib/Services/logging/logger";
+import {registerServerCommand} from "../../Lib/Services/ServerConsole";
 
 let lastShutDownTimer: null | Timeout = null;
 let lastShutDownInterval: null | Timeout = null;
@@ -35,48 +36,59 @@ function sendTimeUntilShutdown(): void {
     }
 }
 
+registerServerCommand("shutdown", (timestring: string = "15m", ...reasonA) => {
+    try {
+        startShutDownCmd(timestring, reasonA);
+    } catch (e) {
+        console.error("\033[31mInvalid Timestring!");
+        logger.error(e.message, {e});
+    }
+});
+
 mp.events.addCommand("shutdown", (player: Player, fullText, timestring: string = "15m", ...reasonA) => {
     if (isAdmin(player, 4, true)) {
         try {
-
-            const reason: string = reasonA.join(" ");
-            lastReason = reason.length > 0 ? reason : "unbekannt";
-
-            if (lastShutDownInterval) {
-                clearInterval(lastShutDownInterval);
-                lastShutDownInterval = null;
-            }
-
-            if (lastShutDownTimer) {
-                clearTimeout(lastShutDownTimer);
-                lastShutDownTimer = null;
-            }
-
-            const time: number = TimeHelper.getTimeFromTimestring(timestring);
-            lastFinishTime = Moment(Date.now()).add(time, "ms");
-
-            lastShutDownTimer = setTimeout(() => {
-                ShutdownService.shutdownServer(true);
-            }, time);
-
-            lastShutDownInterval = setInterval(sendTimeUntilShutdown, time >= 20000 ? 10000 : 1000);
-
-            Moment.relativeTimeThreshold("ss", 0);
-            Moment.locale("de");
-
-            Chat.sendChatAlertToPlayer(
-                mp.players.toArray(),
-                "danger",
-                `Der Server wird ${lastFinishTime.fromNow()} heruntergefahren / neugestartet! Grund: ${lastReason}`,
-                "Shutdown"
-            );
-
+            startShutDownCmd(timestring, reasonA);
         } catch (e) {
             logger.error(e.message, {e});
             player.notify("~r~Invalid Timestring!");
         }
     }
 });
+
+function startShutDownCmd(timestring: string, reasonA: string[]): void {
+    const reason: string = reasonA.join(" ");
+    lastReason = reason.length > 0 ? reason : "unbekannt";
+
+    if (lastShutDownInterval) {
+        clearInterval(lastShutDownInterval);
+        lastShutDownInterval = null;
+    }
+
+    if (lastShutDownTimer) {
+        clearTimeout(lastShutDownTimer);
+        lastShutDownTimer = null;
+    }
+
+    const time: number = TimeHelper.getTimeFromTimestring(timestring);
+    lastFinishTime = Moment(Date.now()).add(time, "ms");
+
+    lastShutDownTimer = setTimeout(() => {
+        ShutdownService.shutdownServer(true);
+    }, time);
+
+    lastShutDownInterval = setInterval(sendTimeUntilShutdown, time >= 20000 ? 10000 : 1000);
+
+    Moment.relativeTimeThreshold("ss", 0);
+    Moment.locale("de");
+
+    Chat.sendChatAlertToPlayer(
+        mp.players.toArray(),
+        "danger",
+        `Der Server wird ${lastFinishTime.fromNow()} heruntergefahren / neugestartet! Grund: ${lastReason}`,
+        "Shutdown"
+    );
+}
 
 // add 24h restart at 4
 // @ts-ignore
