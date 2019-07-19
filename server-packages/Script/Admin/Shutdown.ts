@@ -40,7 +40,7 @@ registerServerCommand("shutdown", (timestring: string = "15m", ...reasonA) => {
     try {
         startShutDownCmd(timestring, reasonA);
     } catch (e) {
-        console.error("\033[31mInvalid Timestring!");
+        console.error("\x1b[31mInvalid Timestring!");
         logger.error(e.message, {e});
     }
 });

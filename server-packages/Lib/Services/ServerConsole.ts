@@ -12,7 +12,7 @@ const rl = readline.createInterface({
 function parseInput(s: string): void {
     if (s.startsWith("/")) {
         let parts = s.split(" ");
-        const cmd = parts[0].substring(1);
+        const cmd = parts[0].substring(1).toLowerCase();
 
         if (serverCmds[cmd]) {
             parts = parts.slice(1);
@@ -32,8 +32,12 @@ rl.on('line', (s) => {
     parseInput(s);
 });
 
+/**
+ * @param cmd - The command (will be transformed to lowercase)
+ * @param func - Function that will be executed (non async awaiter)
+ */
 export function registerServerCommand(cmd: string, func: Function): void {
-    if (serverCmds[cmd]) throw new Error(`Cmd "${cmd}" already exist`);
+    if (serverCmds[cmd.toLowerCase()]) throw new Error(`Cmd "${cmd.toLowerCase()}" already exist`);
 
-    serverCmds[cmd] = func;
+    serverCmds[cmd.toLowerCase()] = func;
 }
