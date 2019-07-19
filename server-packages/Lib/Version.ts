@@ -6,6 +6,7 @@ import * as fs from "fs";
 import Player = RageMP.Player;
 import sendChatNotificationToPlayer = Chat.sendChatNotificationToPlayer;
 import {logger} from "./Services/logging/logger";
+import {registerServerCommand} from "./Services/ServerConsole";
 
 class VersionCreator {
     versionIdentifier: string;
@@ -75,6 +76,10 @@ class VersionCreator {
 
 const vObj = new VersionCreator();
 export const version = vObj;
+
+registerServerCommand("version", () => {
+    vObj.printConsoleLog();
+});
 
 mp.events.addCommand("version", (player: Player) => {
     vObj.printVersionToPlayer(player);
