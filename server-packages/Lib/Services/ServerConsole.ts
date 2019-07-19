@@ -19,7 +19,7 @@ function parseInput(s: string): void {
             serverCmds[cmd].apply(null, parts);
             logger.info("Sended Serverconsole Command: ", {cmd, args: parts});
         } else {
-            console.error(`Cmd ${cmd} doesn't exist for serverconsole.`);
+            console.error(`Cmd "${cmd}" doesn't exist for serverconsole.`);
         }
 
     } else {
@@ -33,7 +33,7 @@ rl.on('line', (s) => {
 });
 
 export function registerServerCommand(cmd: string, func: Function): void {
-    if (serverCmds[cmd]) throw new Error(`Cmd ${cmd} already exist`);
+    if (serverCmds[cmd]) throw new Error(`Cmd "${cmd}" already exist`);
 
     serverCmds[cmd] = func;
 }
