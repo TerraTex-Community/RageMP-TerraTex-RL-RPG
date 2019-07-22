@@ -153,7 +153,6 @@ export class Bergwerksjob implements IJob {
             "Job Information"
         );
 
-        // @todo: is this necessary?
         player.call("job_bergwerk_destroyAllMarkers");
 
         vehicle.destroy();
@@ -232,7 +231,6 @@ export class Bergwerksjob implements IJob {
             `Vorarbeiter Karl sagt: Schnappe dir einfach den Bulldozer, den wir dir 
             bereitstellen sobald du den Job startest und prüfe den Steinbruch auf Probleme an den markierten Stellen!`,
             "Job Hilfe");
-
     }
 
     onPlayerEnterVehicle(player: Player, vehicle: Vehicle, seat: number): void {
