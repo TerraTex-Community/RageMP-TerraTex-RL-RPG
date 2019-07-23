@@ -68,18 +68,18 @@ export class Meeresreiniger implements IJob {
             }
         }
     }
-
-    exitVehicle(player: Player, vehicle: Vehicle): void {
-        if (vehicle.isMeeresTug && player.seat === -1) {
-            if (this.endColShape.isPointWithin(player.position)) {
-                this.removeUnusedTug(player);
-                player.position = this.jobStartingPoint;
-            } else {
-                player.notify("~r~Du kannst hier nicht von Board gehen!");
-                VehicleHelper.ensurePlayerInVehicle(player, vehicle);
-            }
-        }
-    }
+    //
+    // exitVehicle(player: Player, vehicle: Vehicle): void {
+    //     if (vehicle.isMeeresTug && player.seat === -1) {
+    //         if (this.endColShape.isPointWithin(player.position)) {
+    //             this.removeUnusedTug(player);
+    //             player.position = this.jobStartingPoint;
+    //         } else {
+    //             player.notify("~r~Du kannst hier nicht von Board gehen!");
+    //             VehicleHelper.ensurePlayerInVehicle(player, vehicle);
+    //         }
+    //     }
+    // }
 
     removeUnusedTug(player: Player): void {
         if (player.vehicle && player.vehicle.isMeeresTug && player.seat === -1) {
@@ -110,7 +110,9 @@ export class Meeresreiniger implements IJob {
     }
 
     async startJob(player: RageMP.Player): Promise<void> {
+        console.log("asd");
         const jobTug = mp.vehicles.new(mp.joaat("tug"), this.spawnPos);
+        console.log("veh spawned");
         jobTug.setVariable("isMeeresTug", true);
         jobTug.isMeeresTug = true;
 
