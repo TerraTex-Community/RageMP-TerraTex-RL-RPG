@@ -94,12 +94,12 @@ export class Meeresreiniger implements IJob {
     }
 
     canPlayerQuitJob(player: RageMP.Player): boolean {
-        return false;
+        return true;
     }
 
     checkPlayerRequirements(player: RageMP.Player): boolean {
         //@todo add check for boat license #150
-        return false;
+        return true;
     }
 
     sendJobHelp(player: RageMP.Player): void {
