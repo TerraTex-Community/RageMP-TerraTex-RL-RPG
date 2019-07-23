@@ -109,12 +109,12 @@ export class Meeresreiniger implements IJob {
             "Job Hilfe");
     }
 
-    startJob(player: RageMP.Player): void {
+    async startJob(player: RageMP.Player): Promise<void> {
         const jobTug = mp.vehicles.new("tug", this.spawnPos);
         jobTug.setVariable("isMeeresTug", true);
         jobTug.isMeeresTug = true;
 
-        VehicleHelper.ensurePlayerInVehicle(player, jobTug);
+        await VehicleHelper.ensurePlayerInVehicle(player, jobTug);
 
         Chat.sendChatNotificationToPlayer(player,"~b~Vorarbeiter Alfredo sagt: Schnappe dir das Boot, und säubere das Meer an den " +
             " markierten Stellen (siehe Blips + Marker)! " +

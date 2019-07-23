@@ -16,7 +16,6 @@ setInterval(() => {
             && vehicle.respawnTime > 0
             && vehicle.lastDeathTime
             && new Date().getTime() - vehicle.lastDeathTime.getTime() > vehicle.respawnTime
-            && vehicle.getOccupants().length === 0
             && vehicle.dead
             && vehicle.originalPos
         ) {
