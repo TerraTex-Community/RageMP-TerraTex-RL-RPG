@@ -23,7 +23,7 @@ setInterval(() => {
             vehicle.spawn(vehicle.originalPos, 0);
             resetVeh(vehicle);
         }
-    };
+    }
 }, 300000);
 
 function resetVeh(vehicle: ScriptedVehicle): void {
