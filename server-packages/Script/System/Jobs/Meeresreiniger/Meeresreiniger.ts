@@ -47,6 +47,9 @@ export class Meeresreiniger implements IJob {
         mp.events.add(RageMP.Enums.Event.PLAYER_DEATH, this.removeUnusedTug.bind(this));
         mp.events.add(RageMP.Enums.Event.PLAYER_QUIT, this.removeUnusedTug.bind(this));
         mp.events.add(RageMP.Enums.Event.PLAYER_EXIT_VEHICLE, this.exitVehicle.bind(this));
+        mp.events.add(RageMP.Enums.Event.PLAYER_START_EXIT_VEHICLE, () => {
+            return false;
+        });
         mp.events.add(RageMP.Enums.Event.PLAYER_ENTER_COLSHAPE, this.enterColshape.bind(this));
 
         const {x, y, z} = this.endColShapePosition;
@@ -68,7 +71,7 @@ export class Meeresreiniger implements IJob {
             }
         }
     }
-    //
+
     exitVehicle(player: Player, vehicle: Vehicle): void {
         if (vehicle.isMeeresTug && player.seat === -1 && vehicle.jobStarted) {
             if (this.endColShape.isPointWithin(player.position)) {
@@ -76,21 +79,26 @@ export class Meeresreiniger implements IJob {
                 player.position = this.jobStartingPoint;
             } else {
                 player.notify("~r~Du kannst hier nicht von Board gehen!");
-                VehicleHelper.ensurePlayerInVehicle(player, vehicle);
+
+                player.putIntoVehicle(vehicle, -1);
             }
         }
     }
 
     removeUnusedTug(player: Player): void {
-        if (player.vehicle && player.vehicle.isMeeresTug && player.seat === -1) {
-            player.vehicle.destroy();
-        }
-        if (player.lastMeeresCol) {
-            player.lastMeeresCol.destroy();
-        }
+        try {
+            if (player.vehicle && player.vehicle.isMeeresTug) {
+                player.vehicle.destroy();
+            }
+            if (player.lastMeeresCol) {
+                player.lastMeeresCol.destroy();
+            }
 
-        player.call("meeresreiniger_remove");
-        player.call("meeresreiniger_remove_start");
+            player.call("meeresreiniger_remove");
+            player.call("meeresreiniger_remove_start");
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     canPlayerQuitJob(player: RageMP.Player): boolean {
