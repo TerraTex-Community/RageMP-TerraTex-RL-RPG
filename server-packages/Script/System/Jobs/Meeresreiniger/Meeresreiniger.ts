@@ -70,14 +70,14 @@ export class Meeresreiniger implements IJob {
     }
     //
     exitVehicle(player: Player, vehicle: Vehicle): void {
-        if (vehicle.isMeeresTug && player.seat === -1) {
-    //         if (this.endColShape.isPointWithin(player.position)) {
-    //             this.removeUnusedTug(player);
-    //             player.position = this.jobStartingPoint;
-    //         } else {
+        if (vehicle.isMeeresTug && player.seat === -1 && vehicle.jobStarted) {
+            if (this.endColShape.isPointWithin(player.position)) {
+                this.removeUnusedTug(player);
+                player.position = this.jobStartingPoint;
+            } else {
                 player.notify("~r~Du kannst hier nicht von Board gehen!");
                 VehicleHelper.ensurePlayerInVehicle(player, vehicle);
-    //         }
+            }
         }
     }
 
@@ -110,9 +110,7 @@ export class Meeresreiniger implements IJob {
     }
 
     async startJob(player: RageMP.Player): Promise<void> {
-        console.log("asd");
         const jobTug = mp.vehicles.new(mp.joaat("tug"), this.spawnPos);
-        console.log("veh spawned");
         jobTug.setVariable("isMeeresTug", true);
         jobTug.isMeeresTug = true;
 
@@ -126,12 +124,16 @@ export class Meeresreiniger implements IJob {
 
         player.call("meeresreiniger_create_start", [this.endColShapePosition.x, this.endColShapePosition.y]);
 
+        jobTug.jobStarted = true;
+
         this.getNewMarker(player, true);
     }
 
     getNewMarker(player: Player, isStartingMarker: boolean = false): void {
         let markerVec = this.startMarker;
         if (!isStartingMarker) {
+            this.removeOldMarker(player);
+
             do {
                 const pos = AreaHelper.getRandomPointInDistance(Point.fromVector(player.position), 400);
                 markerVec = new mp.Vector3(pos.x, pos.y, 0);
@@ -139,7 +141,6 @@ export class Meeresreiniger implements IJob {
                     AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders) ||
                     !AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.inWorld)
                 );
-            this.removeOldMarker(player);
         }
 
         player.call("meeresreiniger_create_next", [markerVec.x, markerVec.y]);
