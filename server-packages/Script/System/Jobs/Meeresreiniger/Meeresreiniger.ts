@@ -136,6 +136,8 @@ export class Meeresreiniger implements IJob {
 
             do {
                 const pos = AreaHelper.getRandomPointInDistance(Point.fromVector(player.position), 400);
+                console.log(pos);
+
                 markerVec = new mp.Vector3(pos.x, pos.y, 0);
             } while (
                     AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders) ||

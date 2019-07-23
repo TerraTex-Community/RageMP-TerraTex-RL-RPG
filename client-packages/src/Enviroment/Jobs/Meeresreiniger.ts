@@ -43,7 +43,7 @@ mp.events.add("meeresreiniger_create_next", (x: number, y: number) => {
         });
 });
 
-mp.events.add("meeresreiniger_remove_start", (x: number, y: number) => {
+mp.events.add("meeresreiniger_remove_start", () => {
     if (endBlip) {
         endBlip.destroy();
         endMarker.destroy();
@@ -52,7 +52,7 @@ mp.events.add("meeresreiniger_remove_start", (x: number, y: number) => {
     }
 });
 
-mp.events.add("meeresreiniger_remove_start", (x: number, y: number) => {
+mp.events.add("meeresreiniger_remove", () => {
     if (endBlip) {
         nextBlip.destroy();
         nextMarker.destroy();
