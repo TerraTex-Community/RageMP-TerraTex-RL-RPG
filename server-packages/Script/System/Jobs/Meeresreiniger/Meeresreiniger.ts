@@ -111,7 +111,7 @@ export class Meeresreiniger implements IJob {
 
     async startJob(player: RageMP.Player): Promise<void> {
         console.log("asd");
-        const jobTug = mp.vehicles.new("tug", this.spawnPos);
+        const jobTug = mp.vehicles.new(mp.joaat("tug"), this.spawnPos);
         console.log("veh spawned");
         jobTug.setVariable("isMeeresTug", true);
         jobTug.isMeeresTug = true;
