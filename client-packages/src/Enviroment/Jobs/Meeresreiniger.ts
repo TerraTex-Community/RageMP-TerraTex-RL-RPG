@@ -1,5 +1,5 @@
 mp.events.add('render', () => {
-    let vehicle = mp.players.local.vehicle;
+    const vehicle = mp.players.local.vehicle;
     if (vehicle && vehicle.getVariable("isMeeresTug")) {
         vehicle.setEngineTorqueMultiplier(200);
         vehicle.setEnginePowerMultiplier(200);
@@ -14,7 +14,7 @@ let nextMarker: MarkerMp;
 mp.events.add("meeresreiniger_create_start", (x: number, y: number) => {
     endBlip = mp.blips.new(529, new mp.Vector3(x, y, 0),
         {
-            name: name,
+            name: "Anlegestelle für Meeresreiniger",
             color: 5,
             drawDistance: 10000,
             shortRange: false
@@ -30,7 +30,7 @@ mp.events.add("meeresreiniger_create_start", (x: number, y: number) => {
 mp.events.add("meeresreiniger_create_next", (x: number, y: number) => {
     nextBlip = mp.blips.new(529, new mp.Vector3(x, y, 0),
         {
-            name: name,
+            name: "Nächste Meeresreinigerposition",
             color: 50,
             drawDistance: 10000,
             shortRange: false

@@ -10,10 +10,10 @@ export class AreaHelper {
         let inside = false;
         // tslint:disable-next-line:one-variable-per-declaration
         for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
-            let xi = vs[i][0];
-            let yi = vs[i][1];
-            let xj = vs[j][0];
-            let yj = vs[j][1];
+            const xi = vs[i][0];
+            const yi = vs[i][1];
+            const xj = vs[j][0];
+            const yj = vs[j][1];
 
             const intersect = ((yi > y) !== (yj > y))
                 && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
