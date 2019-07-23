@@ -47,9 +47,6 @@ export class Meeresreiniger implements IJob {
         mp.events.add(RageMP.Enums.Event.PLAYER_DEATH, this.removeUnusedTug.bind(this));
         mp.events.add(RageMP.Enums.Event.PLAYER_QUIT, this.removeUnusedTug.bind(this));
         mp.events.add(RageMP.Enums.Event.PLAYER_EXIT_VEHICLE, this.exitVehicle.bind(this));
-        mp.events.add(RageMP.Enums.Event.PLAYER_START_EXIT_VEHICLE, () => {
-            return false;
-        });
         mp.events.add(RageMP.Enums.Event.PLAYER_ENTER_COLSHAPE, this.enterColshape.bind(this));
 
         const {x, y, z} = this.endColShapePosition;

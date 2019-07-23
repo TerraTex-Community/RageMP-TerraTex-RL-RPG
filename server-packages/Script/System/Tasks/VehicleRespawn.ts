@@ -4,13 +4,17 @@ import Player = RageMP.Player;
 setInterval(() => {
     const vehs = mp.vehicles.toArray();
     for (const vehicle of vehs) {
-        if (vehicle.idleRespawnTime
-            && vehicle.idleRespawnTime > 0
-            && vehicle.lastExistTime
-            && new Date().getTime() - vehicle.lastExistTime.getTime() > vehicle.idleRespawnTime
-            && vehicle.getOccupants().length === 0
-        ) {
-            resetVeh(vehicle);
+        try {
+            if (vehicle.idleRespawnTime
+                && vehicle.idleRespawnTime > 0
+                && vehicle.lastExistTime
+                && new Date().getTime() - vehicle.lastExistTime.getTime() > vehicle.idleRespawnTime
+                && vehicle.getOccupants().length === 0
+            ) {
+                resetVeh(vehicle);
+            }
+        } catch (e) {
+            //
         }
 
         if (vehicle.respawnTime
