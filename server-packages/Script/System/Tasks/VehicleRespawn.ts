@@ -2,28 +2,32 @@ import {ScriptedVehicle} from "../Vehicle/ScriptedVehicle";
 import Player = RageMP.Player;
 
 setInterval(() => {
-    mp.vehicles.forEach((vehicle: ScriptedVehicle) => {
-        if (vehicle.idleRespawnTime
-            && vehicle.idleRespawnTime > 0
-            && vehicle.lastExistTime
-            && new Date().getTime() - vehicle.lastExistTime.getTime() > vehicle.idleRespawnTime
-            && vehicle.getOccupants().length === 0
-        ) {
-            resetVeh(vehicle);
+    const vehs = mp.vehicles.toArray();
+    for (const vehicle of vehs) {
+        try {
+            if (vehicle.idleRespawnTime
+                && vehicle.idleRespawnTime > 0
+                && vehicle.lastExistTime
+                && new Date().getTime() - vehicle.lastExistTime.getTime() > vehicle.idleRespawnTime
+                && vehicle.getOccupants().length === 0
+            ) {
+                resetVeh(vehicle);
+            }
+        } catch (e) {
+            //
         }
 
         if (vehicle.respawnTime
             && vehicle.respawnTime > 0
             && vehicle.lastDeathTime
             && new Date().getTime() - vehicle.lastDeathTime.getTime() > vehicle.respawnTime
-            && vehicle.getOccupants().length === 0
             && vehicle.dead
             && vehicle.originalPos
         ) {
             vehicle.spawn(vehicle.originalPos, 0);
             resetVeh(vehicle);
         }
-    });
+    }
 }, 300000);
 
 function resetVeh(vehicle: ScriptedVehicle): void {

@@ -34,9 +34,4 @@ export class TimeHelper {
         return moment.diff(0);
     }
 
-    static getHoursByUTCHour(utcHour: number): number {
-        const date = new Date();
-        date.setUTCHours(utcHour);
-        return date.getHours();
-    }
 }

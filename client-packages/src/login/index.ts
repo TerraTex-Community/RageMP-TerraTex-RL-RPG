@@ -1,6 +1,6 @@
 let loginProcessBrowser: BrowserMp|null = null;
 
-mp.events.add("login_startLoginProcess", (isRegistered, showPwError = false) => {
+mp.events.add("login_startLoginProcess", (isRegistered, isDevServer, showPwError = false) => {
     if (loginProcessBrowser) {
         loginProcessBrowser.destroy();
         loginProcessBrowser = null;
@@ -16,8 +16,21 @@ mp.events.add("login_startLoginProcess", (isRegistered, showPwError = false) => 
                 loginProcessBrowser.execute("showPasswordError()");
             }, 250);
         }
+        if (isDevServer) {
+            setTimeout(() => {
+                // @ts-ignore
+                loginProcessBrowser.execute("$('#disclaimer-dev').removeClass('hidden');");
+            }, 250);
+        }
     } else {
         loginProcessBrowser = mp.browsers.new('package://ui/index.html?page=pages/login/Register.html');
+
+        if (isDevServer) {
+            setTimeout(() => {
+                // @ts-ignore
+                loginProcessBrowser.execute("$('#disclaimer-dev').removeClass('hidden');");
+            }, 250);
+        }
     }
 
 });

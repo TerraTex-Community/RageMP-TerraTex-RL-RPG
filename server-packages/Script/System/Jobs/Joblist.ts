@@ -1,10 +1,12 @@
 import {IJob} from "./IJob";
 import {Bergwerksjob} from "./Bergwerksjob/Bergwerksjob";
 import Vector3 = RageMP.Vector3;
+import {Meeresreiniger} from "./Meeresreiniger/Meeresreiniger";
 
 export class JobList {
     static jobs: IJob[] = [
-        new Bergwerksjob(1)
+        new Bergwerksjob(1),
+        new Meeresreiniger(2),
     ];
 
     /**

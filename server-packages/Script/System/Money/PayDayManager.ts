@@ -94,5 +94,3 @@ function addDefaultPayDayAmounts(player: Player): void {
 mp.events.addCommand("payday", (player: Player) => {
     player.call("show_payday_ui", [JSON.stringify((<DbUser>player.customData.dbUser).data.paydayData.last)]);
 });
-
-

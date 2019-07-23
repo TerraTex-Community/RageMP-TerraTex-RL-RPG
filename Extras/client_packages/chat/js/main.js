@@ -118,13 +118,13 @@ $(document).ready(function()
 
     $("body").keydown(function(event)
 	{
-        if (event.which == 84 && chat.input == null
-			&& chat.active == true)
+        if (event.which === 84 && chat.input == null
+			&& chat.active)
 		{
             enableChatInput(true);
             event.preventDefault();
         } 
-		else if (event.which == 13 && chat.input != null)
+		else if (event.which === 13 && chat.input != null)
 		{
 
 			lastMessageId = -1;
@@ -141,12 +141,12 @@ $(document).ready(function()
 					oldMessages.unshift(value);
 				}
 
-                if (value[0] == "/")
+                if (value[0] === "/")
 				{
                     value = value.substr(1);
 
                     if (value.length > 0)
-                        mp.invoke("command", value);
+                        mp.invoke("command", value.toLowerCase());
                 }
 				else
 				{
@@ -155,14 +155,14 @@ $(document).ready(function()
             }
 
 				enableChatInput(false);
-        } else if(event.which == 38 && chat.input != null) {
+        } else if(event.which === 38 && chat.input != null) {
 			// pressed arrow up
 			if (lastMessageId < oldMessages.length - 1) {
 				lastMessageId++;
 			}
 			chat.input.children("input").val(oldMessages[lastMessageId]);
 
-		} else if(event.which == 40 && chat.input != null) {
+		} else if(event.which === 40 && chat.input != null) {
 			// pressed arrow down
 			if (lastMessageId > -1) {
 				lastMessageId--;

@@ -4,6 +4,7 @@ import {ClientHelper} from "../../Helper/ClientHelper";
 import * as crypto from "crypto";
 import Player = RageMP.Player;
 import {throws} from "assert";
+import {isDevServer} from "../../Admin/AdminHelper";
 
 const mailedCodes: any = {};
 
@@ -89,5 +90,5 @@ export async function checkCodeAndSetPassword(player: Player, pw: string, code: 
     await user.save();
 
     player.notify("~g~Das Password wurde zurückgesetzt.");
-    player.call("login_startLoginProcess", [true, false]);
+    player.call("login_startLoginProcess", [true, isDevServer(), false]);
 }
