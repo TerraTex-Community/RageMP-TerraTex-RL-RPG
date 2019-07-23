@@ -1,9 +1,14 @@
 import {IJob} from "../IJob";
 import {Chat} from "../../Chat/Chat";
-import Vector3 = RageMP.Vector3;
 import {VehicleHelper} from "../../../Helper/VehicleHelper";
-import Player = RageMP.Player;
 import {AreaHelper, Point} from "../../../Helper/AreaHelper";
+import Vector3 = RageMP.Vector3;
+import Player = RageMP.Player;
+import Colshape = RageMP.Colshape;
+import Vehicle = RageMP.Vehicle;
+import {addIncomeToPayDay} from "../../Money/PayDayManager";
+import {PayDayCategory} from "../../Money/PayDayCategory";
+import {getReadableCurrency} from "../../Money/money";
 
 export class Meeresreiniger implements IJob {
     id: number;
@@ -30,6 +35,7 @@ export class Meeresreiniger implements IJob {
     static instance: Meeresreiniger;
 
     endColShapePosition: Vector3 = new mp.Vector3(-219.810486, -2720.48975, 1.33344078);
+    endColShape: Colshape;
     spawnPos: Vector3 = new mp.Vector3(-219.810486, -2720.48975, 1.33344078);
 
     startMarker: Vector3 = new mp.Vector3(-392.6, -3990, 0);
@@ -37,6 +43,54 @@ export class Meeresreiniger implements IJob {
     constructor(id: number) {
         Meeresreiniger.instance = this;
         this.id = id;
+
+        mp.events.add(RageMP.Enums.Event.PLAYER_DEATH, this.removeUnusedTug.bind(this));
+        mp.events.add(RageMP.Enums.Event.PLAYER_QUIT, this.removeUnusedTug.bind(this));
+        mp.events.add(RageMP.Enums.Event.PLAYER_EXIT_VEHICLE, this.exitVehicle.bind(this));
+        mp.events.add(RageMP.Enums.Event.PLAYER_ENTER_COLSHAPE, this.enterColshape.bind(this));
+
+        const {x, y, z} = this.endColShapePosition;
+        this.endColShape = mp.colshapes.newSphere(x, y, z, 20);
+    }
+
+    enterColshape(player: Player, colshape: Colshape): void {
+        if (player.vehicle && player.vehicle.isMeeresTug && player.seat === -1) {
+            if (colshape.isMeeresCol && colshape.player === player) {
+                addIncomeToPayDay(player, 250, PayDayCategory.JOB);
+
+                Chat.sendChatNotificationToPlayer(player,
+                    `Vorarbeiter Alfredo sagt: Wir haben dir ${getReadableCurrency(250)} auf dein Arbeitskonto gutschrieben. 
+                    Wir überweisen es dir mit deiner Gehaltsabrechnung (PayDay)`,
+                    "Gehalt"
+                );
+
+                this.getNewMarker(player);
+            }
+        }
+    }
+
+    exitVehicle(player: Player, vehicle: Vehicle): void {
+        if (vehicle.isMeeresTug && player.seat === -1) {
+            if (this.endColShape.isPointWithin(player.position)) {
+                this.removeUnusedTug(player);
+                player.position = this.jobStartingPoint;
+            } else {
+                player.notify("~r~Du kannst hier nicht von Board gehen!");
+                VehicleHelper.ensurePlayerInVehicle(player, vehicle);
+            }
+        }
+    }
+
+    removeUnusedTug(player: Player): void {
+        if (player.vehicle && player.vehicle.isMeeresTug && player.seat === -1) {
+            player.vehicle.destroy();
+        }
+        if (player.lastMeeresCol) {
+            player.lastMeeresCol.destroy();
+        }
+
+        player.call("meeresreiniger_remove");
+        player.call("meeresreiniger_remove_start");
     }
 
     canPlayerQuitJob(player: RageMP.Player): boolean {
@@ -60,10 +114,6 @@ export class Meeresreiniger implements IJob {
         jobTug.setVariable("isMeeresTug", true);
         jobTug.isMeeresTug = true;
 
-        // @todo: if player is in Tug: delete on disconnect or death
-        // @todo create return marker
-
-
         VehicleHelper.ensurePlayerInVehicle(player, jobTug);
 
         player.sendChatMessage("~b~Vorarbeiter Alfredo sagt: Schnappe dir das Boot, und säubere das Meer an den " +
@@ -72,14 +122,12 @@ export class Meeresreiniger implements IJob {
         player.sendChatMessage(
             "~b~Vorarbeiter Alfredo sagt: Wenn du den Job beenden/abbrechen willst komm einfach wieder hierher und gehe von Board!");
 
-        // @todo: clientside
         player.call("meeresreiniger_create_start", [this.endColShapePosition.x, this.endColShapePosition.y]);
 
+        this.getNewMarker(player, true);
     }
 
-    //@todo: if in colshape allow exit otherwise set back into (except for death then disable job) if is allowed remove markers and blips
-
-    getNewMarker(player: Player, isStartingMarker: boolean = true): void {
+    getNewMarker(player: Player, isStartingMarker: boolean = false): void {
         let markerVec = this.startMarker;
         if (!isStartingMarker) {
             do {
@@ -87,18 +135,25 @@ export class Meeresreiniger implements IJob {
                 markerVec.x = pos.x;
                 markerVec.y = pos.y;
             } while (
-                AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders) ||
-                !AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.inWorld)
-            )
+                    AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders) ||
+                    !AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.inWorld)
+                );
+            this.removeOldMarker(player);
         }
 
-        // @todo create colshape
-        // @todo clientside
         player.call("meeresreiniger_create_next", [markerVec.x, markerVec.y]);
+
+        player.lastMeeresCol = mp.colshapes.newSphere(markerVec.x, markerVec.y, markerVec.z, 20);
+        player.lastMeeresCol.player = player;
+        player.lastMeeresCol.isMeeresCol = true;
     }
 
     removeOldMarker(player: Player): void {
-        // @todo clientside and remove old colshape
         player.call("meeresreiniger_remove");
+
+        if (player.lastMeeresCol) {
+            player.lastMeeresCol.destroy();
+            player.lastMeeresCol = false;
+        }
     }
 }
