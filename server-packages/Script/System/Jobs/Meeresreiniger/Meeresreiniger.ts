@@ -116,10 +116,10 @@ export class Meeresreiniger implements IJob {
 
         VehicleHelper.ensurePlayerInVehicle(player, jobTug);
 
-        player.sendChatMessage("~b~Vorarbeiter Alfredo sagt: Schnappe dir das Boot, und säubere das Meer an den " +
+        Chat.sendChatNotificationToPlayer(player,"~b~Vorarbeiter Alfredo sagt: Schnappe dir das Boot, und säubere das Meer an den " +
             " markierten Stellen (siehe Blips + Marker)! " +
             "Geld bekommst du wenn du eine Stelle gesäubert hast!");
-        player.sendChatMessage(
+        Chat.sendChatNotificationToPlayer(player,
             "~b~Vorarbeiter Alfredo sagt: Wenn du den Job beenden/abbrechen willst komm einfach wieder hierher und gehe von Board!");
 
         player.call("meeresreiniger_create_start", [this.endColShapePosition.x, this.endColShapePosition.y]);
