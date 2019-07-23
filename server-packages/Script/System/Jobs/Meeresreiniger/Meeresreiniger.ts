@@ -110,7 +110,9 @@ export class Meeresreiniger implements IJob {
     }
 
     async startJob(player: RageMP.Player): Promise<void> {
-        const jobTug = mp.vehicles.new(mp.joaat("tug"), this.spawnPos);
+        const jobTug = mp.vehicles.new(mp.joaat("tug"), this.spawnPos, {
+            heading: 180
+        });
         jobTug.setVariable("isMeeresTug", true);
         jobTug.isMeeresTug = true;
 
@@ -136,11 +138,13 @@ export class Meeresreiniger implements IJob {
 
             do {
                 const pos = AreaHelper.getRandomPointInDistance(Point.fromVector(player.position), 400);
-                console.log(pos);
 
                 markerVec = new mp.Vector3(pos.x, pos.y, 0);
+                console.log(AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders),
+                    !AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.inWorld));
+
             } while (
-                    AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders) ||
+                    AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders) &&
                     !AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.inWorld)
                 );
         }
