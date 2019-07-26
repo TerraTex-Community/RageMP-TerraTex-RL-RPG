@@ -29,7 +29,7 @@ gitlabCommitStatus {
         }
 
         stage('Sonar-Scanner') {
-          cache(maxCacheSize: 250, caches: [
+          cache(maxCacheSize: 250000, caches: [
              [$class: 'ArbitraryFileCache', excludes: '**/.scannerwork/**/*,**/.*/**/*,**/.*', includes: '**/node_modules/**/*', path: '.']
           ]) {
 
