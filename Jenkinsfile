@@ -30,7 +30,7 @@ gitlabCommitStatus {
 
         stage('Sonar-Scanner') {
           cache(maxCacheSize: 250, caches: [
-             [$class: 'ArbitraryFileCache', excludes: '**/.scannerwork/**/*', includes: '**/node_modules/**/*', path: '.']
+             [$class: 'ArbitraryFileCache', excludes: '**/.scannerwork/**/*,**/.*/**/*,**/.*', includes: '**/node_modules/**/*', path: '.']
           ]) {
 
             bat 'npm i typescript'
