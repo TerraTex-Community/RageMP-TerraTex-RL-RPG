@@ -29,7 +29,7 @@ gitlabCommitStatus {
         }
 
         stage('Sonar-Scanner') {
-          cache(maxCacheSize: 250000, caches: [
+          cache(maxCacheSize: 250000000, caches: [
              [$class: 'ArbitraryFileCache', excludes: '**/.scannerwork/**/*,**/.*/**/*,**/.*', includes: '**/node_modules/**/*', path: '.']
           ]) {
 
@@ -64,7 +64,7 @@ gitlabCommitStatus {
                     bat 'cd server-packages && del /f ormconfig.json'
                     bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
                 }
-                cache(maxCacheSize: 250000, caches: [
+                cache(maxCacheSize: 250000000, caches: [
                     [$class: 'ArbitraryFileCache', excludes: '**/.scannerwork/**/*', includes: '**/node_modules/**/*', path: '.']
                 ]) {
                     bat 'cd Build-stuff && npm i'
