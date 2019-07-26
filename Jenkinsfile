@@ -30,7 +30,7 @@ gitlabCommitStatus {
 
         stage('Sonar-Scanner') {
           cache(maxCacheSize: 250, caches: [
-             [$class: 'ArbitraryFileCache', excludes: '', includes: '**/node_modules/**/*', path: '${HOME}/.']
+             [$class: 'ArbitraryFileCache', excludes: '', includes: '**/node_modules/**/*', path: '.']
           ]) {
 
             bat 'npm i typescript'
@@ -65,7 +65,7 @@ gitlabCommitStatus {
                     bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
                 }
                 cache(maxCacheSize: 250, caches: [
-                    [$class: 'ArbitraryFileCache', excludes: '', includes: '**/node_modules/**/*', path: '${HOME}/.']
+                    [$class: 'ArbitraryFileCache', excludes: '', includes: '**/node_modules/**/*', path: '.']
                 ]) {
                     bat 'cd Build-stuff && npm i'
                     bat 'cd Build-stuff && grunt'
