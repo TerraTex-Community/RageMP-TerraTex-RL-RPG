@@ -29,9 +29,6 @@ gitlabCommitStatus {
         }
 
         stage('Sonar-Scanner') {
-          cache(maxCacheSize: 250000000, caches: [
-             [$class: 'ArbitraryFileCache', excludes: '**/.scannerwork/**/*', includes: '**/node_modules/**/*', path: '.']
-          ]) {
 
             bat 'npm i typescript'
             bat 'tslint -o sonar-tslint.json -p . -t json -e **/dist/**/* || exit 0'
@@ -48,8 +45,6 @@ gitlabCommitStatus {
                     }
                 }
             }
-            // some block
-          }
         }
 
 		stage('Build-Server') {
@@ -64,12 +59,8 @@ gitlabCommitStatus {
                     bat 'cd server-packages && del /f ormconfig.json'
                     bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
                 }
-                cache(maxCacheSize: 250000000, caches: [
-                    [$class: 'ArbitraryFileCache', excludes: '**/.scannerwork/**/*', includes: '**/node_modules/**/*', path: '.']
-                ]) {
                     bat 'cd Build-stuff && npm i'
                     bat 'cd Build-stuff && grunt'
-                }
 			}
 		}
 
