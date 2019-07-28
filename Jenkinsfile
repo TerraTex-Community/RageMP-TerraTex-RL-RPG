@@ -29,6 +29,7 @@ gitlabCommitStatus {
         }
 
         stage('Sonar-Scanner') {
+
             bat 'npm i typescript'
             bat 'tslint -o sonar-tslint.json -p . -t json -e **/dist/**/* || exit 0'
 
@@ -58,8 +59,8 @@ gitlabCommitStatus {
                     bat 'cd server-packages && del /f ormconfig.json'
                     bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
                 }
-                bat 'cd Build-stuff && npm i'
-                bat 'cd Build-stuff && grunt'
+                    bat 'cd Build-stuff && npm i'
+                    bat 'cd Build-stuff && grunt'
 			}
 		}
 
