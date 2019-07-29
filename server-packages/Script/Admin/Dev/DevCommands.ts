@@ -1,6 +1,7 @@
 import Player = RageMP.Player;
 import {isAdmin, isDevServer} from '../AdminHelper';
 import {WEAPON_LIST} from "../../System/Weapons/WeaponList";
+import {Chat} from "../../System/Chat/Chat";
 
 mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => {
     if (!isAdmin(player, 4)) return;
@@ -26,4 +27,8 @@ mp.events.addCommand('killme', ((player) => {
     if (!isDevServer()) return;
 
     player.health = 0;
+}));
+
+mp.events.addCommand('getpos', ((player) => {
+    Chat.sendChatNotificationToPlayer(player, `Deine Aktuelle Position: ${player.position.toString()}`);
 }));

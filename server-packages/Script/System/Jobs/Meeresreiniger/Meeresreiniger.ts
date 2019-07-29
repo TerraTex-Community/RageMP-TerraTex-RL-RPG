@@ -16,6 +16,7 @@ export class Meeresreiniger implements IJob {
     name: string = "Meeresreiniger";
 
     bearchBorders: Point[] = [
+        new Point(-821, -3641),
         new Point(-2012, -3476),
         new Point(-4295, 233),
         new Point(-1813, 7986),
@@ -23,6 +24,7 @@ export class Meeresreiniger implements IJob {
         new Point(4781.9, 3939),
         new Point(2523.5, -3543)
     ];
+
 
     inWorld: Point[] = [
         new Point(-5000, -5000),
@@ -51,6 +53,13 @@ export class Meeresreiniger implements IJob {
 
         const {x, y, z} = this.endColShapePosition;
         this.endColShape = mp.colshapes.newSphere(x, y, z, 20);
+
+        for (const point of this.bearchBorders) {
+            mp.blips.new(119, new mp.Vector3(point.x, point.y, z), {
+                shortRange: false
+            });
+        }
+
     }
 
     enterColshape(player: Player, colshape: Colshape): void {
