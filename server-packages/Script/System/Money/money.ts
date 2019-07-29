@@ -30,9 +30,9 @@ export function payByBankOrHand(
     }
 
     if (dbInventory.money >= amount) {
-        changePlayerMoney(player, amount, false, category, data, toPlayer);
+        changePlayerMoney(player, -amount, false, category, data, toPlayer);
     } else {
-        changePlayerMoney(player, amount, true, category, data, toPlayer);
+        changePlayerMoney(player, -amount, true, category, data, toPlayer);
         // @todo bank notification
     }
 
