@@ -54,12 +54,6 @@ export class Meeresreiniger implements IJob {
         const {x, y, z} = this.endColShapePosition;
         this.endColShape = mp.colshapes.newSphere(x, y, z, 20);
 
-        for (const point of this.bearchBorders) {
-            mp.blips.new(119, new mp.Vector3(point.x, point.y, z), {
-                shortRange: false
-            });
-        }
-
     }
 
     enterColshape(player: Player, colshape: Colshape): void {
