@@ -1,0 +1,53 @@
+<div class="container-fluid clientConsole">
+    <div class="output-container">
+
+    </div>
+    <div class="input">
+        <form>
+            <input type="text" name="consoleInput" id="consoleInput"/>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        let size = localStorage.getItem("clientConsole.lastSize");
+        if (!size) {
+            size = 300;
+            localStorage.setItem("clientConsole.lastSize", 300);
+        }
+
+        $(".container-fluid.clientConsole").css("height", `${size}px`);
+
+        $(".container-fluid.clientConsole").resizable({
+            handles: "s",
+            minHeight: 150,
+            stop: (event, ui) => {
+                localStorage.setItem("clientConsole.lastSize", ui.size.height);
+            }
+        });
+    });
+
+
+    function printToConsole(raw) {
+        if (typeof raw === "object") {
+            let seen = [];
+            $(".output-container").append(`
+                <div class="consoleItem"><pre>${
+                JSON.stringify(raw,
+                    function(k,v){
+                        if (typeof v =='object') {
+                            if ( !seen.indexOf(v) ) { return '__cycle__'; }
+                            seen.push(v);
+                        } return v;
+                    }
+                , 4)
+            }</pre></div>
+            `);
+        } else {
+            $(".output-container").append(`
+                <div class="consoleItem">${raw}</div>
+            `);
+        }
+    }
+</script>
