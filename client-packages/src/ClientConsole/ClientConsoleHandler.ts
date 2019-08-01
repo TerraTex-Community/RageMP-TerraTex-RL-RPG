@@ -13,9 +13,12 @@ export function initClientConsole(): void{
     setTimeout(() => {
         // better with event?
         isLoaded = true;
+        console.info("Console loaded.");
+
         for (const item of preEntries) {
             printToConsole(item.state, item.state);
         }
+
     }, 3000);
 }
 
