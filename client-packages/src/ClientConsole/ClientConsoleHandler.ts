@@ -18,7 +18,7 @@ mp.keys.bind(0x7B, true, () => {
         console.info("Console loaded.");
 
         for (const item of preEntries) {
-            printToConsole(item.state, item.state);
+            printToConsole(item.state, item.msg);
         }
     }
 
