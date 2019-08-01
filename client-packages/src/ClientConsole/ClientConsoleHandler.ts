@@ -2,7 +2,7 @@ import {overwriteGlobalConsole} from "./registerConsoleGlobally";
 
 export let clientConsoleBrowser: BrowserMp | null = null;
 let isLoaded: boolean = false;
-let preEntries: {msg: any, state: string}[] = [];
+const preEntries: {msg: any, state: string}[] = [];
 
 export function initClientConsole(): void{
     overwriteGlobalConsole();
