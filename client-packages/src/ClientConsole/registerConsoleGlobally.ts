@@ -8,7 +8,7 @@ const origConsole = {
     warn: console.warn
 };
 
-export function overwriteGlobalConsole() {
+export function overwriteGlobalConsole(): void {
     console.log = message => printLog("log", message);
     console.info = message => printLog("info", message);
     console.error = message => printLog("error", message);
@@ -16,7 +16,7 @@ export function overwriteGlobalConsole() {
     console.warn = message => printLog("warn", message);
 }
 
-function printLog(state, msg) {
+function printLog(state: string, msg: any): void {
     origConsole[state](msg);
     printToConsole(state, msg);
 }

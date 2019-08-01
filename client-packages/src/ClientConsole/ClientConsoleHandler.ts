@@ -14,18 +14,18 @@ mp.keys.bind(0x7B, true, () => {
     openClientConsole(!clientConsoleBrowser.active);
 });
 
-export function openClientConsole(open = true) {
+export function openClientConsole(open: boolean = true): void {
     clientConsoleBrowser.active = open;
 }
 
 export function printToConsole(state: string, msg: any): void {
     let message = "";
     if (typeof msg === "object") {
-        let seen = [];
+        const seen = [];
         message = `<pre>${
             JSON.stringify(msg,
-                function (k, v) {
-                    if (typeof v == "object") {
+                function (k: any, v: any): any {
+                    if (typeof v === "object") {
                         if (!seen.indexOf(v)) {
                             return "__cycle__";
                         }
