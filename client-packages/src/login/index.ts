@@ -27,8 +27,9 @@ mp.events.add("login_startLoginProcess", (isRegistered, isDevServer, showPwError
     } else {
         loginProcessBrowser = mp.browsers.new('package://ui/index.html?page=pages/login/Register.html');
 
+        console.log(isDevServer);
+        console.log(typeof isDevServer);
         if (isDevServer) {
-            console.log(isDevServer);
             setTimeout(() => {
                 // @ts-ignore
                 loginProcessBrowser.execute("$('#disclaimer-dev').removeClass('hidden');");

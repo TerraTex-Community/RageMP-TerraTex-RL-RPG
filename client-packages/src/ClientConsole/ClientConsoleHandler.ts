@@ -1,12 +1,22 @@
 import {overwriteGlobalConsole} from "./registerConsoleGlobally";
 
 export let clientConsoleBrowser: BrowserMp | null = null;
+let isLoaded: boolean = false;
+let preEntries: {msg: any, state: string}[] = [];
 
 export function initClientConsole(): void{
     overwriteGlobalConsole();
 
     clientConsoleBrowser = mp.browsers.new("package://ui/index.html?page=pages/console.html");
     clientConsoleBrowser.active = false;
+
+    setTimeout(() => {
+        // better with event?
+        isLoaded = true;
+        for (const item of preEntries) {
+            printToConsole(item.state, item.state);
+        }
+    }, 3000);
 }
 
 // F3 => Binding Menü
@@ -19,6 +29,10 @@ export function openClientConsole(open: boolean = true): void {
 }
 
 export function printToConsole(state: string, msg: any): void {
+    if (!isLoaded) {
+        preEntries.push({state, msg});
+    }
+
     let message = "";
     if (typeof msg === "object") {
         const seen = [];
