@@ -9,8 +9,10 @@ export function initClientConsole(): void{
 
     clientConsoleBrowser = mp.browsers.new("package://ui/index.html?page=pages/console.html");
     clientConsoleBrowser.active = false;
+}
 
-    setTimeout(() => {
+mp.keys.bind(0x7B, true, () => {
+    if (!clientConsoleBrowser.active && !isLoaded) {
         // better with event?
         isLoaded = true;
         console.info("Console loaded.");
@@ -18,18 +20,11 @@ export function initClientConsole(): void{
         for (const item of preEntries) {
             printToConsole(item.state, item.state);
         }
+    }
 
-    }, 3000);
-}
-
-mp.keys.bind(0x7B, true, () => {
     openClientConsole(!clientConsoleBrowser.active);
 });
 
-mp.keys.bind(0x7A, true, () => {
-    console.log("123");
-    printToConsole("warn", "asdasdasd");
-});
 
 export function openClientConsole(open: boolean = true): void {
     clientConsoleBrowser.active = open;

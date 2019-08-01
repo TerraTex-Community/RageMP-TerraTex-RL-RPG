@@ -16,9 +16,9 @@ mp.events.add("login_startLoginProcess", (isRegistered, isDevServer, showPwError
                 loginProcessBrowser.execute("showPasswordError()");
             }, 250);
         }
+        console.log(isDevServer);
+        console.log(typeof isDevServer);
         if (isDevServer) {
-            console.log(isDevServer);
-
             setTimeout(() => {
                 // @ts-ignore
                 loginProcessBrowser.execute("$('#disclaimer-dev').removeClass('hidden');");
