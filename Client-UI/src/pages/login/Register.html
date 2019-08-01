@@ -111,7 +111,9 @@
             </form>
 
             <script>
-                mp.trigger('browser_login_sendMeNickname');
+                $(document).ready(() => {
+                    mp.trigger('browser_login_sendMeNickname');
+                });
 
                 function setPlayerNickname(nickname) {
                     // console.log(setPlayerNickname);

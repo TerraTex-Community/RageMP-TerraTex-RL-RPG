@@ -40,7 +40,7 @@
             window.mouseY = e.pageY;
         })
 
-        $(".output-container #wrapper").on("dblclick", ".consoleItem", function() {
+        $(".output-container #wrapper").on("click", ".consoleItem", function() {
             const text = $(this).text();
             copyTextToClipboard(text);
 
