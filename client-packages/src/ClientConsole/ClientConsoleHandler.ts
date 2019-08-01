@@ -5,7 +5,7 @@ export let clientConsoleBrowser: BrowserMp | null = null;
 export function initClientConsole(): void{
     overwriteGlobalConsole();
 
-    clientConsoleBrowser = mp.browsers.new("package://ui/index.html?page=pages/login/Login.html");
+    clientConsoleBrowser = mp.browsers.new("package://ui/index.html?page=pages/console.html");
     clientConsoleBrowser.active = false;
 }
 

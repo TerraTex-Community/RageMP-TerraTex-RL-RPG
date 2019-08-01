@@ -17,19 +17,22 @@ mp.events.add("login_startLoginProcess", (isRegistered, isDevServer, showPwError
             }, 250);
         }
         if (isDevServer) {
+            console.log(isDevServer);
+
             setTimeout(() => {
                 // @ts-ignore
                 loginProcessBrowser.execute("$('#disclaimer-dev').removeClass('hidden');");
-            }, 250);
+            }, 450);
         }
     } else {
         loginProcessBrowser = mp.browsers.new('package://ui/index.html?page=pages/login/Register.html');
 
         if (isDevServer) {
+            console.log(isDevServer);
             setTimeout(() => {
                 // @ts-ignore
                 loginProcessBrowser.execute("$('#disclaimer-dev').removeClass('hidden');");
-            }, 250);
+            }, 450);
         }
     }
 
