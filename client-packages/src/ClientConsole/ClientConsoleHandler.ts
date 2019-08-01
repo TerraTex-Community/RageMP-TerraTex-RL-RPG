@@ -22,9 +22,12 @@ export function initClientConsole(): void{
     }, 3000);
 }
 
-// F3 => Binding Menü
 mp.keys.bind(0x7B, true, () => {
     openClientConsole(!clientConsoleBrowser.active);
+});
+
+mp.keys.bind(0x7A, true, () => {
+    printToConsole("warn", "asdasdasd");
 });
 
 export function openClientConsole(open: boolean = true): void {
