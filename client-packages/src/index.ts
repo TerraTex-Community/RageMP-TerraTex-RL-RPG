@@ -6,6 +6,9 @@ import './systems/binding/binding_init';
 import './systems/clicksystem';
 import './systems/shutdown';
 import './Enviroment/index';
+import {initClientConsole} from "./ClientConsole/ClientConsoleHandler";
+
+initClientConsole();
 
 // init player defaults
 mp.gui.chat.colors = true;

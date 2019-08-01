@@ -1,9 +1,15 @@
+<style type="text/css">
+    html {
+        font-size: 14px;
+    }
+</style>
+
 <div class="container-fluid clientConsole">
     <div class="output-container">
 
     </div>
     <div class="input">
-        <form>
+        <form onsubmit="return sendConsoleInput()">
             <input type="text" name="consoleInput" id="consoleInput"/>
         </form>
     </div>
@@ -28,26 +34,19 @@
         });
     });
 
+    function sendConsoleInput() {
+        printToConsole("warn", `<i>Console Input not yet supported. Input was: ${$("#consoleInput").val()}</i>`);
+        $("#consoleInput").val("");
+        return false;
+    }
 
-    function printToConsole(raw) {
-        if (typeof raw === "object") {
-            let seen = [];
-            $(".output-container").append(`
-                <div class="consoleItem"><pre>${
-                JSON.stringify(raw,
-                    function(k,v){
-                        if (typeof v =='object') {
-                            if ( !seen.indexOf(v) ) { return '__cycle__'; }
-                            seen.push(v);
-                        } return v;
-                    }
-                , 4)
-            }</pre></div>
-            `);
-        } else {
-            $(".output-container").append(`
-                <div class="consoleItem">${raw}</div>
-            `);
-        }
+    function printToConsole(state = "log", raw) {
+        const possibleStateOps = ["log", "debug", "info", "warn", "error"];
+        if (possibleStateOps.indexOf(state) === -1) state = "log";
+
+        $(".output-container").append(`<div class="consoleItem console-${state}">${raw}</div>`);
+
+        // @todo: scroll down if scrolling on bottom
+        $(".output-container").sc
     }
 </script>

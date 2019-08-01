@@ -19,7 +19,8 @@
 }
 
 .consoleItem:hover {
-  background-color: rgba(0, 0, 0, 0.25);
+  filter: brightness(75%) contrast(65%);
+  background-color: rgba(0,0,0,0.25);
 }
 
 #consoleInput {
@@ -45,4 +46,22 @@
     padding: 5px;
     border: solid 1px black;
   }
+}
+
+$consoleStates: (
+  log: rgb(244, 244, 244),
+  debug: darken(rgb(244, 244, 244), 35),
+  info: rgb(156, 164, 246),
+  warn: rgb(245, 245, 0),
+  error: rgb(245, 0, 0)
+);
+
+@each $state, $color in $consoleStates {
+    .console-#{$state} {
+        border-left: solid 3px $color;
+        border-bottom: dotted 1px $color;
+        color: $color;
+        padding-left: 10px;
+
+    }
 }
