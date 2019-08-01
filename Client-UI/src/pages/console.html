@@ -6,7 +6,9 @@
 
 <div class="container-fluid clientConsole">
     <div class="output-container">
+        <div id="wrapper">
 
+        </div>
     </div>
     <div class="input">
         <form onsubmit="return sendConsoleInput()">
@@ -32,6 +34,29 @@
                 localStorage.setItem("clientConsole.lastSize", ui.size.height);
             }
         });
+
+        $(".output-container #wrapper").on("mousemove", ".consoleItem", function(e) {
+            window.mouseX = e.pageX;
+            window.mouseY = e.pageY;
+        })
+
+        $(".output-container #wrapper").on("dblclick", ".consoleItem", function() {
+            const text = $(this).text();
+            copyTextToClipboard(text);
+
+            const pos = ($(this).width()/2) - window.mouseX;
+            $(this).tooltip({
+                title: "copied",
+                animation: true,
+                placement: "bottom",
+                offset: `${-pos}px`,
+                trigger: "manual"
+            });
+            $(this).tooltip("show");
+            setTimeout(() => {
+                $(this).tooltip("dispose");
+                }, 1500);
+        });
     });
 
     function sendConsoleInput() {
@@ -44,9 +69,19 @@
         const possibleStateOps = ["log", "debug", "info", "warn", "error"];
         if (possibleStateOps.indexOf(state) === -1) state = "log";
 
-        $(".output-container").append(`<div class="consoleItem console-${state}">${raw}</div>`);
+        const scrollPos = $(".output-container").scrollTop();
+        const heightInner = $(".output-container #wrapper").height();
+        const outerInner = $(".output-container").height();
 
-        // @todo: scroll down if scrolling on bottom
-        $(".output-container").sc
+        const isMaxScroll = scrollPos + outerInner === heightInner;
+
+        $(".output-container #wrapper").append(`<div class="consoleItem console-${state}">${raw}</div>`);
+
+        if (isMaxScroll) {
+            $(".output-container")[0].scrollTo({
+                behavior: "smooth",
+                top: heightInner
+            });
+        }
     }
 </script>

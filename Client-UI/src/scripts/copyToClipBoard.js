@@ -12,12 +12,19 @@ $(document).ready(() => {
         alert("Ins Zwischenverzeichnis kopiert: " + txt);
         return false;
     });
-
-    function copyToClipboard(element) {
-        var $temp = $("<input>");
-        $("body").append($temp);
-        $temp.val($(element).text()).select();
-        document.execCommand("copy");
-        $temp.remove();
-    }
 });
+function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+}
+
+function copyTextToClipboard(txt) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val(txt).select();
+    document.execCommand("copy");
+    $temp.remove();
+}
