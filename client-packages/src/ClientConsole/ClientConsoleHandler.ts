@@ -27,6 +27,7 @@ mp.keys.bind(0x7B, true, () => {
 });
 
 mp.keys.bind(0x7A, true, () => {
+    console.log("123");
     printToConsole("warn", "asdasdasd");
 });
 
