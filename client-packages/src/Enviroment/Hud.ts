@@ -42,6 +42,9 @@ mp.events.add(RageEnums.EventKey.RENDER, () => {
     const date = new Date();
     hudBrowser.execute(`setClock(${date.getHours()}, ${date.getMinutes()});`);
 
+    const currentDate = new Date();
+    mp.game.time.setClockDate(currentDate.getDate(), currentDate.getMonth() + 1, currentDate.getFullYear());
+
 });
 
 
