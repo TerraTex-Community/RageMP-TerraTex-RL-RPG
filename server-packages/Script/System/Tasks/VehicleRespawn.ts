@@ -17,13 +17,12 @@ function checkVehicles(): void {
 }
 
 function checkVeh(vehicle: Vehicle): void {
-    // console.log(vehicle.getOccupants());
 
     if (vehicle.idleRespawnTime
         && vehicle.idleRespawnTime > 0
         && vehicle.lastExistTime
         && new Date().getTime() - vehicle.lastExistTime.getTime() > vehicle.idleRespawnTime
-        // && vehicle.getOccupants().length === 0
+        && vehicle.getOccupants().length === 0
     ) {
         resetVeh(vehicle);
     }
