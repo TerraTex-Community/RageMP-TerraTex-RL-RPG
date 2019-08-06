@@ -25,14 +25,12 @@ export class Meeresreiniger implements IJob {
         new Point(2523.5, -3543)
     ];
 
-
     inWorld: Point[] = [
         new Point(-5000, -5000),
         new Point(-5000, 5000),
         new Point(5000, 5000),
         new Point(5000, -5000)
     ];
-
 
     static instance: Meeresreiniger;
 
@@ -59,10 +57,17 @@ export class Meeresreiniger implements IJob {
     enterColshape(player: Player, colshape: Colshape): void {
         if (player.vehicle && player.vehicle.isMeeresTug && player.seat === -1) {
             if (colshape.isMeeresCol && colshape.player === player) {
-                addIncomeToPayDay(player, 250, PayDayCategory.JOB);
+                let amount: number = 10;
+
+                if (player.lastMeeresPosition) {
+                    amount = player.position.subtract(player.lastMeeresPosition as Vector3).length() * 3;
+                }
+                player.lastMeeresPosition = player.position;
+
+                addIncomeToPayDay(player, amount, PayDayCategory.JOB);
 
                 Chat.sendChatNotificationToPlayer(player,
-                    `Vorarbeiter Alfredo sagt: Wir haben dir ${getReadableCurrency(250)} auf dein Arbeitskonto gutschrieben. 
+                    `Vorarbeiter Alfredo sagt: Wir haben dir ${getReadableCurrency(amount)} auf dein Arbeitskonto gutschrieben. 
                     Wir überweisen es dir mit deiner Gehaltsabrechnung (PayDay)`,
                     "Gehalt"
                 );
@@ -123,6 +128,7 @@ export class Meeresreiniger implements IJob {
         });
         jobTug.setVariable("isMeeresTug", true);
         jobTug.isMeeresTug = true;
+        player.lastMeeresPosition = null;
 
         await VehicleHelper.ensurePlayerInVehicle(player, jobTug);
 
