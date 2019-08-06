@@ -1,8 +1,10 @@
 let loginProcessBrowser: BrowserMp | null = null;
 let sIsDevServer: boolean = false;
+let sShowPwError: boolean = false;
 
 mp.events.add("login_startLoginProcess", (isRegistered, isDevServer, showPwError = false) => {
     sIsDevServer = isDevServer;
+    sShowPwError = showPwError;
 
     if (loginProcessBrowser) {
         loginProcessBrowser.destroy();
@@ -13,12 +15,6 @@ mp.events.add("login_startLoginProcess", (isRegistered, isDevServer, showPwError
     mp.gui.cursor.show(true, true);
     if (isRegistered) {
         loginProcessBrowser = mp.browsers.new("package://ui/index.html?page=pages/login/Login.html");
-        if (showPwError) {
-            setTimeout(() => {
-                // @ts-ignore
-                loginProcessBrowser.execute("showPasswordError()");
-            }, 250);
-        }
     } else {
         loginProcessBrowser = mp.browsers.new("package://ui/index.html?page=pages/login/Register.html");
     }
@@ -32,6 +28,10 @@ mp.events.add("browser_login_sendMeNickname", () => {
     loginProcessBrowser.execute(`setPlayerNickname("${mp.players.local.name}");`);
     if (sIsDevServer) {
         loginProcessBrowser.execute("$('#disclaimer-dev').removeClass('hidden');");
+    }
+
+    if (sShowPwError) {
+        loginProcessBrowser.execute("showPasswordError()");
     }
 });
 

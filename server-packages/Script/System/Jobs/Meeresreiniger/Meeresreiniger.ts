@@ -9,6 +9,7 @@ import Vehicle = RageMP.Vehicle;
 import {addIncomeToPayDay} from "../../Money/PayDayManager";
 import {PayDayCategory} from "../../Money/PayDayCategory";
 import {getReadableCurrency} from "../../Money/money";
+import {logger} from "../../../../Lib/Services/logging/logger";
 
 export class Meeresreiniger implements IJob {
     id: number;
@@ -102,7 +103,7 @@ export class Meeresreiniger implements IJob {
             player.call("meeresreiniger_remove");
             player.call("meeresreiniger_remove_start");
         } catch (e) {
-            console.error(e);
+            logger.error("error occured in meeresreiniger finish", {error: e});
         }
     }
 
