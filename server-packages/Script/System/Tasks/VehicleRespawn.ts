@@ -1,30 +1,44 @@
 import {ScriptedVehicle} from "../Vehicle/ScriptedVehicle";
 import Player = RageMP.Player;
+import Vehicle = RageMP.Vehicle;
 
-setInterval(function(): void {
+setTimeout(checkVehicles, 300000);
+
+
+function checkVehicles(): void {
     const vehs = mp.vehicles.toArray();
     for (const vehicle of vehs) {
-        if (vehicle.idleRespawnTime
-            && vehicle.idleRespawnTime > 0
-            && vehicle.lastExistTime
-            && new Date().getTime() - vehicle.lastExistTime.getTime() > vehicle.idleRespawnTime
-            && vehicle.getOccupants().length === 0
-        ) {
-            resetVeh(vehicle);
-        }
-
-        if (vehicle.respawnTime
-            && vehicle.respawnTime > 0
-            && vehicle.lastDeathTime
-            && new Date().getTime() - vehicle.lastDeathTime.getTime() > vehicle.respawnTime
-            && vehicle.dead
-            && vehicle.originalPos
-        ) {
-            vehicle.spawn(vehicle.originalPos, 0);
-            resetVeh(vehicle);
+        if (mp.vehicles.exists(vehicle)) {
+            checkVeh(vehicle);
         }
     }
-}, 300000);
+
+    setTimeout(checkVehicles, 300000);
+}
+
+function checkVeh(vehicle: Vehicle): void {
+    // console.log(vehicle.getOccupants());
+
+    if (vehicle.idleRespawnTime
+        && vehicle.idleRespawnTime > 0
+        && vehicle.lastExistTime
+        && new Date().getTime() - vehicle.lastExistTime.getTime() > vehicle.idleRespawnTime
+        // && vehicle.getOccupants().length === 0
+    ) {
+        resetVeh(vehicle);
+    }
+
+    if (vehicle.respawnTime
+        && vehicle.respawnTime > 0
+        && vehicle.lastDeathTime
+        && new Date().getTime() - vehicle.lastDeathTime.getTime() > vehicle.respawnTime
+        && vehicle.dead
+        && vehicle.originalPos
+    ) {
+        vehicle.spawn(vehicle.originalPos, 0);
+        resetVeh(vehicle);
+    }
+}
 
 function resetVeh(vehicle: ScriptedVehicle): void {
     vehicle.engine = false;
