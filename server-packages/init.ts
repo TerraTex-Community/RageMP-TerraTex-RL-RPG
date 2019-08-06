@@ -27,3 +27,11 @@ process.on('uncaughtException', (err) => {
     logger.crit("unexpected Error", {error: err});
     process.exit(1);
 });
+
+process.on('unhandledRejection', (reason, promise) => {
+    logger.crit('Unhandled Rejection at:', {promise, reason});
+});
+
+process.on('warning', (warning) => {
+    logger.warn('Warning:', {error: warning});
+});
