@@ -7,11 +7,14 @@ export class AreaHelper {
         return polygonContains(Point.pointListToArrayList(area), point.toArray());
     }
 
-    static getRandomPointInDistance(point: Point, radius: number): Point {
+    static getRandomPointInDistance(point: Point, radius: number, minDistance: number = 0): Point {
         const angle = Math.random() * Math.PI * 2;
+
+        const factor = Math.random() * (radius - minDistance) + minDistance;
+
         return new Point(
-            point.x + Math.cos(angle) * Math.random() * radius,
-            point.y + Math.sin(angle) * Math.random() * radius
+            point.x + Math.cos(angle) * factor,
+            point.y + Math.sin(angle) * factor
         );
     }
 }
