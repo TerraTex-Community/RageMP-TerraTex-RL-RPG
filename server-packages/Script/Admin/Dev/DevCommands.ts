@@ -1,8 +1,10 @@
 import Player = RageMP.Player;
-import {isAdmin, isDevServer} from '../AdminHelper';
+import {isAdmin, isDevServer} from "../AdminHelper";
 import {WEAPON_LIST} from "../../System/Weapons/WeaponList";
 import {Chat} from "../../System/Chat/Chat";
 import {clientLogger} from "../../../Lib/Services/ClientConsole";
+import {changePlayerMoney} from "../../System/Money/money";
+import {MoneyCategory} from "../../System/Money/MoneyCategories";
 
 mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => {
     if (!isAdmin(player, 4)) return;
@@ -33,4 +35,10 @@ mp.events.addCommand('killme', ((player) => {
 mp.events.addCommand('getpos', ((player) => {
     Chat.sendChatNotificationToPlayer(player, `Deine Aktuelle Position: ${player.position.toString()}`);
     clientLogger.info(player, player.position.toString());
+}));
+
+mp.events.addCommand("changemoney", ((player, fullText, money) => {
+    if (isDevServer()) {
+        changePlayerMoney(player, parseFloat(money), false, MoneyCategory.Other, {reason: "dev changemoney cmd"});
+    }
 }));
