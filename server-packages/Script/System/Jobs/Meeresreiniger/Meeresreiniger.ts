@@ -15,6 +15,7 @@ export class Meeresreiniger implements IJob {
     id: number;
     jobStartingPoint: Vector3 = new mp.Vector3(-259.7157, -2678.574, 6.396268);
     name: string = "Meeresreiniger";
+    payPerCoordinate: number = 1;
 
     bearchBorders: Point[] = [
         new Point(-821, -3641),
@@ -58,10 +59,10 @@ export class Meeresreiniger implements IJob {
     enterColshape(player: Player, colshape: Colshape): void {
         if (player.vehicle && player.vehicle.isMeeresTug && player.seat === -1) {
             if (colshape.isMeeresCol && colshape.player === player) {
-                let amount: number = 10;
+                let amount: number = 50;
 
                 if (player.lastMeeresPosition) {
-                    amount = player.position.subtract(player.lastMeeresPosition as Vector3).length() * 3;
+                    amount = player.position.subtract(player.lastMeeresPosition as Vector3).length() * this.payPerCoordinate;
                 }
                 player.lastMeeresPosition = player.position;
 
