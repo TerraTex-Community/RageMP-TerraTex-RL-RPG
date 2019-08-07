@@ -1,3 +1,5 @@
+import {logger} from "./logging/logger";
+
 export namespace ShutdownService {
 
     const shutdownFunctions: Function[] = [];
@@ -23,23 +25,27 @@ export namespace ShutdownService {
      * @param {boolean} [killServer=true] - kills the server afterwards
      */
     export async function shutdownServer(killServer: boolean = true): Promise<void> {
-        isServerShuttingDown = true;
+        try {
+            isServerShuttingDown = true;
 
-        for (const func of shutdownFunctionsNonParallel) {
-            await func();
-        }
+            for (const func of shutdownFunctionsNonParallel) {
+                logger.debug(`Execute Function before Shutdown: ${func.name}`);
+                await func();
+            }
 
-        const allPromises: Promise<any>[] = [];
-        for (const func of shutdownFunctions) {
-            allPromises.push(func());
-        }
+            const allPromises: Promise<any>[] = [];
+            for (const func of shutdownFunctions) {
+                logger.debug(`Execute Function (in parallel) before Shutdown: ${func.name}`);
+                allPromises.push(func());
+            }
 
-        await Promise.all(allPromises);
+            await Promise.all(allPromises);
 
-        if (killServer) {
-            process.exit(0);
+            if (killServer) {
+                process.exit(0);
+            }
+        } catch (e) {
+            logger.crit("Error occurred on Shutdown", {error: e});
         }
     }
-
-
 }

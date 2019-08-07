@@ -23,11 +23,12 @@ function savePlayers(): Promise<any> {
     return Promise.all(allPromises);
 }
 
-function handlePlayersOnShutdown(): void {
+async function handlePlayersOnShutdown(): Promise<void> {
     for (const player of mp.players.toArray()) {
         setPlayerShutDownView(player);
     }
 
+    await savePlayers();
 }
 
 ShutdownService.addToShutdownService(handlePlayersOnShutdown);
