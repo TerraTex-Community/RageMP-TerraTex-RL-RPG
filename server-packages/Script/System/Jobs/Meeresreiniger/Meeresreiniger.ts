@@ -15,7 +15,7 @@ export class Meeresreiniger implements IJob {
     id: number;
     jobStartingPoint: Vector3 = new mp.Vector3(-259.7157, -2678.574, 6.396268);
     name: string = "Meeresreiniger";
-    payPerCoordinate: number = 1;
+    payPerCoordinate: number = 0.33;
 
     bearchBorders: Point[] = [
         new Point(-821, -3641),

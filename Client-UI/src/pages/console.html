@@ -68,8 +68,6 @@
     }
 
     function printToConsole(state = "log", raw) {
-        const possibleStateOps = ["log", "debug", "info", "warn", "error"];
-        if (possibleStateOps.indexOf(state) === -1) state = "log";
 
         const scrollPos = $(".output-container").scrollTop();
         const heightInner = $(".output-container #wrapper").height();
