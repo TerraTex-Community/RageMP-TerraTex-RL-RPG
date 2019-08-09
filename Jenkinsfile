@@ -91,21 +91,23 @@ gitlabCommitStatus {
         currentBuild.result = 'FAILURE'
         throw e
     } finally {
-        if (env.BRANCH_NAME == 'develop') {
-            def currResult = currentBuild.result
-            if (currResult == 'FAILURE') {
-                telegramSend 'Build fehlgeschlagen. Dev offline.'
-            } else {
-                def publisher = LastChanges.getLastChangesPublisher "LAST_SUCCESSFUL_BUILD", "SIDE", "LINE", true, true, "", "", "", "", ""
-                publisher.publishLastChanges()
-                def changes = publisher.getLastChanges()
-                println(changes.getEscapedDiff())
-                for (commit in changes.getCommits()) {
-                    println(commit)
-                    def commitInfo = commit.getCommitInfo()
-                    println(commitInfo)
-                    println(commitInfo.getCommitMessage())
-                    println(commit.getChanges())
+        node {
+            if (env.BRANCH_NAME == 'develop') {
+                def currResult = currentBuild.result
+                if (currResult == 'FAILURE') {
+                    telegramSend 'Build fehlgeschlagen. Dev offline.'
+                } else {
+                    def publisher = LastChanges.getLastChangesPublisher "LAST_SUCCESSFUL_BUILD", "SIDE", "LINE", true, true, "", "", "", "", ""
+                    publisher.publishLastChanges()
+                    def changes = publisher.getLastChanges()
+                    println(changes.getEscapedDiff())
+                    for (commit in changes.getCommits()) {
+                        println(commit)
+                        def commitInfo = commit.getCommitInfo()
+                        println(commitInfo)
+                        println(commitInfo.getCommitMessage())
+                        println(commit.getChanges())
+                    }
                 }
             }
         }
