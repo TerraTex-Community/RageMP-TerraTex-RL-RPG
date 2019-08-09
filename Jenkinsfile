@@ -91,7 +91,7 @@ gitlabCommitStatus {
         currentBuild.result = 'FAILURE'
         throw e
     } finally {
-        node {
+        node ('windows') {
             if (env.BRANCH_NAME == 'develop') {
                 def currResult = currentBuild.result
                 if (currResult == 'FAILURE') {
