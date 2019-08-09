@@ -42,10 +42,7 @@ mp.events.addCommand("gethere", ((player: Player, fullText: string, nameOrId: st
 
 mp.events.addCommand("gotopos", ((player: Player, fullText: string, position: string) => {
     if (isAdmin(player, 1)) {
-        console.log("works");
         const positions = position.split(",");
-        console.log(positions);
-        console.log(positions[0]);
         player.position = new mp.Vector3(parseFloat(positions[0]), parseFloat(positions[1]), parseFloat(positions[2]));
     }
 }));

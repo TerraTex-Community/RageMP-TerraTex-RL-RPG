@@ -45,7 +45,6 @@ export class DbUserVehicle extends BaseEntity {
     @AfterLoad()
     setNumberPlate(): void {
         if (!this.numberPlate) {
-            console.log(this.id.toString(36));
             this.numberPlate = this.id.toString(36);
         }
     }

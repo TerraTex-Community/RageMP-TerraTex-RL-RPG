@@ -22,6 +22,7 @@ function sendTimeUntilShutdown(): void {
 
     Moment.relativeTimeThreshold("ss", 0);
     Moment.locale("de");
+    lastFinishTime.locale("de");
 
     Chat.sendChatAlertToPlayer(
         mp.players.toArray(),

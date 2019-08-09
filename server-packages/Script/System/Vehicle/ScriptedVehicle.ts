@@ -25,6 +25,7 @@ export async function createScriptedVehicle(
     vehicle.originalHeading = vehicle.heading;
     vehicle.originalRotation = vehicle.rotation;
     vehicle.vehDb = scriptOptions.dbEntry;
+    vehicle.privateVehicle = scriptOptions.privateVehicle;
 
     if (scriptOptions.autoRespawn) {
         vehicle.respawnTime = typeof scriptOptions.autoRespawn === "number" ? scriptOptions.autoRespawn : 600000;

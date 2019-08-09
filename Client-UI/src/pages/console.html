@@ -1,0 +1,87 @@
+<style type="text/css">
+    html {
+        font-size: 14px;
+    }
+</style>
+
+<div class="container-fluid clientConsole">
+    <div class="output-container">
+        <div id="wrapper">
+
+        </div>
+    </div>
+    <div class="input">
+        <form onsubmit="return sendConsoleInput()">
+            <input type="text" name="consoleInput" id="consoleInput"/>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        let size = localStorage.getItem("clientConsole.lastSize");
+        if (!size) {
+            size = 300;
+            localStorage.setItem("clientConsole.lastSize", 300);
+        }
+
+        $(".container-fluid.clientConsole").css("height", `${size}px`);
+
+        $(".container-fluid.clientConsole").resizable({
+            handles: "s",
+            minHeight: 150,
+            stop: (event, ui) => {
+                localStorage.setItem("clientConsole.lastSize", ui.size.height);
+            }
+        });
+
+        $(".output-container #wrapper").on("mousemove", ".consoleItem", function(e) {
+            window.mouseX = e.pageX;
+            window.mouseY = e.pageY;
+        })
+
+        $(".output-container #wrapper").on("click", ".consoleItem", function() {
+            const text = $(this).text();
+            copyTextToClipboard(text);
+
+            const pos = ($(this).width()/2) - window.mouseX;
+            $(this).tooltip({
+                title: "copied",
+                animation: true,
+                placement: "bottom",
+                offset: `${-pos}px`,
+                trigger: "manual"
+            });
+
+            $(this).tooltip("show");
+
+            setTimeout(() => {
+                $(this).tooltip("dispose");
+                }, 1500);
+        });
+    });
+
+    function sendConsoleInput() {
+        printToConsole("warn", `<i>Console Input not yet supported. Input was: ${$("#consoleInput").val()}</i>`);
+        $("#consoleInput").val("");
+        return false;
+    }
+
+    function printToConsole(state = "log", raw) {
+
+        const scrollPos = $(".output-container").scrollTop();
+        const heightInner = $(".output-container #wrapper").height();
+        const outerInner = $(".output-container").height();
+
+        const isMaxScroll = scrollPos + outerInner === heightInner;
+
+        $(".output-container #wrapper").append(`<div class="consoleItem console-${state}">${raw}</div>`);
+
+        if (isMaxScroll) {
+            $(".output-container")[0].scrollTo({
+                behavior: "smooth",
+                top: heightInner
+            });
+        }
+    }
+</script>

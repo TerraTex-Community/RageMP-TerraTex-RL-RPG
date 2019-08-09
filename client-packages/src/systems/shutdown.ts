@@ -5,8 +5,10 @@ mp.events.add("setShutDownView", () => {
     mp.players.local.dimension = 1;
 
     mp.browsers.forEach(browser => {
-        browser.destroy();
+        browser.active = false
     });
+
+    mp.gui.chat.show(false);
 
     mp.events.add('render', () => {
         mp.game.ui.setLoadingPromptTextEntry("PM_WAIT");

@@ -9,11 +9,13 @@ import Vehicle = RageMP.Vehicle;
 import {addIncomeToPayDay} from "../../Money/PayDayManager";
 import {PayDayCategory} from "../../Money/PayDayCategory";
 import {getReadableCurrency} from "../../Money/money";
+import {logger} from "../../../../Lib/Services/logging/logger";
 
 export class Meeresreiniger implements IJob {
     id: number;
     jobStartingPoint: Vector3 = new mp.Vector3(-259.7157, -2678.574, 6.396268);
     name: string = "Meeresreiniger";
+    payPerCoordinate: number = 0.33;
 
     bearchBorders: Point[] = [
         new Point(-821, -3641),
@@ -25,14 +27,12 @@ export class Meeresreiniger implements IJob {
         new Point(2523.5, -3543)
     ];
 
-
     inWorld: Point[] = [
         new Point(-5000, -5000),
         new Point(-5000, 5000),
         new Point(5000, 5000),
         new Point(5000, -5000)
     ];
-
 
     static instance: Meeresreiniger;
 
@@ -59,10 +59,17 @@ export class Meeresreiniger implements IJob {
     enterColshape(player: Player, colshape: Colshape): void {
         if (player.vehicle && player.vehicle.isMeeresTug && player.seat === -1) {
             if (colshape.isMeeresCol && colshape.player === player) {
-                addIncomeToPayDay(player, 250, PayDayCategory.JOB);
+                let amount: number = 50;
+
+                if (player.lastMeeresPosition) {
+                    amount = player.position.subtract(player.lastMeeresPosition as Vector3).length() * this.payPerCoordinate;
+                }
+                player.lastMeeresPosition = player.position;
+
+                addIncomeToPayDay(player, amount, PayDayCategory.JOB);
 
                 Chat.sendChatNotificationToPlayer(player,
-                    `Vorarbeiter Alfredo sagt: Wir haben dir ${getReadableCurrency(250)} auf dein Arbeitskonto gutschrieben. 
+                    `Vorarbeiter Alfredo sagt: Wir haben dir ${getReadableCurrency(amount)} auf dein Arbeitskonto gutschrieben. 
                     Wir überweisen es dir mit deiner Gehaltsabrechnung (PayDay)`,
                     "Gehalt"
                 );
@@ -97,7 +104,7 @@ export class Meeresreiniger implements IJob {
             player.call("meeresreiniger_remove");
             player.call("meeresreiniger_remove_start");
         } catch (e) {
-            console.error(e);
+            logger.error("error occured in meeresreiniger finish", {error: e});
         }
     }
 
@@ -123,6 +130,7 @@ export class Meeresreiniger implements IJob {
         });
         jobTug.setVariable("isMeeresTug", true);
         jobTug.isMeeresTug = true;
+        player.lastMeeresPosition = null;
 
         await VehicleHelper.ensurePlayerInVehicle(player, jobTug);
 
@@ -145,12 +153,9 @@ export class Meeresreiniger implements IJob {
             this.removeOldMarker(player);
 
             do {
-                const pos = AreaHelper.getRandomPointInDistance(Point.fromVector(player.position), 400);
+                const pos = AreaHelper.getRandomPointInDistance(Point.fromVector(player.position), 600, 100);
 
                 markerVec = new mp.Vector3(pos.x, pos.y, 0);
-                console.log(AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders),
-                    !AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.inWorld));
-
             } while (
                     AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders) &&
                     !AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.inWorld)

@@ -9,10 +9,12 @@ mp.events.addCommand("park", (player: Player, text: string) => {
     if (!player.vehicle) {
         return;
     }
+
     const pVeh: ScriptedVehicle = player.vehicle;
     if (!pVeh.privateVehicle) {
         return;
     }
+
     if (pVeh.privateVehicle.owner.id !== (player.customData.dbUser as DbUser).id) {
         player.notify("~r~Dieses Fahrzeug gehört nicht dir!");
         return;

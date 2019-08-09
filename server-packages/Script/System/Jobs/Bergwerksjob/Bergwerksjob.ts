@@ -10,6 +10,7 @@ import Colshape = RageMP.Colshape;
 import {addIncomeToPayDay} from "../../Money/PayDayManager";
 import {PayDayCategory} from "../../Money/PayDayCategory";
 import {VehicleHelper} from "../../../Helper/VehicleHelper";
+import {logger} from "../../../../Lib/Services/logging/logger";
 
 export class Bergwerksjob implements IJob {
     id: number;
@@ -40,8 +41,6 @@ export class Bergwerksjob implements IJob {
         new mp.Vector3(3034.7937, 3020.83862, 89.85893),
         new mp.Vector3(3072.235, 3019.17456, 104.386375),
         new mp.Vector3(3049.22632, 3036.87744, 97.36492),
-        new mp.Vector3(3005.033, 3041.705, 99.87259),
-        new mp.Vector3(2982.718, 3017.58325, 99.153244),
         new mp.Vector3(2997.62476, 3023.15283, 88.39284),
         new mp.Vector3(2980.29858, 2991.29272, 86.98883),
         new mp.Vector3(3017.391, 3003.03638, 84.06831),
@@ -192,7 +191,7 @@ export class Bergwerksjob implements IJob {
 
         player.call("job_bergwerk_destroyMarker");
 
-        const perMarkerMoney = this.moneyPerMarker/2;
+        const perMarkerMoney = this.moneyPerMarker / 2;
         changePlayerMoney(player, perMarkerMoney, false, MoneyCategory.Job, {
             job: "Bergwerksjob"
         });
@@ -201,14 +200,20 @@ export class Bergwerksjob implements IJob {
             `Hier ${getReadableCurrency(perMarkerMoney)} als kleines Taschengeld für deine Bemühungen!`);
 
         if (markers.length === 0) {
-            player.vehicle.destroy();
-            delete this.alreadyUsedPositions[(<DbUser>player.customData.dbUser).id];
+            try {
+                player.removeFromVehicle();
 
-            const money = this.marker.length * this.moneyPerMarker / 2;
-            addIncomeToPayDay(player, money, PayDayCategory.JOB);
+                delete this.alreadyUsedPositions[(<DbUser>player.customData.dbUser).id];
 
-            Chat.sendChatNotificationToPlayer(player,
-            `Dein Gehalt von ${getReadableCurrency(money)} bekommst du zu deinem PayDay!`);
+                const money = this.marker.length * this.moneyPerMarker / 2;
+                addIncomeToPayDay(player, money, PayDayCategory.JOB);
+
+                Chat.sendChatNotificationToPlayer(player,
+                    `Dein Gehalt von ${getReadableCurrency(money)} bekommst du zu deinem PayDay!`);
+
+            } catch (e) {
+                logger.error("error occured in bergwerksjob finish", {error: e});
+            }
 
         } else {
 

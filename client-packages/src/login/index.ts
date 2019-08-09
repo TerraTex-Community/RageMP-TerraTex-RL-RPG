@@ -1,6 +1,11 @@
-let loginProcessBrowser: BrowserMp|null = null;
+let loginProcessBrowser: BrowserMp | null = null;
+let sIsDevServer: boolean = false;
+let sShowPwError: boolean = false;
 
 mp.events.add("login_startLoginProcess", (isRegistered, isDevServer, showPwError = false) => {
+    sIsDevServer = isDevServer;
+    sShowPwError = showPwError;
+
     if (loginProcessBrowser) {
         loginProcessBrowser.destroy();
         loginProcessBrowser = null;
@@ -9,39 +14,31 @@ mp.events.add("login_startLoginProcess", (isRegistered, isDevServer, showPwError
     mp.gui.chat.show(false);
     mp.gui.cursor.show(true, true);
     if (isRegistered) {
-        loginProcessBrowser = mp.browsers.new('package://ui/index.html?page=pages/login/Login.html');
-        if (showPwError) {
-            setTimeout(() => {
-                // @ts-ignore
-                loginProcessBrowser.execute("showPasswordError()");
-            }, 250);
-        }
-        if (isDevServer) {
-            setTimeout(() => {
-                // @ts-ignore
-                loginProcessBrowser.execute("$('#disclaimer-dev').removeClass('hidden');");
-            }, 250);
-        }
+        loginProcessBrowser = mp.browsers.new("package://ui/index.html?page=pages/login/Login.html");
     } else {
-        loginProcessBrowser = mp.browsers.new('package://ui/index.html?page=pages/login/Register.html');
-
-        if (isDevServer) {
-            setTimeout(() => {
-                // @ts-ignore
-                loginProcessBrowser.execute("$('#disclaimer-dev').removeClass('hidden');");
-            }, 250);
-        }
+        loginProcessBrowser = mp.browsers.new("package://ui/index.html?page=pages/login/Register.html");
     }
 
 });
 
 mp.events.add("browser_login_sendMeNickname", () => {
-    if (!loginProcessBrowser) return;
+    if (!loginProcessBrowser) {
+        return;
+    }
     loginProcessBrowser.execute(`setPlayerNickname("${mp.players.local.name}");`);
+    if (sIsDevServer) {
+        loginProcessBrowser.execute("$('#disclaimer-dev').removeClass('hidden');");
+    }
+
+    if (sShowPwError) {
+        loginProcessBrowser.execute("showPasswordError()");
+    }
 });
 
 mp.events.add("browser_login_register", jsonData => {
-    if (!loginProcessBrowser) return;
+    if (!loginProcessBrowser) {
+        return;
+    }
     mp.events.callRemote("execute_login_register", jsonData);
     mp.gui.cursor.show(false, false);
     mp.gui.chat.show(true);
@@ -50,7 +47,9 @@ mp.events.add("browser_login_register", jsonData => {
 });
 
 mp.events.add("browser_login_Login", pw => {
-    if (!loginProcessBrowser) return;
+    if (!loginProcessBrowser) {
+        return;
+    }
     mp.events.callRemote("execute_login_login", pw);
     mp.gui.cursor.show(false, false);
     mp.gui.chat.show(true);
@@ -69,11 +68,13 @@ mp.events.add("browser_login_openPasswordForgotten", () => {
 });
 
 mp.events.add("browser_login_passwordForgotten_getEmail", () => {
-     mp.events.callRemote("execute_login_password_forgotten_getEmailHidden");
+    mp.events.callRemote("execute_login_password_forgotten_getEmailHidden");
 });
 
 mp.events.add("execute_login_password_forgotten_getEmailHidden_result", mail => {
-    if (!loginProcessBrowser) return;
+    if (!loginProcessBrowser) {
+        return;
+    }
     loginProcessBrowser.execute(`setPlayerEmail("${mail}");`);
 });
 
@@ -86,6 +87,8 @@ mp.events.add("browser_login_passwordForgotten_setNewPassword", (pw, code) => {
 });
 
 mp.events.add("login_passwordForgotten_setCodeError", () => {
-    if (!loginProcessBrowser) return;
+    if (!loginProcessBrowser) {
+        return;
+    }
     loginProcessBrowser.execute(`setCodeError();`);
 });

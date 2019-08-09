@@ -21,7 +21,6 @@ export const vehicleShops: ShopPosition[] = [
 
 function createShops(): void {
     for (const shop of vehicleShops) {
-        console.log("Create Shop: " + shop.position.toString());
         mp.blips.new(getShopTypeIcon(shop.shopType), shop.position, {
             color: 53,
             shortRange: true,
