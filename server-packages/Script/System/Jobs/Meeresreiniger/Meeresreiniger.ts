@@ -157,8 +157,8 @@ export class Meeresreiniger implements IJob {
 
                 markerVec = new mp.Vector3(pos.x, pos.y, 0);
             } while (
-                    AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders) &&
-                    !AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.inWorld)
+                    !AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders) &&
+                    AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.inWorld)
                 );
         }
 
