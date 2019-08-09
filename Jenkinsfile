@@ -104,7 +104,7 @@ gitlabCommitStatus {
                     for (commit in changes.getCommits()) {
                         def commitInfo = commit.getCommitInfo()
                         telegram = """${telegram}
-- ${commitInfo.getCommitMessage()}"""
+- ${commitInfo.getCommitMessage().trim()}"""
                     }
 
                     telegramSend telegram
