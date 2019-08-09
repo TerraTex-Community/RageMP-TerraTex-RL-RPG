@@ -99,6 +99,7 @@ gitlabCommitStatus {
                 } else {
                     def telegram = "Build erfolgreich. Der Dev-Server mit folgenden Änderungen gestartet: "
                     def publisher = LastChanges.getLastChangesPublisher "LAST_SUCCESSFUL_BUILD", "SIDE", "LINE", true, true, "", "", "", "", ""
+                    publisher.publishLastChanges()
                     def changes = publisher.getLastChanges()
                     for (commit in changes.getCommits()) {
                         def commitInfo = commit.getCommitInfo()
