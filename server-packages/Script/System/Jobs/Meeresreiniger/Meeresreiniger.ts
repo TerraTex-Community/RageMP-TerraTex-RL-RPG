@@ -15,6 +15,7 @@ export class Meeresreiniger implements IJob {
     id: number;
     jobStartingPoint: Vector3 = new mp.Vector3(-259.7157, -2678.574, 6.396268);
     name: string = "Meeresreiniger";
+    payPerCoordinate: number = 0.33;
 
     bearchBorders: Point[] = [
         new Point(-821, -3641),
@@ -58,10 +59,10 @@ export class Meeresreiniger implements IJob {
     enterColshape(player: Player, colshape: Colshape): void {
         if (player.vehicle && player.vehicle.isMeeresTug && player.seat === -1) {
             if (colshape.isMeeresCol && colshape.player === player) {
-                let amount: number = 10;
+                let amount: number = 50;
 
                 if (player.lastMeeresPosition) {
-                    amount = player.position.subtract(player.lastMeeresPosition as Vector3).length() * 3;
+                    amount = player.position.subtract(player.lastMeeresPosition as Vector3).length() * this.payPerCoordinate;
                 }
                 player.lastMeeresPosition = player.position;
 
@@ -152,12 +153,9 @@ export class Meeresreiniger implements IJob {
             this.removeOldMarker(player);
 
             do {
-                const pos = AreaHelper.getRandomPointInDistance(Point.fromVector(player.position), 400);
+                const pos = AreaHelper.getRandomPointInDistance(Point.fromVector(player.position), 600, 100);
 
                 markerVec = new mp.Vector3(pos.x, pos.y, 0);
-                console.log(AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders),
-                    !AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.inWorld));
-
             } while (
                     AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders) &&
                     !AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.inWorld)

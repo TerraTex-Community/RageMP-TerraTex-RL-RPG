@@ -53,16 +53,22 @@ $consoleStates: (
   debug: darken(rgb(244, 244, 244), 35),
   info: rgb(156, 164, 246),
   warn: rgb(245, 245, 0),
-  error: rgb(245, 0, 0)
+  error: rgb(245, 0, 0),
+  crit: rgb(210, 0, 0)
 );
 
 @each $state, $color in $consoleStates {
     .console-#{$state} {
         border-left: solid 3px $color;
         border-bottom: dotted 1px $color;
-        color: $color;
         padding-left: 10px;
-
+        @if $state == "crit" {
+          background-color: rgba(180, 0, 0, 0.3);
+          color: lighten($color, 20);
+          font-size: 1.2em;
+        } @else {
+          color: $color;
+        }
     }
 }
 

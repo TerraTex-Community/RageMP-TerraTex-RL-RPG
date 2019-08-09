@@ -1,4 +1,5 @@
 import {overwriteGlobalConsole} from "./registerConsoleGlobally";
+import "./Logger";
 
 export let clientConsoleBrowser: BrowserMp | null = null;
 let isLoaded: boolean = false;
@@ -6,12 +7,11 @@ const preEntries: {msg: any, state: string}[] = [];
 
 export function initClientConsole(): void{
     overwriteGlobalConsole();
-
     clientConsoleBrowser = mp.browsers.new("package://ui/index.html?page=pages/console.html");
     clientConsoleBrowser.active = false;
 }
 
-mp.keys.bind(0x7B, true, () => {
+mp.keys.bind(0x7A, true, () => {
     if (!clientConsoleBrowser.active && !isLoaded) {
         // better with event?
         isLoaded = true;
