@@ -29,6 +29,10 @@ async function handlePlayersOnShutdown(): Promise<void> {
     }
 
     await savePlayers();
+
+    for (const player of mp.players.toArray()) {
+        player.kick("Servershutdown");
+    }
 }
 
 ShutdownService.addToShutdownService(handlePlayersOnShutdown, false);
