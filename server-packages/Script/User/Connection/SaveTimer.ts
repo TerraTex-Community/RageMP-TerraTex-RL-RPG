@@ -31,7 +31,7 @@ async function handlePlayersOnShutdown(): Promise<void> {
     await savePlayers();
 }
 
-ShutdownService.addToShutdownService(handlePlayersOnShutdown);
+ShutdownService.addToShutdownService(handlePlayersOnShutdown, false);
 
 function setPlayerShutDownView(player: Player): void {
     player.alpha = 0;
