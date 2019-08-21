@@ -8,6 +8,8 @@ import {
     JoinColumn
 } from "typeorm";
 import {DbUser} from "./DbUser";
+import {InventoryTransformer} from "../transformers/InventoryTransformer";
+import {Inventory} from "../../Script/User/Inventory/Inventory";
 
 @Entity({
     name: "user_inventory"
@@ -35,6 +37,13 @@ export class DbUserInventory extends BaseEntity {
         type: "float",
     })
     money: number;
+
+    @Column({
+        type: "json",
+        transformer: new InventoryTransformer(),
+        nullable: true
+    })
+    inventory: Inventory;
 
     @Column({
         default: 5000,

@@ -94,8 +94,6 @@ g
 7Client-UI/src/styles/bootstrap/mixins/_breakpoints.scss,c\b\cb5e9ab53599ccae6f98b56673c68dfa634861f3
 c
 3Client-UI/src/styles/bootstrap/mixins/_buttons.scss,5\9\59b58251582dc1d35800023efbb0fc9e359ed2b9
-a
-1Client-UI/src/styles/bootstrap/mixins/_cards.scss,f\f\ffb64e87549a951da06c421430fe35ae82ec7543
 d
 4Client-UI/src/styles/bootstrap/mixins/_clearfix.scss,a\3\a330f36f887c1eb1ff37b7c7efa5c57fb0153790
 a
@@ -118,8 +116,6 @@ a
 1Client-UI/src/styles/bootstrap/mixins/_lists.scss,7\e\7ea306becbf8fd83eae16b6c4add400e5e829f42
 g
 7Client-UI/src/styles/bootstrap/mixins/_nav-divider.scss,a\b\abacfb96f8c498921b877e7c7ae8945db7a85d53
-h
-8Client-UI/src/styles/bootstrap/mixins/_navbar-align.scss,2\0\204d420d74cbf8fd663db3a6b5345e5efa6fe089
 f
 6Client-UI/src/styles/bootstrap/mixins/_pagination.scss,0\7\07d0e80bfc1811c95c22a81d20f9bf7c644bc674
 f
@@ -138,8 +134,6 @@ e
 5Client-UI/src/styles/bootstrap/mixins/_text-hide.scss,4\0\406e95713af4f1aec59fd0da3742a81243c2dec3
 i
 9Client-UI/src/styles/bootstrap/mixins/_text-truncate.scss,f\6\f63b902333b21191b2891e17406fbe7c732307d4
-f
-6Client-UI/src/styles/bootstrap/mixins/_transforms.scss,d\1\d14affad964f371cfd3b4b41c14500bf41014ab6
 f
 6Client-UI/src/styles/bootstrap/mixins/_visibility.scss,d\4\d4a7ccc69bc0d249f62ade07b0239121bb63fb24
 d
@@ -188,8 +182,6 @@ Y
 )Client-UI/src/styles/bootstrap/_code.scss,3\3\332129827b1020702e7968536283b212ea28c942
 a
 1Client-UI/src/styles/bootstrap/_custom-forms.scss,c\7\c77c6c9cc840d736b803c76af43c9f9d25641c57
-[
-+Client-UI/src/styles/bootstrap/_custom.scss,e\a\ea4700806a21bbc029b0afb852fbb05fb0d6c65b
 ]
 -Client-UI/src/styles/bootstrap/_dropdown.scss,d\3\d3a54d2b2f8bf75bcffe165b30009706ca94d4f0
 Z
@@ -214,8 +206,6 @@ X
 (Client-UI/src/styles/bootstrap/_nav.scss,8\1\81d756f71892f19e38ecb6ca55918f2955f8455e
 [
 +Client-UI/src/styles/bootstrap/_navbar.scss,4\b\4bd4860e010bcbac5596b928b773640f2dae8319
-^
-.Client-UI/src/styles/bootstrap/_normalize.scss,7\f\7f05bf4d7008fb3fd563964ac3a18692010945ad
 _
 /Client-UI/src/styles/bootstrap/_pagination.scss,3\5\35388c03e0f495642c56dd74851d650afbe9df4d
 \
@@ -226,8 +216,6 @@ Z
 -Client-UI/src/styles/bootstrap/_progress.scss,2\c\2cf1b13ed8350392fc85264252490b2476cc4f2f
 [
 +Client-UI/src/styles/bootstrap/_reboot.scss,3\c\3c11d9a5cc05743cc44736e94213ca8484449073
-e
-5Client-UI/src/styles/bootstrap/_responsive-embed.scss,f\1\f14aa0cbbf1100e61552efc4cb72b277affebf19
 [
 +Client-UI/src/styles/bootstrap/_tables.scss,8\7\87b6ac6ff48e1d83557be69b0bbe34adfcf4da59
 \
