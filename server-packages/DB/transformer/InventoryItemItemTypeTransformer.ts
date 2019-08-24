@@ -3,9 +3,9 @@ import {getInventoryItemByItemSymbol, IInventoryItem} from "../../Script/User/In
 
 export class InventoryItemItemTypeTransformer implements ValueTransformer {
     from(value: string): IInventoryItem {
-        let type = getInventoryItemByItemSymbol(value);
+        const type = getInventoryItemByItemSymbol(value);
         if (type) return type;
-        throw new Error("Item Type '" + value + "' does not exist.");
+        throw new Error(`Item Type '${value}' does not exist.`);
     }
 
     to(value: IInventoryItem): any {
