@@ -2,14 +2,13 @@ import {
     Entity,
     Column,
     PrimaryGeneratedColumn,
-    UpdateDateColumn,
     BaseEntity,
-    OneToOne,
-    JoinColumn, ManyToOne
+    ManyToOne
 } from "typeorm";
 import {DbUserInventory} from "./DbUserInventory";
 import {IInventoryItem} from "../../Script/User/Inventory/IInventoryItem";
 import Player = RageMP.Player;
+import {InventoryItemItemTypeTransformer} from "../transformer/InventoryItemItemTypeTransformer";
 
 @Entity({
     name: "user_inventory_items"
@@ -27,7 +26,8 @@ export class DbUserInventoryItems extends BaseEntity {
 
     @Column({
         type: "varchar",
-        length: 150
+        length: 150,
+        transformer: new InventoryItemItemTypeTransformer()
     })
     itemType: IInventoryItem;
 
