@@ -11,7 +11,7 @@ export interface IInventoryItem {
     maxAmount: number;
     category: ItemCategory
 
-    use(player: Player, options: {[optionsName: string]: string}): Promise<boolean>;
+    use(player: Player, options?: {[optionsName: string]: string}): Promise<boolean>;
 }
 
 // @info: add new item types here

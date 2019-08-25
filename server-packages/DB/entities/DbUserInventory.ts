@@ -9,7 +9,8 @@ import {
 } from "typeorm";
 import {DbUser} from "./DbUser";
 import {DbAdminBans} from "./DbAdminBans";
-import {DbUserInventoryItems} from "./DbUserInventoryItems";
+import {DbUserInventoryItem} from "./DbUserInventoryItem";
+import {getInventoryItemByItemSymbol} from "../../Script/User/Inventory/IInventoryItem";
 
 @Entity({
     name: "user_inventory"
@@ -32,8 +33,10 @@ export class DbUserInventory extends BaseEntity {
     @JoinColumn()
     user: DbUser;
 
-    @OneToMany(type => DbUserInventoryItems, inventoryItems => inventoryItems.userInventory)
-    inventoryItems: DbUserInventoryItems[];
+    @OneToMany(type => DbUserInventoryItem, inventoryItem => inventoryItem.userInventory, {
+        eager: true
+    })
+    inventoryItems: DbUserInventoryItem[];
 
     @Column({
         default: 5000,
@@ -53,4 +56,33 @@ export class DbUserInventory extends BaseEntity {
     })
     updated: Date;
 
+    async addInventoryItem(itemSymbol: string): Promise<void> {
+        for (const item of this.inventoryItems) {
+            if (item.itemType.itemSymbol === itemSymbol) {
+                item.amount++;
+                return;
+            }
+        }
+        const itemType = getInventoryItemByItemSymbol(itemSymbol);
+        if (!itemType) throw new Error(`ItemType '${itemSymbol}' does not exist.`);
+
+        const newItem = new DbUserInventoryItem();
+        newItem.amount = 1;
+        newItem.itemType = itemType;
+        newItem.userInventory = this;
+        await newItem.save();
+
+        this.inventoryItems.push(newItem);
+
+        await this.save();
+    }
+
+    getAItemByItemSybol(itemSymbol: string): DbUserInventoryItem | false {
+        for (const item of this.inventoryItems) {
+            if (item.itemType.itemSymbol === itemSymbol) {
+                return item;
+            }
+        }
+        return false;
+    }
 }

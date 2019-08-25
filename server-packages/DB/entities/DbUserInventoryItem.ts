@@ -13,7 +13,7 @@ import {InventoryItemItemTypeTransformer} from "../transformer/InventoryItemItem
 @Entity({
     name: "user_inventory_items"
 })
-export class DbUserInventoryItems extends BaseEntity {
+export class DbUserInventoryItem extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -34,7 +34,7 @@ export class DbUserInventoryItems extends BaseEntity {
     @Column()
     amount: number;
 
-    async use(player: Player, options: {[optionsName: string]: string}): Promise<void> {
+    async use(player: Player, options?: {[optionsName: string]: string}): Promise<void> {
         if (await this.itemType.use(player, options)) {
             this.amount--;
             if (this.amount <= 0) await this.remove();
