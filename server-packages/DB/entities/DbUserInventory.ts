@@ -77,7 +77,7 @@ export class DbUserInventory extends BaseEntity {
         await this.save();
     }
 
-    getAItemByItemSybol(itemSymbol: string): DbUserInventoryItem | false {
+    getAItemByItemSymbol(itemSymbol: string): DbUserInventoryItem | false {
         for (const item of this.inventoryItems) {
             if (item.itemType.itemSymbol === itemSymbol) {
                 return item;

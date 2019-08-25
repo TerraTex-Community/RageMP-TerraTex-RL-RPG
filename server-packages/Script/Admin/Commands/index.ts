@@ -8,7 +8,7 @@ mp.events.addCommand("additem", (player) => {
 
 
 mp.events.addCommand("useitem", (player) => {
-    const bandages = (player.customData.dbUser as DbUser).inventory.getAItemByItemSybol('bandage');
+    const bandages = (player.customData.dbUser as DbUser).inventory.getAItemByItemSymbol('bandage');
     if (bandages) {
         bandages.use(player);
     }
