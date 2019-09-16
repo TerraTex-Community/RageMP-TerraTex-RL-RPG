@@ -8,7 +8,7 @@ export function closeBrowserOnDistance(browser: BrowserMp, distance: number, cal
     };
 }
 
-export function registerBrowserAsClickSystemDisabler(browser: BrowserMp) {
+export function registerBrowserAsClickSystemDisabler(browser: BrowserMp): void {
     // @ts-ignore
     browser.disablesClickSystem = true;
 }
