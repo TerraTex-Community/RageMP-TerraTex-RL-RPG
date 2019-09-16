@@ -5,7 +5,8 @@ export class ItemBandage implements IInventoryItem {
     category: ItemCategory.health;
     itemName: string = "Bandage";
     itemSymbol: string = "bandage";
-    maxAmount: number = 100;
+    // @fixme: for only trying it is only allowed to have 5 after feature finish it should be ~15
+    maxAmount: number = 5;
 
     async use(player: Player, options: { [p: string]: string }): Promise<boolean> {
         player.health += 20;
@@ -14,4 +15,5 @@ export class ItemBandage implements IInventoryItem {
 
 }
 
-export const itemBandage = new ItemBandage();
+// tslint:disable-next-line:variable-name
+export const ItemBandageSymbol = new ItemBandage();

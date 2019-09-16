@@ -37,7 +37,10 @@ export class DbUserInventoryItem extends BaseEntity {
     async use(player: Player, options?: {[optionsName: string]: string}): Promise<void> {
         if (await this.itemType.use(player, options)) {
             this.amount--;
-            if (this.amount <= 0) await this.remove();
+            if (this.amount <= 0) {
+                // @todo: is it removed also from user inventory?
+                await this.remove();
+            }
         }
     }
 }

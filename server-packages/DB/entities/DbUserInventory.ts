@@ -10,7 +10,7 @@ import {
 import {DbUser} from "./DbUser";
 import {DbAdminBans} from "./DbAdminBans";
 import {DbUserInventoryItem} from "./DbUserInventoryItem";
-import {getInventoryItemByItemSymbol} from "../../Script/User/Inventory/IInventoryItem";
+import {getInventoryItemByItemSymbol, IInventoryItem} from "../../Script/User/Inventory/IInventoryItem";
 
 @Entity({
     name: "user_inventory"
@@ -56,7 +56,9 @@ export class DbUserInventory extends BaseEntity {
     })
     updated: Date;
 
-    async addInventoryItem(itemSymbol: string): Promise<void> {
+    async addInventoryItem(inventoryItem: IInventoryItem): Promise<void> {
+        const itemSymbol = inventoryItem.itemSymbol;
+
         for (const item of this.inventoryItems) {
             if (item.itemType.itemSymbol === itemSymbol) {
                 item.amount++;
@@ -75,14 +77,27 @@ export class DbUserInventory extends BaseEntity {
         this.inventoryItems.push(newItem);
 
         await this.save();
+        // @todo: Do we have to do here a inventory reload instead to refresh itemlist?
     }
 
-    getAItemByItemSymbol(itemSymbol: string): DbUserInventoryItem | false {
+    getAItem(inventoryItem: IInventoryItem): DbUserInventoryItem | false {
+        const itemSymbol = inventoryItem.itemSymbol;
+
         for (const item of this.inventoryItems) {
             if (item.itemType.itemSymbol === itemSymbol) {
                 return item;
             }
         }
         return false;
+    }
+
+    hasInventoryItem(inventoryItem: IInventoryItem): boolean {
+        const item = this.getAItem(inventoryItem);
+        return !!(item && item.amount > 0);
+    }
+
+    getAmountOfInventoryItem(inventoryItem: IInventoryItem): number {
+        const item = this.getAItem(inventoryItem);
+        return item ? item.amount : 0;
     }
 }
