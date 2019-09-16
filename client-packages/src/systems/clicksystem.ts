@@ -3,6 +3,13 @@ let lastEntity: EntityMp | number | null = null;
 
 // trigger also to server
 mp.events.add("click", (x, y, upOrDown, leftOrRight) => {
+    for (const browser of mp.browsers.toArray()) {
+        // @ts-ignore
+        if (browser && browser.disablesClickSystem && browser.active) {
+            return;
+        }
+    }
+
     const pos3d = mp.game.graphics.screen2dToWorld3d([x, y]);
     const camera = mp.cameras.new("gameplay"); // gets the current gameplay camera
     const position = camera.getCoord();
