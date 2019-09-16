@@ -22,3 +22,5 @@ node_modules
 **/custom.css
 **/custom.css.map
 **/sonar-tslint.json
+/server-packages/package-lock.json
+/server-packages/ormconfig.json
