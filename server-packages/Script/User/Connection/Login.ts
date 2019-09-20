@@ -57,9 +57,6 @@ export async function loginPlayer(player: Player, password: string): Promise<boo
     player.setVariable("loggedIn", true);
     player.call("player_loggedin");
 
-    console.log("items");
-    console.log(userObj.inventory.inventoryItems);
-
     spawnPlayer(player);
 
     return true;

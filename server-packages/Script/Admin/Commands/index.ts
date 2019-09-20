@@ -9,10 +9,10 @@ mp.events.addCommand("additem", (player: Player) => {
 });
 
 
-mp.events.addCommand("useitem", (player) => {
+mp.events.addCommand("useitem", async (player) => {
     const bandages = (player.customData.dbUser as DbUser).inventory.getAItem(ItemBandageSymbol);
     if (bandages) {
-        bandages.use(player);
+        await bandages.use(player);
         player.outputChatBox(`Anzahl Bandagen in Inventory: ${(player.customData.dbUser as DbUser).inventory.getAmountOfInventoryItem(ItemBandageSymbol)}`);
         player.outputChatBox(
             `Anzahl Bandagen in Inventory: ${(player.customData.dbUser as DbUser).inventory.getAItem(ItemBandageSymbol) ? 'not removed' : 'removed'}`

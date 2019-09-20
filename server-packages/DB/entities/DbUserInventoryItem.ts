@@ -3,12 +3,13 @@ import {
     Column,
     PrimaryGeneratedColumn,
     BaseEntity,
-    ManyToOne
+    ManyToOne, BeforeUpdate
 } from "typeorm";
 import {DbUserInventory} from "./DbUserInventory";
 import {IInventoryItem} from "../../Script/User/Inventory/IInventoryItem";
 import Player = RageMP.Player;
 import {InventoryItemItemTypeTransformer} from "../transformer/InventoryItemItemTypeTransformer";
+import {DbUser} from "./DbUser";
 
 @Entity({
     name: "user_inventory_items"
@@ -34,13 +35,22 @@ export class DbUserInventoryItem extends BaseEntity {
     @Column()
     amount: number;
 
-    async use(player: Player, options?: {[optionsName: string]: string}): Promise<void> {
+    async use(player: Player, options?: {[optionsName: string]: string}): Promise<boolean> {
         if (await this.itemType.use(player, options)) {
             this.amount--;
             if (this.amount <= 0) {
-                // @todo: is it removed also from user inventory?
-                await this.remove();
+                await (<DbUser>player.customData.dbUser).inventory.removeInventoryItem(this);
             }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @BeforeUpdate()
+    checkIfUpdateOrRemove(): void {
+        if (this.userInventory === null) {
+            this.remove();
         }
     }
 }

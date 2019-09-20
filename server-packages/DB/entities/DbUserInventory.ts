@@ -8,7 +8,6 @@ import {
     JoinColumn, OneToMany
 } from "typeorm";
 import {DbUser} from "./DbUser";
-import {DbAdminBans} from "./DbAdminBans";
 import {DbUserInventoryItem} from "./DbUserInventoryItem";
 import {getInventoryItemByItemSymbol, IInventoryItem} from "../../Script/User/Inventory/IInventoryItem";
 
@@ -34,7 +33,10 @@ export class DbUserInventory extends BaseEntity {
     user: DbUser;
 
     @OneToMany(type => DbUserInventoryItem, inventoryItem => inventoryItem.userInventory, {
-        eager: true
+        eager: true,
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+        cascade: true
     })
     inventoryItems: DbUserInventoryItem[];
 
@@ -56,6 +58,11 @@ export class DbUserInventory extends BaseEntity {
     })
     updated: Date;
 
+    async removeInventoryItem(inventoryItem: DbUserInventoryItem): Promise<void> {
+        this.inventoryItems = this.inventoryItems.filter(item => item.id !== inventoryItem.id);
+        await inventoryItem.remove();
+    }
+
     async addInventoryItem(inventoryItem: IInventoryItem): Promise<void> {
         const itemSymbol = inventoryItem.itemSymbol;
 
@@ -72,12 +79,8 @@ export class DbUserInventory extends BaseEntity {
         newItem.amount = 1;
         newItem.itemType = itemType;
         newItem.userInventory = this;
-        await newItem.save();
 
         this.inventoryItems.push(newItem);
-
-        await this.save();
-        // @todo: Do we have to do here a inventory reload instead to refresh itemlist?
     }
 
     getAItem(inventoryItem: IInventoryItem): DbUserInventoryItem | false {
