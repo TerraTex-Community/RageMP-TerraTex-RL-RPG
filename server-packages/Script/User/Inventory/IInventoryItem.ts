@@ -9,7 +9,11 @@ export interface IInventoryItem {
     itemName: string;
     itemSymbol: string;
     maxAmount: number;
-    category: ItemCategory
+
+    price: number;
+    shopTypes: ItemShopTypes[];
+
+    category: ItemCategory;
 
     use(player: Player, options?: {[optionsName: string]: string}): Promise<boolean>;
 }
@@ -21,4 +25,8 @@ export function getInventoryItemByItemSymbol(symbol: string): IInventoryItem | u
         if (itemType.itemSymbol === symbol) return itemType;
     }
     return undefined;
+}
+
+export enum ItemShopTypes {
+    shop247
 }
