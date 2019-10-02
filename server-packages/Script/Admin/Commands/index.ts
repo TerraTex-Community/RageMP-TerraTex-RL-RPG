@@ -1,22 +1,12 @@
 import "./Teleport";
 import {DbUser} from "../../../DB/entities/DbUser";
 import Player = RageMP.Player;
-import {ItemBandageSymbol} from "../../User/Inventory/items/health/ItemBandage";
+import {clientLogger} from "../../../Lib/Services/ClientConsole";
 
-mp.events.addCommand("additem", (player: Player) => {
-    (player.customData.dbUser as DbUser).inventory.addInventoryItem(ItemBandageSymbol);
-    player.outputChatBox(`Anzahl Bandagen in Inventory: ${(player.customData.dbUser as DbUser).inventory.getAmountOfInventoryItem(ItemBandageSymbol)}`);
+mp.events.addCommand("showinv", (player: Player) => {
+    clientLogger.log(player, JSON.stringify((player.customData.dbUser as DbUser).inventory.inventoryItems));
 });
 
 
-mp.events.addCommand("useitem", async (player) => {
-    const bandages = (player.customData.dbUser as DbUser).inventory.getAItem(ItemBandageSymbol);
-    if (bandages) {
-        await bandages.use(player);
-        player.outputChatBox(`Anzahl Bandagen in Inventory: ${(player.customData.dbUser as DbUser).inventory.getAmountOfInventoryItem(ItemBandageSymbol)}`);
-        player.outputChatBox(
-            `Anzahl Bandagen in Inventory: ${(player.customData.dbUser as DbUser).inventory.getAItem(ItemBandageSymbol) ? 'not removed' : 'removed'}`
-        );
-    }
-});
+
 
