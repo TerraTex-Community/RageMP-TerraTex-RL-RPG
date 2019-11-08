@@ -38,7 +38,7 @@ gitlabCommitStatus {
             stage('Sonar-Scanner') {
 
                 bat 'npm i typescript'
-                bat 'tslint -o sonar-tslint.json -p . -t json -e **/dist/**/* || exit 0'
+                bat 'tslint -o sonar-tslint.json --project  . -t json -e **/dist/**/* || exit 0'
 
                 withSonarQubeEnv('TerraTex SonarQube') {
                     bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
