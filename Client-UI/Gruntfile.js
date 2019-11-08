@@ -5,7 +5,7 @@ module.exports = function(grunt) {
             dist: {
                 options: {                       // Target options
                     style: 'expanded',
-                    sourcemap: 'inline'
+                    // sourcemap: 'inline'
                 },
                 files: {
                     'src/styles/custom.css': 'src/styles/custom.scss',

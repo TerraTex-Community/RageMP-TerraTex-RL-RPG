@@ -18,8 +18,10 @@ class VersionCreator {
 
     async loadVersion(): Promise<void> {
         await this.getVersionIdentifier();
-
-        const body = JSON.parse(await request.get("https://bug.terratex.eu/api/rest/projects"));
+        const data = await request.get({
+            url: "https://bug.terratex.eu/api/rest/projects",
+        });
+        const body = JSON.parse(data);
 
         for (const project of body.projects) {
             if (project.id === 4) {
