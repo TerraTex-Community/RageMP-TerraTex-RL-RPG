@@ -1,5 +1,6 @@
 import Player = RageMP.Player;
 import {ItemBandageSymbol} from "./items/health/ItemBandage";
+import {ItemShopTypes} from "./ItemShopTypes";
 
 export const enum ItemCategory {
     health = "Heilung"
@@ -27,6 +28,3 @@ export function getInventoryItemByItemSymbol(symbol: string): IInventoryItem | u
     return undefined;
 }
 
-export enum ItemShopTypes {
-    shop247
-}

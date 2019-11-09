@@ -1,5 +1,6 @@
-import {IInventoryItem, ItemCategory, ItemShopTypes} from "../../IInventoryItem";
+import {IInventoryItem, ItemCategory} from "../../IInventoryItem";
 import Player = RageMP.Player;
+import {ItemShopTypes} from "../../ItemShopTypes";
 
 export class ItemBandage implements IInventoryItem {
     category: ItemCategory.health;
