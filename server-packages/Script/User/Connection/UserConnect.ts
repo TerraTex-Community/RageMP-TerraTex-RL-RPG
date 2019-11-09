@@ -5,6 +5,7 @@ import {ShutdownService} from "../../../Lib/Services/ShutdownService";
 import isServerShuttingDown = ShutdownService.isServerShuttingDown;
 import {logger} from "../../../Lib/Services/logging/logger";
 import {isDevServer} from "../../Admin/AdminHelper";
+import {awaitDatabaseConnection} from "../../../Lib/Data/Database";
 
 /**
  * Player starts to connect => check ban table
@@ -56,6 +57,8 @@ export async function playerConnect(player: Player): Promise<void|false> {
     player.alpha = 0;
     player.position = new mp.Vector3(0, 0, 200);
     player.dimension = 1;
+
+    await awaitDatabaseConnection();
 
     if (isServerShuttingDown) {
         player.call("setShutDownView");

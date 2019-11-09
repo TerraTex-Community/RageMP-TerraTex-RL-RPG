@@ -48,6 +48,7 @@ function setPlayerShutDownView(player: Player): void {
 mp.events.add(RageMP.Enums.Event.PLAYER_QUIT, (player: Player) => {
     if (player.getVariable("loggedIn")) {
         player.customData.dbUser.save();
+        console.log(`${player.name} disconnected.`);
     }
 });
 
