@@ -20,16 +20,16 @@ async function initGameMode(): Promise<void> {
 
 initGameMode()
     .then(() => logger.info("GameMode started successfully"))
-    .catch(error => logger.crit("error during startup: " + error.message, {error}));
+    .catch(error => logger.error("error during startup: " + error.message, {error, level: "crit"}));
 
 
 process.on('uncaughtException', (err) => {
-    logger.crit("unexpected Error", {error: err});
+    logger.error("unexpected Error", {error: err, level: "crit"});
     process.exit(1);
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-    logger.crit('Unhandled Rejection at:', {promise, reason});
+    logger.error('Unhandled Rejection at:', {promise, reason, level: "crit"});
 });
 
 process.on('warning', (warning) => {
