@@ -24,3 +24,4 @@ node_modules
 **/sonar-tslint.json
 /server-packages/package-lock.json
 /server-packages/ormconfig.json
+/.idea/
