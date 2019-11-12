@@ -49,11 +49,11 @@ export namespace ShutdownService {
             logger.crit("Error occurred on Shutdown", {error: e});
         }
     }
-
-    mp.events.add("serverShutdown", async () => {
-        mp.events.delayShutdown = true;
-        await shutdownServer(false);
-        mp.events.delayShutdown = false;
-    });
 }
 
+mp.events.add("serverShutdown", async () => {
+    mp.events.delayShutdown = true;
+    logger.debug("started shutdown");
+    await ShutdownService.shutdownServer(false);
+    mp.events.delayShutdown = false;
+});
