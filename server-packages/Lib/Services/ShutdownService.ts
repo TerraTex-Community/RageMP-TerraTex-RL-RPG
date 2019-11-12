@@ -44,8 +44,16 @@ export namespace ShutdownService {
             if (killServer) {
                 process.exit(0);
             }
+
         } catch (e) {
             logger.crit("Error occurred on Shutdown", {error: e});
         }
     }
+
+    mp.events.add("serverShutdown", async () => {
+        mp.events.delayShutdown = true;
+        await shutdownServer(false);
+        mp.events.delayShutdown = false;
+    });
 }
+

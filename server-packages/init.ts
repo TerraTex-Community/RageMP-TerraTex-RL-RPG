@@ -12,10 +12,12 @@ import {runWikiChecks} from "./Lib/Data/WikiChecks/wikiChecks";
 import {loadAllPrivateVehicle} from "./Script/System/Vehicle/PrivateVehicles/loadAndSavePrivateVehicles";
 
 async function initGameMode(): Promise<void> {
+    mp.events.delayInitialization = true;
     await initDb();
     await loadAllPrivateVehicle();
 
-    runWikiChecks();
+    await runWikiChecks();
+    mp.events.delayInitialization = false;
 }
 
 initGameMode()
