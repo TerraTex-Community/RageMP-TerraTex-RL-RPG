@@ -27,7 +27,7 @@ async function initGameMode(): Promise<void> {
 
 initGameMode()
     .then(() => logger.info("GameMode started successfully"))
-    .catch(error => logger.error("error during startup: " + error.message, {error, level: "crit"}));
+    .catch(error => logger.error(`error during startup: ${error.message}`, {error, level: "crit"}));
 
 
 process.on('uncaughtException', (err) => {

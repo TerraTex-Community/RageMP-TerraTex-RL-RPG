@@ -86,4 +86,5 @@ export async function playerConnect(player: Player): Promise<void|false> {
 
     player.call("login_startLoginProcess", [user[1] > 0, isDevServer()]);
 
+    return;
 }

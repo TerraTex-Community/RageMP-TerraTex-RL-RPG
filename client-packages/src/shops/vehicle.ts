@@ -51,17 +51,17 @@ mp.events.add("openVehicleShop", (name, buymode, data) => {
             const vehItem = new UIMenuItem(veh.displayName);
             if (veh.price === -1) {
                 vehItem.Enabled = false;
-                vehItem.Description = "Für dieses Fahrzeug/Flugzeug/Helicopter/Boot wurde noch kein Preis festgelegt... Coming Soon!?";
+                vehItem.Description = "Für das Gerät wurde noch kein Preis festgelegt... Coming Soon!?";
                 vehItem.SetRightLabel("-1");
                 vehItem.ForeColor = new Color(146, 146, 147, 150);
             } else if (veh.price > bank && veh.price > money) {
                 vehItem.Enabled = true;
                 vehItem.Description = "Du hast nicht genug Geld.";
-                vehItem.SetRightLabel(veh.price.toLocaleString('de-DE', {useGrouping: true}) + " €");
+                vehItem.SetRightLabel(`${veh.price.toLocaleString('de-DE', {useGrouping: true})} €`);
                 vehItem.ForeColor = new Color(255,0,0, 150);
             } else {
                 vehItem.Enabled = true;
-                vehItem.SetRightLabel(veh.price.toLocaleString('de-DE', {useGrouping: true}) + " €");
+                vehItem.SetRightLabel(`${veh.price.toLocaleString('de-DE', {useGrouping: true})} €`);
             }
             subMenu.AddItem(vehItem);
         }

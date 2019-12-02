@@ -93,7 +93,7 @@ module.exports = function(grunt) {
                 options: {
                     force: true,
                 },
-                src: [deployPath + '/packages', deployPath + '/client_packages']
+                src: [`${deployPath}/packages`, `${deployPath}/client_packages`]
             },
             'scss': ['./dist/**/*.scss']
         }

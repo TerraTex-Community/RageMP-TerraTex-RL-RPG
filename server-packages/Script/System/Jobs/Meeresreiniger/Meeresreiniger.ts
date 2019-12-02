@@ -57,26 +57,33 @@ export class Meeresreiniger implements IJob {
     }
 
     enterColshape(player: Player, colshape: Colshape): void {
-        if (player.vehicle && player.vehicle.isMeeresTug && player.seat === -1) {
-            if (colshape.isMeeresCol && colshape.player === player) {
-                let amount: number = 50;
+        if (
+            player.vehicle &&
+            player.vehicle.isMeeresTug &&
+            player.seat === -1 &&
 
-                if (player.lastMeeresPosition) {
-                    amount = player.position.subtract(player.lastMeeresPosition as Vector3).length() * this.payPerCoordinate;
-                }
-                player.lastMeeresPosition = player.position;
+            colshape.isMeeresCol &&
+            colshape.player === player
+        ) {
 
-                addIncomeToPayDay(player, amount, PayDayCategory.JOB);
+            let amount: number = 50;
 
-                Chat.sendChatNotificationToPlayer(player,
-                    `Vorarbeiter Alfredo sagt: Wir haben dir ${getReadableCurrency(amount)} auf dein Arbeitskonto gutschrieben. 
-                    Wir überweisen es dir mit deiner Gehaltsabrechnung (PayDay)`,
-                    "Gehalt"
-                );
-
-                this.getNewMarker(player);
+            if (player.lastMeeresPosition) {
+                amount = player.position.subtract(player.lastMeeresPosition as Vector3).length() * this.payPerCoordinate;
             }
+            player.lastMeeresPosition = player.position;
+
+            addIncomeToPayDay(player, amount, PayDayCategory.JOB);
+
+            Chat.sendChatNotificationToPlayer(player,
+                `Vorarbeiter Alfredo sagt: Wir haben dir ${getReadableCurrency(amount)} auf dein Arbeitskonto gutschrieben. 
+                Wir überweisen es dir mit deiner Gehaltsabrechnung (PayDay)`,
+                "Gehalt"
+            );
+
+            this.getNewMarker(player);
         }
+
     }
 
     exitVehicle(player: Player, vehicle: Vehicle): void {

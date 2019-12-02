@@ -62,7 +62,7 @@ mp.events.add("tryToBuyVehicle", async (player: Player, veh) => {
 
         const vehicle = await createScriptedVehicle(vehListItem.hash, shopPos.spawnPosition, {
             heading: shopPos.spawnHeading,
-            numberPlate: "TT-" + dbEntry.id.toString(36)
+            numberPlate: `TT-${dbEntry.id.toString(36)}`
         }, {
             dbEntry,
             autoRespawn: 900000

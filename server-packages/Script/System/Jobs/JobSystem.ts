@@ -7,7 +7,7 @@ import {DbUser} from "../../../DB/entities/DbUser";
 import {Chat} from "../Chat/Chat";
 
 for (const job of JobList.jobs) {
-    mp.blips.new(385, job.jobStartingPoint, {color: 77, shortRange: true, name: "Job: " + job.name});
+    mp.blips.new(385, job.jobStartingPoint, {color: 77, shortRange: true, name: `Job: ${job.name}`});
     mp.markers.new(29, job.jobStartingPoint, 1, {color: [100, 184, 230, 255]});
     mp.labels.new(job.name, job.jobStartingPoint.add(new mp.Vector3(0,0,0.5)), {
         color: [100, 184, 230, 255], los: true, drawDistance: 15, font: 2});

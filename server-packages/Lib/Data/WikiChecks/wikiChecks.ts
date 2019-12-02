@@ -10,6 +10,6 @@ export async function runWikiChecks(): Promise<void> {
             checkWeaponListAgainsWiki()
         ]);
     } catch (e) {
-        logger.error("Error during wiki checks: " + e.message, {error: e})
+        logger.error(`Error during wiki checks: ${e.message}`, {error: e})
     }
 }
