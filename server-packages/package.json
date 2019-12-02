@@ -17,6 +17,7 @@
         "@types/random": "^2.1.0",
         "@types/request-promise": "^4.1.42",
         "@types/uuid": "^3.4.4",
+        "applicationinsights": "^1.6.0",
         "array-tools": "^2.0.9",
         "cheerio": "^1.0.0-rc.3",
         "d3-polygon": "^1.0.5",

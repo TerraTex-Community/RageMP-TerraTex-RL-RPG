@@ -10,9 +10,14 @@ import "./Script/System/index";
 import {logger} from "./Lib/Services/logging/logger";
 import {runWikiChecks} from "./Lib/Data/WikiChecks/wikiChecks";
 import {loadAllPrivateVehicle} from "./Script/System/Vehicle/PrivateVehicles/loadAndSavePrivateVehicles";
+import appInsights from "applicationinsights"
 
 async function initGameMode(): Promise<void> {
     mp.events.delayInitialization = true;
+    if (mp.config.instrumentationKey) {
+        appInsights.setup(mp.config.instrumentationKey);
+        appInsights.start();
+    }
     await initDb();
     await loadAllPrivateVehicle();
 
