@@ -52,7 +52,7 @@ async function checkBans(player: Player): Promise<boolean> {
 /**
  * Player Connected => show Register or Login
  */
-export async function playerConnect(player: Player): Promise<void|false> {
+export async function playerConnect(player: Player): Promise<void|boolean> {
     // hide player
     player.alpha = 0;
     player.position = new mp.Vector3(0, 0, 200);
@@ -62,7 +62,7 @@ export async function playerConnect(player: Player): Promise<void|false> {
 
     if (isServerShuttingDown) {
         player.call("setShutDownView");
-        return;
+        return false;
     }
 
     try {
@@ -86,5 +86,5 @@ export async function playerConnect(player: Player): Promise<void|false> {
 
     player.call("login_startLoginProcess", [user[1] > 0, isDevServer()]);
 
-    return;
+    return true;
 }
