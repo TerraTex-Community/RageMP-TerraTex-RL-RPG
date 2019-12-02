@@ -10,7 +10,7 @@ mp.events.add("click", (x, y, upOrDown, leftOrRight) => {
         }
     }
 
-    const pos3d = mp.game.graphics.screen2dToWorld3d([x, y]);
+    const pos3d = mp.game.graphics.screen2dToWorld3d(new mp.Vector3(x, y, 0));
     const camera = mp.cameras.new("gameplay"); // gets the current gameplay camera
     const position = camera.getCoord();
 
