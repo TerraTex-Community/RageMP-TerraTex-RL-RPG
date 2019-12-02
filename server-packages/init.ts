@@ -10,13 +10,13 @@ import "./Script/System/index";
 import {logger} from "./Lib/Services/logging/logger";
 import {runWikiChecks} from "./Lib/Data/WikiChecks/wikiChecks";
 import {loadAllPrivateVehicle} from "./Script/System/Vehicle/PrivateVehicles/loadAndSavePrivateVehicles";
-import appInsights from "applicationinsights"
+import {setup, start} from "applicationinsights"
 
 async function initGameMode(): Promise<void> {
     mp.events.delayInitialization = true;
     if (mp.config.instrumentationKey) {
-        appInsights.setup(mp.config.instrumentationKey);
-        appInsights.start();
+        setup(mp.config.instrumentationKey);
+        start();
     }
     await initDb();
     await loadAllPrivateVehicle();
@@ -39,6 +39,3 @@ process.on('unhandledRejection', (reason, promise) => {
     logger.error('Unhandled Rejection at:', {promise, reason, level: "crit"});
 });
 
-process.on('warning', (warning) => {
-    logger.warn('Warning:', {error: warning});
-});
