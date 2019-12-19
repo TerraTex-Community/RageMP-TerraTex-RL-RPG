@@ -10,12 +10,20 @@ import "./Script/System/index";
 import {logger} from "./Lib/Services/logging/logger";
 import {runWikiChecks} from "./Lib/Data/WikiChecks/wikiChecks";
 import {loadAllPrivateVehicle} from "./Script/System/Vehicle/PrivateVehicles/loadAndSavePrivateVehicles";
-import {setup, start} from "applicationinsights"
+import {setup, start, defaultClient} from "applicationinsights";
 
 async function initGameMode(): Promise<void> {
     mp.events.delayInitialization = true;
     if (mp.config.instrumentationKey) {
-        setup(mp.config.instrumentationKey);
+        setup(mp.config.instrumentationKey)
+            .setSendLiveMetrics(true)
+            .setAutoCollectConsole(true, true)
+            .setAutoCollectDependencies(true)
+            .setAutoCollectExceptions(true)
+            .setAutoCollectPerformance(true)
+            .setAutoCollectRequests(true)
+            .setAutoDependencyCorrelation(true, true);
+
         start();
     }
     await initDb();
