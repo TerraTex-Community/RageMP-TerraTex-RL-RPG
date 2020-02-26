@@ -12,6 +12,7 @@ export async function startWebServer(): Promise<void> {
     //         // + other client properties
     //     }]
     // };
+    // @ts-ignore
     const port = mp.config.webport || 8080;
 
     // const oidc: Provider = new Provider(`${mp.config.webAuthUrl}/auth` || `http://localhost:${port}/auth`, providerConfig);
@@ -22,7 +23,7 @@ export async function startWebServer(): Promise<void> {
 
 
     // server.use("/auth", oidc.callback);
-    server.listen(port, () => {console.log("server started")});
+    server.listen(port, () => {console.log("server started on port: " + port)});
 }
 
 
