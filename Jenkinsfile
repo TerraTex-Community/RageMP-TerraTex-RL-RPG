@@ -36,38 +36,58 @@ gitlabCommitStatus {
             }
 
             stage('Sonar-Scanner') {
-
                 bat 'npm i typescript'
                 bat 'tslint -o sonar-tslint.json --project  . -t json -e **/dist/**/* || exit 0'
 
-                withSonarQubeEnv('TerraTex SonarQube') {
-                    bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
-                }
+                if (env.BRANCH_NAME.startsWith("MR")) {
+                    withSonarQubeEnv('TerraTex SonarQube') {
+                        echo sh(returnStdout: true, script: 'env')
+                        //bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.pullrequest.key=${BRANCH_NAME}"
+                    }
 
-                if (env.BRANCH_NAME != 'master') {
-                    timeout(time: 1, unit: 'HOURS') {
-                        def qg = waitForQualityGate()
-                        if (qg.status != 'OK') {
-                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                    if (env.BRANCH_NAME != 'master') {
+                        timeout(time: 1, unit: 'HOURS') {
+                            def qg = waitForQualityGate()
+                            if (qg.status != 'OK') {
+                                error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                            }
+                        }
+                    }
+
+                } else {
+
+                    withSonarQubeEnv('TerraTex SonarQube') {
+                        bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
+                    }
+
+                    if (env.BRANCH_NAME != 'master') {
+                        timeout(time: 1, unit: 'HOURS') {
+                            def qg = waitForQualityGate()
+                            if (qg.status != 'OK') {
+                                error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                            }
                         }
                     }
                 }
             }
 
             stage('Build-Server') {
-                if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop' || params.DEPLOY_NON_DEV) {
-                    if (env.BRANCH_NAME == 'develop') {
-                        bat 'cd server-packages && del /f ormconfig.json'
-                        bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
-                    } else if (env.BRANCH_NAME == 'master') {
-                        bat 'cd server-packages && del /f ormconfig.json'
-                        bat 'cd server-packages && copy ormconfig.prod.json ormconfig.json'
-                    } else if (params.DEPLOY_NON_DEV) {
-                        bat 'cd server-packages && del /f ormconfig.json'
-                        bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
+                if (env.BRANCH_NAME.startsWith("MR")) {}
+                else {
+                    if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop' || params.DEPLOY_NON_DEV) {
+                        if (env.BRANCH_NAME == 'develop') {
+                            bat 'cd server-packages && del /f ormconfig.json'
+                            bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
+                        } else if (env.BRANCH_NAME == 'master') {
+                            bat 'cd server-packages && del /f ormconfig.json'
+                            bat 'cd server-packages && copy ormconfig.prod.json ormconfig.json'
+                        } else if (params.DEPLOY_NON_DEV) {
+                            bat 'cd server-packages && del /f ormconfig.json'
+                            bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
+                        }
+                            bat 'cd Build-stuff && npm i'
+                            bat 'cd Build-stuff && grunt'
                     }
-                        bat 'cd Build-stuff && npm i'
-                        bat 'cd Build-stuff && grunt'
                 }
             }
 
