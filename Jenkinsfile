@@ -58,7 +58,13 @@ gitlabCommitStatus {
                 } else {
 
                     withSonarQubeEnv('TerraTex SonarQube') {
-                        bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
+                        if (env.BRANCH_NAME == 'master') {
+                            bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
+                        } else if (env.BRANCH_NAME == 'develop') {
+                            bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.branch.target=master -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
+                        } else {
+                            bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.branch.target=develop -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
+                        }
                     }
 
                     if (env.BRANCH_NAME != 'master') {
