@@ -23,7 +23,6 @@ gitlabCommitStatus {
                 properties([parameters(list), gitLabConnection('terratex')])
 
                 final scmVars = checkout(scm)
-                // echo "scmVars: ${DEPLOY_NON_DEV}"
 
                 JSONVERSION = "{\"versionTimestamp\":\"${env.BUILD_TIMESTAMP}\", \
                 \"versionBuildId\":\"${env.BUILD_ID}\", \
