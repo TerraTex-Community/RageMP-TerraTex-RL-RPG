@@ -43,7 +43,7 @@
         "winston": "^3.2.1"
     },
     "devDependencies": {
-        "@types/ragemp-s": "git+https://github.com/CocaColaBear/types-ragemp-s.git#v1.0",
+        "@types/ragemp-s": "git+https://github.com/TerraTex-Community/types-ragemp-s.git#0.4",
         "json-ts": "^1.6.4",
         "tsconfig-paths": "^3.7.0"
     }

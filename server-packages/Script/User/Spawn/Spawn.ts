@@ -4,7 +4,6 @@ import Vector3 = RageMP.Vector3;
 import Player = RageMP.Player;
 import {DbUser} from '../../../DB/entities/DbUser';
 
-
 export async function spawnPlayer(player: Player): Promise<void> {
     ClientHelper.callClientSideFunc(player, "players.local.freezePosition", false);
     player.dimension = 0;
