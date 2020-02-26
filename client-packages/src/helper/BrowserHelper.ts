@@ -8,6 +8,11 @@ export function closeBrowserOnDistance(browser: BrowserMp, distance: number, cal
     };
 }
 
+export function registerBrowserAsClickSystemDisabler(browser: BrowserMp): void {
+    // @ts-ignore
+    browser.disablesClickSystem = true;
+}
+
 mp.events.add(RageEnums.EventKey.PLAYER_EXIT_COLSHAPE, (shape: ColshapeMp) => {
     if (closeBrowserColshapes[shape.handle]) {
         const browser: BrowserMp = closeBrowserColshapes[shape.handle].browser;

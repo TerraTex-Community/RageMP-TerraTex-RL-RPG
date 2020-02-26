@@ -31,7 +31,7 @@ export async function getHiddenEMail(player: Player): Promise<void> {
     const rest = restParts.slice(0, restParts.length - 1).join(".");
     generatedEmail += rest.charAt(0);
     generatedEmail += "*".repeat(rest.length - 2) + rest.charAt(rest.length - 1);
-    generatedEmail += "." + endPart;
+    generatedEmail += `.${endPart}`;
 
     player.call("execute_login_password_forgotten_getEmailHidden_result", [generatedEmail]);
 }

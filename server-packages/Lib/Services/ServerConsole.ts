@@ -24,7 +24,7 @@ function parseInput(s: string): void {
 
     } else {
         Chat.sendChatNotificationToPlayer(mp.players.toArray(), s, "Servernachricht");
-        logger.info("Sended Serverconsole Message: " + s);
+        logger.info(`Sended Serverconsole Message: ${s}`);
     }
 }
 

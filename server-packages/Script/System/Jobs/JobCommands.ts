@@ -24,7 +24,6 @@ mp.events.addCommand("getjob", (player => {
             player,
             `Du hast jetzt den Job ${job.name}!`
         );
-        return;
     }
 }));
 

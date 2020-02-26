@@ -26,7 +26,7 @@ export class TimeHelper {
 
         const matches = StringHelper.matchAll(txt, regexp);
         for (const m of matches) {
-            if (!m.groups || !m.groups.time || !m.groups.unit) { continue; }
+            if (!m.groups || !m.groups.time || !m.groups.unit) continue;
             // @ts-ignore
             moment.add(parseInt(m.groups.time, 10), m.groups.unit);
         }

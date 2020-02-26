@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class test1562025685601 implements MigrationInterface {
+export class update1562025685601 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.query("CREATE TABLE `user_vehicle` (`id` int NOT NULL AUTO_INCREMENT, `model` varchar(150) NOT NULL, `numberPlate` varchar(20) NULL, `positionData` json NOT NULL DEFAULT '{\"x\":0,\"y\":0,\"z\":0,\"heading\":0}', `updated` datetime(6) NULL DEFAULT CURRENT_TIMESTAMP(6), `created` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), `ownerId` int NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB");

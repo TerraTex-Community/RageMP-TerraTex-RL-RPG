@@ -1,4 +1,4 @@
-import {closeBrowserOnDistance} from "../helper/BrowserHelper";
+import {closeBrowserOnDistance, registerBrowserAsClickSystemDisabler} from "../helper/BrowserHelper";
 
 let atmBrowser: BrowserMp | null = null;
 
@@ -10,6 +10,7 @@ mp.events.add("openATM", () => {
     mp.gui.cursor.show(true, true);
 
     atmBrowser = mp.browsers.new('package://ui/index.html?page=pages/ATM.html');
+    registerBrowserAsClickSystemDisabler(atmBrowser);
     closeBrowserOnDistance(atmBrowser, 5, () => {
         atmBrowser = null;
     });
@@ -25,6 +26,7 @@ mp.events.add("updateATM", () => {
 
 mp.events.add("browser_atm_close", () => {
     if (atmBrowser) {
+        atmBrowser.active = false;
         atmBrowser.destroy();
         atmBrowser = null;
     }

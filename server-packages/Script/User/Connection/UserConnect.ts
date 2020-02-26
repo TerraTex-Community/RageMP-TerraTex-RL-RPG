@@ -5,6 +5,7 @@ import {ShutdownService} from "../../../Lib/Services/ShutdownService";
 import isServerShuttingDown = ShutdownService.isServerShuttingDown;
 import {logger} from "../../../Lib/Services/logging/logger";
 import {isDevServer} from "../../Admin/AdminHelper";
+import {awaitDatabaseConnection} from "../../../Lib/Data/Database";
 
 /**
  * Player starts to connect => check ban table
@@ -51,15 +52,17 @@ async function checkBans(player: Player): Promise<boolean> {
 /**
  * Player Connected => show Register or Login
  */
-export async function playerConnect(player: Player): Promise<void|false> {
+export async function playerConnect(player: Player): Promise<void|boolean> {
     // hide player
     player.alpha = 0;
     player.position = new mp.Vector3(0, 0, 200);
     player.dimension = 1;
 
+    await awaitDatabaseConnection();
+
     if (isServerShuttingDown) {
         player.call("setShutDownView");
-        return;
+        return false;
     }
 
     try {
@@ -83,4 +86,5 @@ export async function playerConnect(player: Player): Promise<void|false> {
 
     player.call("login_startLoginProcess", [user[1] > 0, isDevServer()]);
 
+    return true;
 }
