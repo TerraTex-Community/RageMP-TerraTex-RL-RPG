@@ -40,19 +40,10 @@ gitlabCommitStatus {
                 bat 'tslint -o sonar-tslint.json --project  . -t json -e **/dist/**/* || exit 0'
 
                 if (env.BRANCH_NAME.startsWith("MR")) {
-                    withSonarQubeEnv('TerraTex SonarQube') {
                         echo sh(returnStdout: true, script: 'env')
-                        //bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.pullrequest.key=${BRANCH_NAME}"
-                    }
 
-                    if (env.BRANCH_NAME != 'master') {
-                        timeout(time: 1, unit: 'HOURS') {
-                            def qg = waitForQualityGate()
-                            if (qg.status != 'OK') {
-                                error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                            }
-                        }
-                    }
+
+
 
                 } else {
 
