@@ -12,9 +12,10 @@ export const logger = createLogger({
         type: LOG_TYPES.SYSTEM
     },
 // @ts-ignore
-    format: format.combine(format.timestamp({alias: "@timestamp", format: timezoned}), format.json({replacer: replaceErrors})),
+    format: format.timestamp({alias: "@timestamp", format: timezoned}),
     transports: [
         new transports.File({
+            format: format.json({replacer: replaceErrors}),
             filename: "server.log",
             dirname: "logs",
             maxsize: 104857600

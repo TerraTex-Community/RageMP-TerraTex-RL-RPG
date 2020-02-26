@@ -30,9 +30,9 @@ async function initGameMode(): Promise<void> {
     await initDb();
     await loadAllPrivateVehicle();
 
-    await runWikiChecks();
-    await startWebServer();
     mp.events.delayInitialization = false;
+    startWebServer();
+    runWikiChecks();
 }
 
 initGameMode()
