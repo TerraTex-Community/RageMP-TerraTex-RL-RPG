@@ -35,7 +35,7 @@ gitlabCommitStatus {
             }
 
             stage('Sonar-Scanner') {
-                bat 'npm i typescript'
+                bat 'npm i typescript@3.8.0'
                 bat 'tslint -o sonar-tslint.json --project  . -t json -e **/dist/**/* || exit 0'
 
                 def scannerHome = tool 'SonarScannerLatest';

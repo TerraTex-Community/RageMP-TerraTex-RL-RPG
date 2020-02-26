@@ -1,3 +1,4 @@
+/* tslint:disable:one-line */
 import {ClientHelper} from '../../Helper/ClientHelper';
 import Vector3 = RageMP.Vector3;
 import Player = RageMP.Player;

@@ -55,7 +55,7 @@
     "switch-default": true,
     "triple-equals": true,
     "use-isnan": true,
-    "eofline": true,
+    "eofline": false,
     "indent": [true, "spaces"],
     "max-file-line-count": [true, 800],
     "max-line-length": [true, 160],

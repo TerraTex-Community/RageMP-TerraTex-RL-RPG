@@ -10,7 +10,7 @@ export async function initDb(): Promise<void> {
     }));
 
     await connection.runMigrations({
-        transaction: true
+        transaction: "all"
     });
 }
 
