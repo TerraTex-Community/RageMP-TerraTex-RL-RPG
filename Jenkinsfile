@@ -38,10 +38,10 @@ gitlabCommitStatus {
                 bat 'npm i typescript'
                 bat 'tslint -o sonar-tslint.json --project  . -t json -e **/dist/**/* || exit 0'
 
-                 echo bat(returnStdout: true, script: 'set')
+                def scannerHome = tool 'SonarScannerLatest';
                 if (env.BRANCH_NAME.startsWith("MR")) {
                     withSonarQubeEnv('TerraTex SonarQube') {
-                        bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.pullrequest.key=${CHANGE_ID} -Dsonar.sources=. -Dsonar.pullrequest.base=${CHANGE_TARGET} -Dsonar.pullrequest.branch=${BRANCH_NAME}"
+                        bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.pullrequest.key=${CHANGE_ID} -Dsonar.sources=. -Dsonar.pullrequest.base=${CHANGE_TARGET} -Dsonar.pullrequest.branch=${BRANCH_NAME}"
                     }
 
                     if (env.BRANCH_NAME != 'master') {
@@ -59,11 +59,11 @@ gitlabCommitStatus {
 
                     withSonarQubeEnv('TerraTex SonarQube') {
                         if (env.BRANCH_NAME == 'master') {
-                            bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
+                            bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
                         } else if (env.BRANCH_NAME == 'develop') {
-                            bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.branch.target=master -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
+                            bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.branch.target=master -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
                         } else {
-                            bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.branch.target=develop -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
+                            bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.branch.target=develop -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
                         }
                     }
 
