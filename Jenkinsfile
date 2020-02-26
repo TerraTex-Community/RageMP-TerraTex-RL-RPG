@@ -39,8 +39,8 @@ gitlabCommitStatus {
                 bat 'npm i typescript'
                 bat 'tslint -o sonar-tslint.json --project  . -t json -e **/dist/**/* || exit 0'
 
-                if (env.BRANCH_NAME.startsWith("MR")) {
                         echo sh(returnStdout: true, script: 'env')
+                if (env.BRANCH_NAME.startsWith("MR")) {
 
 
 
