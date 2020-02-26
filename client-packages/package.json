@@ -6,7 +6,7 @@
     "build": "gulp bundle"
   },
   "devDependencies": {
-    "@types/ragemp-c": "github:CocaColaBear/types-ragemp-c#master",
+    "@types/ragemp-c": "git+https://github.com/CocaColaBear/types-ragemp-c.git#v1.0",
     "typescript": "^3.2.2"
   },
   "dependencies": {

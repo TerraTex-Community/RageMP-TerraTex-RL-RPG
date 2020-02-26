@@ -11,6 +11,7 @@ import {logger} from "./Lib/Services/logging/logger";
 import {runWikiChecks} from "./Lib/Data/WikiChecks/wikiChecks";
 import {loadAllPrivateVehicle} from "./Script/System/Vehicle/PrivateVehicles/loadAndSavePrivateVehicles";
 import {setup, start, defaultClient} from "applicationinsights";
+import {startWebServer} from "./ApiServer/webserver";
 
 async function initGameMode(): Promise<void> {
     mp.events.delayInitialization = true;
@@ -30,6 +31,7 @@ async function initGameMode(): Promise<void> {
     await loadAllPrivateVehicle();
 
     await runWikiChecks();
+    await startWebServer();
     mp.events.delayInitialization = false;
 }
 
