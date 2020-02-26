@@ -41,7 +41,7 @@ gitlabCommitStatus {
                  echo bat(returnStdout: true, script: 'set')
                 if (env.BRANCH_NAME.startsWith("MR")) {
                     withSonarQubeEnv('TerraTex SonarQube') {
-                        bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.pullrequest.key=${CHANGE_ID} -Dsonar.sources=. -Dsonar.pullrequest.base=develop -Dsonar.pullrequest.branch=${BRANCH_NAME}"
+                        bat "sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.pullrequest.key=${CHANGE_ID} -Dsonar.sources=. -Dsonar.pullrequest.base=${CHANGE_TARGET} -Dsonar.pullrequest.branch=${BRANCH_NAME}"
                     }
 
                     if (env.BRANCH_NAME != 'master') {
