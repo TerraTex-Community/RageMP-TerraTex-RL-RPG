@@ -20,7 +20,7 @@ gitlabCommitStatus {
                 }
 
                 //finally
-                properties([parameters(list), gitLabConnection('terratex')])
+                properties([parameters(list)])
 
                 final scmVars = checkout(scm)
 
