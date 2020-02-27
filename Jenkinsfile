@@ -4,7 +4,7 @@ gitlabCommitStatus {
     try {
         node('windows') {
 
-            deleteDir()
+            // deleteDir()
 
             script {
                 def list = []
