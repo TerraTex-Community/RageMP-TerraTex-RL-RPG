@@ -18,6 +18,7 @@ export async function checkWeaponListAgainsWiki(): Promise<void> {
         const listOfMissingWeapons: string[] = [];
         const listOfMissingWeaponPrices: string[] = [];
         for (const element of contents) {
+            // @ts-ignore
             const name = (await (await element.getProperty("textContent")).jsonValue()).trim();
             const weaponItem: WeaponListItem|false = getWeaponListItemByModelId(name);
             if(!weaponItem) {

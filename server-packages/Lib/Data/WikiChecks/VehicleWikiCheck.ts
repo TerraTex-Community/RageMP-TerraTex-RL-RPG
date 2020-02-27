@@ -18,6 +18,7 @@ export async function checkVehicleListAgainsWiki(): Promise<void> {
         const listOfMissingVehicles: string[] = [];
         const listOfMissingVehiclePrices: string[] = [];
         for (const element of contents) {
+            // @ts-ignore
             const name = (await (await element.getProperty("textContent")).jsonValue()).trim();
             const vehicleItem: VehicleListItem|false = getVehicleListItemByName(name);
             if(!vehicleItem) {
