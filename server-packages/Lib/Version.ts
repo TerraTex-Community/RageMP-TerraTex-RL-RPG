@@ -1,7 +1,7 @@
 import {Chat} from "../Script/System/Chat/Chat";
 
-import * as request from "request-promise";
 import * as fs from "fs";
+import axios from "axios";
 
 import Player = RageMP.Player;
 import sendChatNotificationToPlayer = Chat.sendChatNotificationToPlayer;
@@ -18,10 +18,9 @@ class VersionCreator {
 
     async loadVersion(): Promise<void> {
         await this.getVersionIdentifier();
+        const response = await axios.get("https://bug.terratex.eu/api/rest/projects");
 
-        const body = JSON.parse(await request.get("https://bug.terratex.eu/api/rest/projects"));
-
-        for (const project of body.projects) {
+        for (const project of response.data.projects) {
             if (project.id === 4) {
                 const versions = project.versions;
 
@@ -75,13 +74,16 @@ class VersionCreator {
     }
 }
 
-const vObj = new VersionCreator();
-export const version = vObj;
+export let version;
+
+export const initVersionInstance = () => {
+    version = new VersionCreator();
+};
 
 registerServerCommand("version", () => {
-    vObj.printConsoleLog(false);
+    version.printConsoleLog(false);
 });
 
 mp.events.addCommand("version", (player: Player) => {
-    vObj.printVersionToPlayer(player);
+    version.printVersionToPlayer(player);
 });

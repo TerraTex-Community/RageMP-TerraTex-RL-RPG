@@ -12,8 +12,10 @@ import {runWikiChecks} from "./Lib/Data/WikiChecks/wikiChecks";
 import {loadAllPrivateVehicle} from "./Script/System/Vehicle/PrivateVehicles/loadAndSavePrivateVehicles";
 import {setup, start, defaultClient} from "applicationinsights";
 import {startWebServer} from "./ApiServer/webserver";
+import {initVersionInstance} from "./Lib/Version";
 
 async function initGameMode(): Promise<void> {
+    console.error(new Error());
     mp.events.delayInitialization = true;
     if (mp.config.instrumentationKey) {
         setup(mp.config.instrumentationKey)
@@ -33,6 +35,7 @@ async function initGameMode(): Promise<void> {
     mp.events.delayInitialization = false;
     startWebServer();
     runWikiChecks();
+    initVersionInstance();
 }
 
 initGameMode()
