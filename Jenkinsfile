@@ -4,8 +4,6 @@ gitlabCommitStatus {
     try {
         node('windows') {
 
-            deleteDir()
-
             script {
                 def list = []
                 if (env.BRANCH_NAME == 'develop') {
@@ -137,6 +135,8 @@ gitlabCommitStatus {
                     telegramSend telegram
                 }
             }
+
+            deleteDir()
         }
     }
 }

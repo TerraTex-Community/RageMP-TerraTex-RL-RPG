@@ -4,7 +4,6 @@ import "./Script/User/Connection/LoginEvents";
 import "./Script/Admin";
 import "./Script/User/Spawn/Spawn";
 import "./Script/User/Spawn/Death";
-import "./Lib/Version";
 import "./Lib/Services/index";
 import "./Script/System/index";
 import {logger} from "./Lib/Services/logging/logger";
