@@ -3,6 +3,7 @@ def JSONVERSION
 gitlabCommitStatus {
     try {
         node('windows') {
+            cleanWs()
 
             script {
                 def list = []
@@ -136,7 +137,6 @@ gitlabCommitStatus {
                 }
             }
 
-            deleteDir()
         }
     }
 }

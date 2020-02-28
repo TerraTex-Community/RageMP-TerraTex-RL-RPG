@@ -14,7 +14,6 @@ import {startWebServer} from "./ApiServer/webserver";
 import {initVersionInstance} from "./Lib/Version";
 
 async function initGameMode(): Promise<void> {
-    console.error(new Error());
     mp.events.delayInitialization = true;
     if (mp.config.instrumentationKey) {
         setup(mp.config.instrumentationKey)
