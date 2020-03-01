@@ -33,19 +33,19 @@ class Logger {
     private receiveConsoleLog(logType: string, dataMsg: string): void {
         switch(logType) {
             case "warn":
-                mp.console.logWarning("Server Console Log: " + dataMsg, true, true);
+                mp.console.logWarning(`Server Console Log: ${dataMsg}`, true, true);
                 break;
             case "crit":
-                mp.console.logFatal("Server Console Log: " + dataMsg, true, true);
+                mp.console.logFatal(`Server Console Log: ${dataMsg}`, true, true);
                 break;
             case "error":
-                mp.console.logError("Server Console Log: " + dataMsg, true, true);
+                mp.console.logError(`Server Console Log: ${dataMsg}`, true, true);
                 break;
             case "log":
             case "debug":
             case "info":
             default:
-                mp.console.logInfo("Server Console Log: " + dataMsg, true, true);
+                mp.console.logInfo(`Server Console Log: ${dataMsg}`, true, true);
                 break;
         }
     }

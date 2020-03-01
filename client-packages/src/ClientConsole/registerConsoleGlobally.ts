@@ -32,3 +32,4 @@ export function overwriteGlobalConsole(): void {
 function printLog(state: string, msg: any): void {
     origConsole[state](msg);
 }
+
