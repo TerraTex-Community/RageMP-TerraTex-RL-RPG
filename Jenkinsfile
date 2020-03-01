@@ -108,11 +108,6 @@ gitlabCommitStatus {
                      }
                 }
 
-                stage('Check Dependencies') {
-                    dependencyCheck additionalArguments: '', odcInstallation: 'dpcheck'
-                    dependencyCheckPublisher pattern: ''
-                }
-
                 stage('Artifacts Client') {
                     if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop' || params.DEPLOY_NON_DEV) {
                         archiveArtifacts artifacts: 'Build-stuff/dist/client_packages/**/*', fingerprint: true
