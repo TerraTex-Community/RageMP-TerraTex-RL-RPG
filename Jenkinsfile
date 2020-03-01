@@ -4,7 +4,6 @@ def wps = "TTX-${BUILD_TIMESTAMP}";
 gitlabCommitStatus {
     try {
         node('windows') {
-            //ws(wps) {
 
                 script {
                     def list = []
@@ -113,7 +112,6 @@ gitlabCommitStatus {
                         archiveArtifacts artifacts: 'Build-stuff/dist/client_packages/**/*', fingerprint: true
                     }
                 }
-            //}
         }
     } catch(e) {
         currentBuild.result = 'FAILURE'
@@ -157,9 +155,6 @@ gitlabCommitStatus {
                     }
 
                 }
-                //ws(wps) {
-                //  cleanWs()
-                // }
             }
 
         }
