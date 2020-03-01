@@ -58,7 +58,7 @@ mp.events.add(RageMP.Enums.Event.PLAYER_EXIT_VEHICLE, (player, vehicle: Scripted
 });
 mp.events.add(RageMP.Enums.Event.PLAYER_ENTER_VEHICLE, (player: Player, vehicle: ScriptedVehicle) => {
     vehicle.lastExistTime = null;
-    if (player.seat === -1) {
+    if (player.seat === 0) {
         vehicle.lastDriver = {
             id: player.customData.dbUser.id,
             name: player.name,

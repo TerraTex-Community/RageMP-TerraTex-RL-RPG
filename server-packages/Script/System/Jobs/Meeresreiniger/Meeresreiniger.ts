@@ -60,7 +60,7 @@ export class Meeresreiniger implements IJob {
         if (
             player.vehicle &&
             player.vehicle.isMeeresTug &&
-            player.seat === -1 &&
+            player.seat === 0 &&
 
             colshape.isMeeresCol &&
             colshape.player === player
@@ -87,7 +87,7 @@ export class Meeresreiniger implements IJob {
     }
 
     exitVehicle(player: Player, vehicle: Vehicle): void {
-        if (vehicle.isMeeresTug && player.seat === -1 && vehicle.jobStarted) {
+        if (vehicle.isMeeresTug && player.seat === 0 && vehicle.jobStarted) {
             if (this.endColShape.isPointWithin(player.position)) {
                 this.removeUnusedTug(player);
                 player.position = this.jobStartingPoint;

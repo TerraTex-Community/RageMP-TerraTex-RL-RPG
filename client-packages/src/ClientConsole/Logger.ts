@@ -28,6 +28,7 @@ class Logger {
     constructor() {
         mp.events.add("log_server_to_client", this.receiveConsoleLog);
         overwriteGlobalConsole();
+
     }
 
     private receiveConsoleLog(logType: string, dataMsg: string): void {

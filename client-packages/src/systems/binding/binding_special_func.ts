@@ -21,6 +21,7 @@ export function executeSpecialFunction(func: string, release: boolean = false): 
         case "/show_playerlist":
             togglePlayerList();
             break;
+        default: break;
     }
 }
 

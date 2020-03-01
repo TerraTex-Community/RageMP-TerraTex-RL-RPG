@@ -1,4 +1,8 @@
-mp.gui.execute("window.location = 'package://chat/index.html'");
+// mp.gui.execute("window.location = 'package://chat/index.html'");
+mp.gui.chat.show(false); //Disables default RageMP Chat
+
+export let chatBox = mp.browsers.new('package://chat/index.html');
+chatBox.markAsChat();
 
 mp.events.add(
     {
@@ -6,13 +10,13 @@ mp.events.add(
             mp.gui.chat.push(`${message}`);
         },
         "addHTML": (message) => {
-            mp.gui.execute(`chatAPI.pushPlain("${addSlashes(message)}");`);
+            chatBox.execute(`chatAPI.pushPlain("${addSlashes(message)}");`);
         },
         "openChatInput": (preText) => {
-            mp.gui.execute(`chatAPI.openChatInput("${preText}");`);
+            chatBox.execute(`chatAPI.openChatInput("${preText}");`);
         },
         "simulateChat": (text) => {
-            mp.gui.execute(`chatAPI.simulate("${text}");`);
+            chatBox.execute(`chatAPI.simulate("${text}");`);
         },
     }
 );

@@ -120,6 +120,9 @@ gitlabCommitStatus {
         node ('windows') {
             script {
                 if (env.BRANCH_NAME == 'develop') {
+
+
+
                     def currResult = currentBuild.result
                     if (currResult == 'FAILURE') {
                         telegramSend 'Build fehlgeschlagen. *TerraTex:V Develeopment Server* offline.'

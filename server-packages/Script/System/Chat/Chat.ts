@@ -1,6 +1,6 @@
 import "./ChatCommands";
+import "./Voice";
 import Player = RageMP.Player;
-import {logger} from "../../../Lib/Services/logging/logger";
 
 export namespace Chat {
     export enum AlertClass {

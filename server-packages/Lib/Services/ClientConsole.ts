@@ -5,9 +5,16 @@ import {DbUser} from "../../DB/entities/DbUser";
 mp.events.add("log_client_to_server", function (player: Player, dataString: string): void {
     const data = JSON.parse(dataString);
 
+    let playerName = player.name;
+    let playerId: null|number = null;
+    if (player.customData) {
+        playerName = (player.customData.dbUser as DbUser).nickname;
+        playerId = (player.customData.dbUser as DbUser).id;
+    }
+
     const logData = {
-        playerName: (player.customData.dbUser as DbUser).nickname,
-        playerId: (player.customData.dbUser as DbUser).id,
+        playerName,
+        playerId,
         clientMessage: data.message,
         clientData: data.data
     };

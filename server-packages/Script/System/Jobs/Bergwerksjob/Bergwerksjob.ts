@@ -142,7 +142,7 @@ export class Bergwerksjob implements IJob {
             return;
         }
 
-        if (player.seat !== -1) {
+        if (player.seat !== 0) {
             return;
         }
 
@@ -239,7 +239,7 @@ export class Bergwerksjob implements IJob {
     }
 
     onPlayerEnterVehicle(player: Player, vehicle: Vehicle, seat: number): void {
-        if (seat !== -1) {
+        if (seat !== 0) {
             return;
         }
         if (!vehicle.isBergwerkBulldozer) {

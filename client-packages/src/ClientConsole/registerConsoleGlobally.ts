@@ -26,7 +26,9 @@ export function overwriteGlobalConsole(): void {
     console.warn = message => {
         printLog("warn", message);
         mp.console.logWarning(message, true, true);
-    }
+    };
+
+    console.info("Console loaded.");
 }
 
 function printLog(state: string, msg: any): void {
