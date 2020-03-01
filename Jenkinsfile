@@ -56,12 +56,15 @@ gitlabCommitStatus {
 
 
                     } else {
+                        dependencyCheck additionalArguments: '', odcInstallation: 'dpcheck'
+
 
                         withSonarQubeEnv('TerraTex SonarQube') {
                             if (env.BRANCH_NAME == 'master') {
                                 bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
                             } else if (env.BRANCH_NAME == 'develop') {
                                 bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.branch.base=master -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
+
                             } else {
                                 bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectVersion=${BRANCH_NAME}_${BUILD_ID} -Dsonar.branch.base=develop -Dsonar.projectKey=terratex:rl-rpg -Dsonar.sources=. -Dsonar.branch.name=${BRANCH_NAME}"
                             }
@@ -121,10 +124,6 @@ gitlabCommitStatus {
     } finally {
         node ('windows') {
 
-            ws(wps) {
-                cleanWs()
-            }
-
             if (env.BRANCH_NAME == 'develop') {
                 def currResult = currentBuild.result
                 if (currResult == 'FAILURE') {
@@ -160,6 +159,9 @@ gitlabCommitStatus {
                     telegramSend telegram
                 }
 
+            }
+            ws(wps) {
+                cleanWs()
             }
 
         }
