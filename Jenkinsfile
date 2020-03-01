@@ -1,23 +1,10 @@
 def JSONVERSION
 def wps = "TTX-${BUILD_TIMESTAMP}";
-def changesText = ""
 
 gitlabCommitStatus {
     try {
         node('windows') {
-            script {
-                def publisher = LastChanges.getLastChangesPublisher "LAST_SUCCESSFUL_BUILD", "SIDE", "LINE", true, true, "", "", "", "", ""
-                publisher.publishLastChanges()
-                def changes = publisher.getLastChanges()
-                for (commit in changes.getCommits()) {
-                    def commitInfo = commit.getCommitInfo()
-                    changesText = """${changesText}
-- ${commitInfo.getCommitMessage()}"""
-                }
-            }
-
-
-            ws(wps) {
+            //ws(wps) {
 
                 script {
                     def list = []
@@ -126,7 +113,7 @@ gitlabCommitStatus {
                         archiveArtifacts artifacts: 'Build-stuff/dist/client_packages/**/*', fingerprint: true
                     }
                 }
-            }
+            //}
         }
     } catch(e) {
         currentBuild.result = 'FAILURE'
@@ -139,8 +126,15 @@ gitlabCommitStatus {
                     if (currResult == 'FAILURE') {
                         telegramSend 'Build fehlgeschlagen. *TerraTex:V Develeopment Server* offline.'
                     } else {
-                        def telegram = "Build erfolgreich. Der *TerraTex:V Develeopment Server* wird mit folgenden Änderungen gestartet: ${changesText}"
-
+                        def telegram = "Build erfolgreich. Der *TerraTex:V Develeopment Server* wird mit folgenden Änderungen gestartet: "
+                        def publisher = LastChanges.getLastChangesPublisher "LAST_SUCCESSFUL_BUILD", "SIDE", "LINE", true, true, "", "", "", "", ""
+                        publisher.publishLastChanges()
+                        def changes = publisher.getLastChanges()
+                        for (commit in changes.getCommits()) {
+                            def commitInfo = commit.getCommitInfo()
+                            telegram = """${telegram}
+- ${commitInfo.getCommitMessage()}"""
+                        }
 
                         telegramSend telegram
                     }
@@ -149,20 +143,26 @@ gitlabCommitStatus {
                     if (currResult == 'FAILURE') {
                         telegramSend 'Build fehlgeschlagen. *TerraTex:V Live Server* hat nun eine fehlerhafte Version.'
                     } else {
-                        def telegram = "Build erfolgreich. Der *TerraTex:V Live Server* hat nun ein Update mit folgenden Änderungen: ${changesText}"
-
+                        def telegram = "Build erfolgreich. Der *TerraTex:V Live Server* hat nun ein Update mit folgenden Änderungen: "
+                        def publisher = LastChanges.getLastChangesPublisher "LAST_SUCCESSFUL_BUILD", "SIDE", "LINE", true, true, "", "", "", "", ""
+                        publisher.publishLastChanges()
+                        def changes = publisher.getLastChanges()
+                        for (commit in changes.getCommits()) {
+                            def commitInfo = commit.getCommitInfo()
+                            telegram = """${telegram}
+- ${commitInfo.getCommitMessage()}"""
+                        }
 
                         telegramSend telegram
                     }
 
                 }
-                ws(wps) {
-                    cleanWs()
-                }
+                //ws(wps) {
+                //  cleanWs()
+                // }
             }
 
         }
     }
 }
-
 
