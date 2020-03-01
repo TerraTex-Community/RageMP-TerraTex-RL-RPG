@@ -120,45 +120,46 @@ gitlabCommitStatus {
         throw e
     } finally {
         node ('windows') {
-
-            if (env.BRANCH_NAME == 'develop') {
-                def currResult = currentBuild.result
-                if (currResult == 'FAILURE') {
-                    telegramSend 'Build fehlgeschlagen. *TerraTex:V Develeopment Server* offline.'
-                } else {
-                    def telegram = "Build erfolgreich. Der *TerraTex:V Develeopment Server* wird mit folgenden Änderungen gestartet: "
-                    def publisher = LastChanges.getLastChangesPublisher "LAST_SUCCESSFUL_BUILD", "SIDE", "LINE", true, true, "", "", "", "", ""
-                    publisher.publishLastChanges()
-                    def changes = publisher.getLastChanges()
-                    for (commit in changes.getCommits()) {
-                        def commitInfo = commit.getCommitInfo()
-                        telegram = """${telegram}
+            script {
+                if (env.BRANCH_NAME == 'develop') {
+                    def currResult = currentBuild.result
+                    if (currResult == 'FAILURE') {
+                        telegramSend 'Build fehlgeschlagen. *TerraTex:V Develeopment Server* offline.'
+                    } else {
+                        def telegram = "Build erfolgreich. Der *TerraTex:V Develeopment Server* wird mit folgenden Änderungen gestartet: "
+                        def publisher = LastChanges.getLastChangesPublisher "LAST_SUCCESSFUL_BUILD", "SIDE", "LINE", true, true, "", "", "", "", ""
+                        publisher.publishLastChanges()
+                        def changes = publisher.getLastChanges()
+                        for (commit in changes.getCommits()) {
+                            def commitInfo = commit.getCommitInfo()
+                            telegram = """${telegram}
 - ${commitInfo.getCommitMessage()}"""
+                        }
+
+                        telegramSend telegram
+                    }
+                } else if (env.BRANCH_NAME == 'master') {
+                    def currResult = currentBuild.result
+                    if (currResult == 'FAILURE') {
+                        telegramSend 'Build fehlgeschlagen. *TerraTex:V Live Server* hat nun eine fehlerhafte Version.'
+                    } else {
+                        def telegram = "Build erfolgreich. Der *TerraTex:V Live Server* hat nun ein Update mit folgenden Änderungen: "
+                        def publisher = LastChanges.getLastChangesPublisher "LAST_SUCCESSFUL_BUILD", "SIDE", "LINE", true, true, "", "", "", "", ""
+                        publisher.publishLastChanges()
+                        def changes = publisher.getLastChanges()
+                        for (commit in changes.getCommits()) {
+                            def commitInfo = commit.getCommitInfo()
+                            telegram = """${telegram}
+- ${commitInfo.getCommitMessage()}"""
+                        }
+
+                        telegramSend telegram
                     }
 
-                    telegramSend telegram
                 }
-            } else if (env.BRANCH_NAME == 'master') {
-                def currResult = currentBuild.result
-                if (currResult == 'FAILURE') {
-                    telegramSend 'Build fehlgeschlagen. *TerraTex:V Live Server* hat nun eine fehlerhafte Version.'
-                } else {
-                    def telegram = "Build erfolgreich. Der *TerraTex:V Live Server* hat nun ein Update mit folgenden Änderungen: "
-                    def publisher = LastChanges.getLastChangesPublisher "LAST_SUCCESSFUL_BUILD", "SIDE", "LINE", true, true, "", "", "", "", ""
-                    publisher.publishLastChanges()
-                    def changes = publisher.getLastChanges()
-                    for (commit in changes.getCommits()) {
-                        def commitInfo = commit.getCommitInfo()
-                        telegram = """${telegram}
-- ${commitInfo.getCommitMessage()}"""
-                    }
-
-                    telegramSend telegram
+                ws(wps) {
+                    cleanWs()
                 }
-
-            }
-            ws(wps) {
-                cleanWs()
             }
 
         }
