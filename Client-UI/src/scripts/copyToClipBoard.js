@@ -16,7 +16,7 @@ $(document).ready(() => {
     $("html").on("mousemove", ".copyLinkToClipOnClick", function(e) {
         window.mouseX = e.pageX;
         window.mouseY = e.pageY;
-    })
+    });
 
     $("html").on("click", ".copyLinkToClipOnClick", function() {
         const text = $(this).attr("data-href");
