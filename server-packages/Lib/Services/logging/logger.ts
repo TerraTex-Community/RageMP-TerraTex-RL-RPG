@@ -22,7 +22,7 @@ export const logger = createLogger({
         }),
         new transports.Console({
 // @ts-ignore
-            format: format.combine(format.timestamp({format: timezoned}), format.colorize(), myFormat())
+            format: format.combine(format.timestamp({format: timezoned}), format.colorize(), myConsoleFormat())
         })
     ]
 });
@@ -41,6 +41,21 @@ function replaceErrors(fKey: any, value: any): any {
     }
 
     return value;
+}
+
+const ignoreKeys: any[] = ["message", "level", "timestamp", "@timestamp", "type"];
+function myConsoleFormat(): any {
+    return format.printf((info) => {
+        const data = {};
+        for (const key in info) {
+            if (info.hasOwnProperty(key) && ignoreKeys.indexOf(key) === -1) {
+                data[key] = info[key];
+            }
+        }
+
+
+        return `[${info.timestamp}][${info.level}][${info.type}] ${info.message} - ${JSON.stringify(data, null, 2)}`;
+    });
 }
 
 function myFormat(): any {

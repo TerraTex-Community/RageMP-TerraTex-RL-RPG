@@ -1,4 +1,5 @@
 import * as nodemailer from "nodemailer";
+// @ts-ignore
 import * as config from "../../mailconfig.json";
 
 export async function sendMail(to: string, subject: string, html: string): Promise<void> {

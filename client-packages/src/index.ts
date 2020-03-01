@@ -6,12 +6,14 @@ import './systems/binding/binding_init';
 import './systems/clicksystem';
 import './systems/shutdown';
 import './Enviroment/index';
-import {initClientConsole} from "./ClientConsole/ClientConsoleHandler";
+import {logger} from "./ClientConsole/Logger";
 
-initClientConsole();
+
 
 // init player defaults
 mp.gui.chat.colors = true;
 mp.players.local.freezePosition(true);
 mp.players.local.alpha = 0;
 mp.players.local.position = new mp.Vector3(0,0,200);
+
+logger.info("Startet TerraTex Client");

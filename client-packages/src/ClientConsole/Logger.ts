@@ -1,4 +1,4 @@
-import {printToConsole} from "./ClientConsoleHandler";
+import {overwriteGlobalConsole} from "./registerConsoleGlobally";
 
 class Logger {
     log(msg: string, data: object = {}): void {
@@ -27,11 +27,27 @@ class Logger {
 
     constructor() {
         mp.events.add("log_server_to_client", this.receiveConsoleLog);
+        overwriteGlobalConsole();
     }
 
     private receiveConsoleLog(logType: string, dataMsg: string): void {
-        printToConsole("info", "received following Log from Server");
-        printToConsole(logType, dataMsg);
+        switch(logType) {
+            case "warn":
+                mp.console.logWarning("Server Console Log: " + dataMsg, true, true);
+                break;
+            case "crit":
+                mp.console.logFatal("Server Console Log: " + dataMsg, true, true);
+                break;
+            case "error":
+                mp.console.logError("Server Console Log: " + dataMsg, true, true);
+                break;
+            case "log":
+            case "debug":
+            case "info":
+            default:
+                mp.console.logInfo("Server Console Log: " + dataMsg, true, true);
+                break;
+        }
     }
 
     private sendLogToServer(logType: string, msg: string, data: object): void {
