@@ -56,7 +56,6 @@ gitlabCommitStatus {
 
 
                     } else {
-//                        dependencyCheck additionalArguments: '', odcInstallation: 'dpcheck'
 
                         withSonarQubeEnv('TerraTex SonarQube') {
                             if (env.BRANCH_NAME == 'master') {
@@ -107,6 +106,11 @@ gitlabCommitStatus {
                     } else if (params.DEPLOY_NON_DEV) {
                         bat 'cd Build-stuff && grunt deploy --path=D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2\\develop\\server-files'
                      }
+                }
+
+                stage('Check Dependencies') {
+                    dependencyCheck additionalArguments: '', odcInstallation: 'dpcheck'
+                    dependencyCheckPublisher pattern: ''
                 }
 
                 stage('Artifacts Client') {
