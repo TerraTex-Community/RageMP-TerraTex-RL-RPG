@@ -124,7 +124,7 @@ gitlabCommitStatus {
                     if (currResult == 'FAILURE') {
                         telegramSend 'Build fehlgeschlagen. *TerraTex:V Develeopment Server* offline.'
                     } else {
-                        def telegram = "Build erfolgreich. Der *TerraTex:V Develeopment Server* wird mit folgenden Änderungen gestartet: "
+                        def telegram = "Build erfolgreich. Der *TerraTex:V Development Server* wird mit folgenden Änderungen gestartet: "
                         def publisher = LastChanges.getLastChangesPublisher "LAST_SUCCESSFUL_BUILD", "SIDE", "LINE", true, true, "", "", "", "", ""
                         publisher.publishLastChanges()
                         def changes = publisher.getLastChanges()
