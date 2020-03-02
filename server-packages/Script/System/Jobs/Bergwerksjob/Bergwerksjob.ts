@@ -262,7 +262,7 @@ export class Bergwerksjob implements IJob {
             new mp.Vector3(2587.20581, 2722.64185, 42.2129631)
         );
 
-        await VehicleHelper.ensurePlayerInVehicle(player, bulldozer, -1);
+        await VehicleHelper.ensurePlayerInVehicle(player, bulldozer, 0);
 
         bulldozer.isBergwerkBulldozer = true;
         bulldozer.driver = player;

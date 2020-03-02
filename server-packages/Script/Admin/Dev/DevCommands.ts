@@ -11,7 +11,7 @@ mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => 
 
     const vehicle = mp.vehicles.new(mp.joaat(vehModel), player.position.add(new mp.Vector3(0, 0, 1)));
     vehicle.numberPlate = `Admin${player.customData.dbUser.id}`;
-    player.putIntoVehicle(vehicle, -1);
+    player.putIntoVehicle(vehicle, 0);
 });
 
 mp.events.addCommand('giveweapons', ((player) => {

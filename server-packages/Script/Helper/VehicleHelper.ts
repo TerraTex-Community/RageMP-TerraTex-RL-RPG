@@ -9,6 +9,7 @@ export class VehicleHelper {
             player.putIntoVehicle(vehicle, seat);
             await wait(200);
         }
+        console.log(player.seat);
     }
 
 }

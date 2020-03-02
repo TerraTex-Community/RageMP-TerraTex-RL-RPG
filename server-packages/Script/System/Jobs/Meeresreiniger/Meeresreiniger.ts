@@ -17,7 +17,7 @@ export class Meeresreiniger implements IJob {
     name: string = "Meeresreiniger";
     payPerCoordinate: number = 0.33;
 
-    bearchBorders: Point[] = [
+    beachBorders: Point[] = [
         new Point(-821, -3641),
         new Point(-2012, -3476),
         new Point(-4295, 233),
@@ -87,21 +87,23 @@ export class Meeresreiniger implements IJob {
     }
 
     exitVehicle(player: Player, vehicle: Vehicle): void {
-        if (vehicle.isMeeresTug && player.seat === 0 && vehicle.jobStarted) {
+        if (vehicle.isMeeresTug && player.lastSeat === 0 && vehicle.jobStarted) {
             if (this.endColShape.isPointWithin(player.position)) {
-                this.removeUnusedTug(player);
+                this.removeUnusedTug(player, vehicle);
                 player.position = this.jobStartingPoint;
             } else {
-                player.notify("~r~Du kannst hier nicht von Board gehen!");
+                player.notify("Du kannst hier nicht von Board gehen!");
 
-                player.putIntoVehicle(vehicle, -1);
+                player.putIntoVehicle(vehicle, 0);
             }
         }
     }
 
-    removeUnusedTug(player: Player): void {
+    removeUnusedTug(player: Player, vehicle: Vehicle|null): void {
         try {
-            if (player.vehicle && player.vehicle.isMeeresTug) {
+            if (vehicle) {
+                vehicle.destroy();
+            } else if (player.vehicle && player.vehicle.isMeeresTug) {
                 player.vehicle.destroy();
             }
             if (player.lastMeeresCol) {
@@ -141,11 +143,11 @@ export class Meeresreiniger implements IJob {
 
         await VehicleHelper.ensurePlayerInVehicle(player, jobTug);
 
-        Chat.sendChatNotificationToPlayer(player,"~b~Vorarbeiter Alfredo sagt: Schnappe dir das Boot, und säubere das Meer an den " +
+        Chat.sendChatNotificationToPlayer(player,"Vorarbeiter Alfredo sagt: Schnappe dir das Boot, und säubere das Meer an den " +
             " markierten Stellen (siehe Blips + Marker)! " +
             "Geld bekommst du wenn du eine Stelle gesäubert hast!");
         Chat.sendChatNotificationToPlayer(player,
-            "~b~Vorarbeiter Alfredo sagt: Wenn du den Job beenden/abbrechen willst komm einfach wieder hierher und gehe von Board!");
+            "Vorarbeiter Alfredo sagt: Wenn du den Job beenden/abbrechen willst komm einfach wieder hierher und gehe von Board!");
 
         player.call("meeresreiniger_create_start", [this.endColShapePosition.x, this.endColShapePosition.y]);
 
@@ -164,7 +166,7 @@ export class Meeresreiniger implements IJob {
 
                 markerVec = new mp.Vector3(pos.x, pos.y, 0);
             } while (
-                    AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.bearchBorders) ||
+                    AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.beachBorders) ||
                     !AreaHelper.isPointInside(new Point(markerVec.x, markerVec.y), this.inWorld)
                 );
         }
