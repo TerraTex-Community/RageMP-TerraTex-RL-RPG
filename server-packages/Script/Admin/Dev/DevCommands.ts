@@ -9,9 +9,7 @@ import {VehicleHelper} from "../../Helper/VehicleHelper";
 
 mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => {
     if (!isAdmin(player, 4)) return;
-    const vehicle = mp.vehicles.new(mp.joaat(vehModel), player.position.add(new mp.Vector3(0, 0, 1)), {
-        heading: rot
-    });
+    const vehicle = mp.vehicles.new(mp.joaat(vehModel), player.position.add(new mp.Vector3(0, 0, 1)));
     vehicle.numberPlate = `Admin${player.customData.dbUser.id}`;
     VehicleHelper.ensurePlayerInVehicle(player, vehicle);
 });
