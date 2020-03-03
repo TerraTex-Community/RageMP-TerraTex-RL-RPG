@@ -10,6 +10,7 @@ import {addIncomeToPayDay} from "../../Money/PayDayManager";
 import {PayDayCategory} from "../../Money/PayDayCategory";
 import {getReadableCurrency} from "../../Money/money";
 import {logger} from "../../../../Lib/Services/logging/logger";
+import {randomNumbers} from "../../../Helper/NumberHelper";
 
 export class Meeresreiniger implements IJob {
     id: number;
@@ -52,7 +53,7 @@ export class Meeresreiniger implements IJob {
         mp.events.add(RageMP.Enums.Event.PLAYER_ENTER_COLSHAPE, this.enterColshape.bind(this));
 
         const {x, y, z} = this.endColShapePosition;
-        this.endColShape = mp.colshapes.newSphere(x, y, z, 20);
+        this.endColShape = mp.colshapes.newSphere(x, y, z, 35);
 
     }
 
@@ -89,32 +90,31 @@ export class Meeresreiniger implements IJob {
     exitVehicle(player: Player, vehicle: Vehicle): void {
         if (vehicle.isMeeresTug && player.lastSeat === 0 && vehicle.jobStarted) {
             if (this.endColShape.isPointWithin(player.position)) {
-                this.removeUnusedTug(player, vehicle);
                 player.position = this.jobStartingPoint;
+                this.finishMeeresreiniger(player);
+                VehicleHelper.secureDestroyVehicle(vehicle);
             } else {
                 player.notify("Du kannst hier nicht von Board gehen!");
-
                 player.putIntoVehicle(vehicle, 0);
             }
         }
     }
 
-    removeUnusedTug(player: Player, vehicle: Vehicle|null): void {
-        try {
-            if (vehicle) {
-                vehicle.destroy();
-            } else if (player.vehicle && player.vehicle.isMeeresTug) {
-                player.vehicle.destroy();
-            }
-            if (player.lastMeeresCol) {
-                player.lastMeeresCol.destroy();
-            }
+    finishMeeresreiniger(player: Player): void {
 
-            player.call("meeresreiniger_remove");
-            player.call("meeresreiniger_remove_start");
-        } catch (e) {
-            logger.error("error occured in meeresreiniger finish", {error: e});
+        if (player.lastMeeresCol) {
+            player.lastMeeresCol.destroy();
         }
+
+        player.call("meeresreiniger_remove");
+        player.call("meeresreiniger_remove_start");
+    }
+
+    removeUnusedTug(player: Player): void {
+        if (player.vehicle && player.vehicle.isMeeresTug) {
+            VehicleHelper.secureDestroyVehicle(player.vehicle)
+        }
+        this.finishMeeresreiniger(player)
     }
 
     canPlayerQuitJob(player: RageMP.Player): boolean {
@@ -135,8 +135,11 @@ export class Meeresreiniger implements IJob {
 
     async startJob(player: RageMP.Player): Promise<void> {
         const jobTug = mp.vehicles.new(mp.joaat("tug"), this.spawnPos, {
-            heading: 180
+            heading: 141.525116,
+            numberPlate: "Tug",
+            dimension: 0
         });
+
         jobTug.setVariable("isMeeresTug", true);
         jobTug.isMeeresTug = true;
         player.lastMeeresPosition = null;

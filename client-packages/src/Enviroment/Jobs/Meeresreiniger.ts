@@ -20,7 +20,7 @@ mp.events.add("meeresreiniger_create_start", (x: number, y: number) => {
             shortRange: false
         });
 
-    endMarker = mp.markers.new(1, new mp.Vector3(x, y, 0), 20,
+    endMarker = mp.markers.new(1, new mp.Vector3(x, y, 0), 35,
         {
             color: [255, 255, 0, 150],
             visible: true

@@ -134,7 +134,7 @@ export class Bergwerksjob implements IJob {
 
         mp.events.add(RageMP.Enums.Event.PLAYER_EXIT_VEHICLE, this.onPlayerLeaveVehicle.bind(this));
         mp.events.add(RageMP.Enums.Event.PLAYER_ENTER_COLSHAPE, this.onPlayerEnterColshape.bind(this));
-        mp.events.add(RageMP.Enums.Event.PLAYER_START_ENTER_VEHICLE, this.onPlayerEnterVehicle);
+        mp.events.add(RageMP.Enums.Event.PLAYER_START_ENTER_VEHICLE, this.onPlayerEnterVehicle.bind(this));
     }
 
     onPlayerLeaveVehicle(player: Player, vehicle: Vehicle): void {
@@ -142,7 +142,7 @@ export class Bergwerksjob implements IJob {
             return;
         }
 
-        if (player.seat !== 0) {
+        if (player.lastSeat !== 0) {
             return;
         }
 
@@ -154,7 +154,7 @@ export class Bergwerksjob implements IJob {
 
         player.call("job_bergwerk_destroyAllMarkers");
 
-        vehicle.destroy();
+        VehicleHelper.secureDestroyVehicle(vehicle);
     }
 
     onPlayerEnterColshape(player: Player, shape: Colshape): void {
@@ -238,8 +238,8 @@ export class Bergwerksjob implements IJob {
             "Job Hilfe");
     }
 
-    onPlayerEnterVehicle(player: Player, vehicle: Vehicle, seat: number): void {
-        if (seat !== 0) {
+    onPlayerEnterVehicle(player: Player, vehicle: Vehicle): void {
+        if (player.seat !== 0) {
             return;
         }
         if (!vehicle.isBergwerkBulldozer) {

@@ -15,5 +15,8 @@ mp.gui.chat.colors = true;
 mp.players.local.freezePosition(true);
 mp.players.local.alpha = 0;
 mp.players.local.position = new mp.Vector3(0,0,200);
+mp.game.vehicle.defaultEngineBehaviour = false;
+
+mp.players.local.setConfigFlag(429, true);
 
 logger.info("Startet TerraTex Client");
