@@ -1,7 +1,6 @@
-// mp.gui.execute("window.location = 'package://chat/index.html'");
 mp.gui.chat.show(false); //Disables default RageMP Chat
 
-export let chatBox = mp.browsers.new('package://chat/index.html');
+export const chatBox = mp.browsers.new('package://chat/index.html');
 chatBox.markAsChat();
 
 mp.events.add(
