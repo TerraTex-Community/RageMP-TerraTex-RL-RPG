@@ -17,7 +17,7 @@ mp.keys.bind(0x73, true, function(): void {
 const voiceMgr = {
         listeners: [],
 
-        add: function (player: PlayerMp): void {
+        add: (player: PlayerMp): void => {
             this.listeners.push(player);
 
             // @ts-ignore
@@ -35,8 +35,8 @@ const voiceMgr = {
             }
         },
 
-        remove: function (player: PlayerMp, notify: boolean): void {
-            let idx = this.listeners.indexOf(player);
+        remove: (player: PlayerMp, notify: boolean): void => {
+            const idx = this.listeners.indexOf(player);
 
             if (idx !== -1)
                 this.listeners.splice(idx, 1);
@@ -57,19 +57,17 @@ mp.events.add("playerQuit", (player) => {
 });
 
 setInterval(() => {
-    let localPlayer = mp.players.local;
-    let localPos = localPlayer.position;
+    const localPlayer = mp.players.local;
+    const localPos = localPlayer.position;
 
     mp.players.forEachInStreamRange(player => {
-        if (player !== localPlayer) {
-            // @ts-ignore
-            if (!player.isListening) {
-                const playerPos = player.position;
-                let dist = mp.game.system.vdist(playerPos.x, playerPos.y, playerPos.z, localPos.x, localPos.y, localPos.z);
+        // @ts-ignore
+        if (player !== localPlayer && !player.isListening) {
+            const playerPos = player.position;
+            const dist = mp.game.system.vdist(playerPos.x, playerPos.y, playerPos.z, localPos.x, localPos.y, localPos.z);
 
-                if (dist <= maxRange) {
-                    voiceMgr.add(player);
-                }
+            if (dist <= maxRange) {
+                voiceMgr.add(player);
             }
         }
     });
@@ -77,7 +75,7 @@ setInterval(() => {
     voiceMgr.listeners.forEach((player) => {
         if (player.handle !== 0) {
             const playerPos = player.position;
-            let dist = mp.game.system.vdist(playerPos.x, playerPos.y, playerPos.z, localPos.x, localPos.y, localPos.z);
+            const dist = mp.game.system.vdist(playerPos.x, playerPos.y, playerPos.z, localPos.x, localPos.y, localPos.z);
 
             if (dist > maxRange) {
                 voiceMgr.remove(player, true);
