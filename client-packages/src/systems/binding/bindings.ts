@@ -1,4 +1,5 @@
 import {executeSpecialFunction, isSpecialFunction} from "./binding_special_func";
+import {isChatInputActive} from "../../chat";
 
 export const releaseFunctions = [
     "/voice_push_to_talk",
@@ -97,6 +98,8 @@ export class Bindings {
         if (!isControl && key >= 112 && key <= 123) {
             return;
         }
+
+        if (isChatInputActive) return;
 
         mp.events.call("script_key_pressed", isControl, key);
 

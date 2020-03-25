@@ -3,6 +3,8 @@ mp.gui.chat.show(false); //Disables default RageMP Chat
 export const chatBox = mp.browsers.new('package://chat/index.html');
 chatBox.markAsChat();
 
+export let isChatInputActive: boolean = false;
+
 mp.events.add(
     {
         "addChat": (message) => {
@@ -17,6 +19,9 @@ mp.events.add(
         "simulateChat": (text) => {
             chatBox.execute(`chatAPI.simulate("${text}");`);
         },
+        "chatInputChange": (state: boolean) => {
+            isChatInputActive = state;
+        }
     }
 );
 

@@ -9,6 +9,8 @@ let chat =
 
 function enableChatInput(enable, defaultInput = "")
 {
+    mp.events.call("chatInputChange", enable);
+
     if(chat.active == false
             && enable == true)
         return;

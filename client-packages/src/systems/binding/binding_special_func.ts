@@ -19,7 +19,7 @@ export function executeSpecialFunction(func: string, release: boolean = false): 
             toggleCursor();
             break;
         case "/show_playerlist":
-            togglePlayerList();
+            togglePlayerList(release);
             break;
         default: break;
     }

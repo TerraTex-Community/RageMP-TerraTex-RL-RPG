@@ -27,12 +27,12 @@ function updatePlayerList(): void {
     });
 }
 
-export function togglePlayerList(): void {
+export function togglePlayerList(release: boolean): void {
     if (!playerListBrowser) {
         return;
     }
 
-    playerListBrowser.active = !playerListBrowser.active;
+    playerListBrowser.active = !release;
 }
 
 mp.events.add(RageEnums.EventKey.PLAYER_QUIT, (player: PlayerMp) => {
