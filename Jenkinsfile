@@ -83,13 +83,10 @@ gitlabCommitStatus {
                         if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop' || params.DEPLOY_NON_DEV) {
                             if (env.BRANCH_NAME == 'develop') {
                                 bat 'cd server-packages && del /f ormconfig.json'
-                                bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
                             } else if (env.BRANCH_NAME == 'master') {
                                 bat 'cd server-packages && del /f ormconfig.json'
-                                bat 'cd server-packages && copy ormconfig.prod.json ormconfig.json'
                             } else if (params.DEPLOY_NON_DEV) {
                                 bat 'cd server-packages && del /f ormconfig.json'
-                                bat 'cd server-packages && copy ormconfig.dev.json ormconfig.json'
                             }
                                 bat 'cd Build-stuff && npm i'
                                 bat 'cd Build-stuff && grunt'
@@ -104,7 +101,20 @@ gitlabCommitStatus {
                         bat 'cd Build-stuff && grunt deploy --path=D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2\\develop\\server-files'
                     } else if (params.DEPLOY_NON_DEV) {
                         bat 'cd Build-stuff && grunt deploy --path=D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2\\develop\\server-files'
-                     }
+                    }
+                }
+
+                stage('Copy Config') {
+                    if (env.BRANCH_NAME == 'master') {
+                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config/ormconfig.prod.json master\\server-files\\packages\\TerraTex\\ormconfig.json'
+                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config/mailconfig.json master\\server-files\\packages\\TerraTex\\mailconfig.json'
+                    } else if (env.BRANCH_NAME == 'develop') {
+                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config/ormconfig.dev.json develop\\server-files\\packages\\TerraTex\\ormconfig.json'
+                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config/mailconfig.json develop\\server-files\\packages\\TerraTex\\mailconfig.json'
+                    } else if (params.DEPLOY_NON_DEV) {
+                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config/ormconfig.dev.json develop\\server-files\\packages\\TerraTex\\ormconfig.json'
+                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config/mailconfig.json develop\\server-files\\packages\\TerraTex\\mailconfig.json'
+                    }
                 }
 
                 stage('Artifacts Client') {
