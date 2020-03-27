@@ -106,14 +106,14 @@ gitlabCommitStatus {
 
                 stage('Copy Config') {
                     if (env.BRANCH_NAME == 'master') {
-                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config/ormconfig.prod.json master\\server-files\\packages\\TerraTex\\ormconfig.json'
-                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config/mailconfig.json master\\server-files\\packages\\TerraTex\\mailconfig.json'
+                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config\\ormconfig.prod.json master\\server-files\\packages\\TerraTex\\ormconfig.json'
+                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config\\mailconfig.json master\\server-files\\packages\\TerraTex\\mailconfig.json'
                     } else if (env.BRANCH_NAME == 'develop') {
-                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config/ormconfig.dev.json develop\\server-files\\packages\\TerraTex\\ormconfig.json'
-                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config/mailconfig.json develop\\server-files\\packages\\TerraTex\\mailconfig.json'
+                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config\\ormconfig.dev.json develop\\server-files\\packages\\TerraTex\\ormconfig.json'
+                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config\\mailconfig.json develop\\server-files\\packages\\TerraTex\\mailconfig.json'
                     } else if (params.DEPLOY_NON_DEV) {
-                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config/ormconfig.dev.json develop\\server-files\\packages\\TerraTex\\ormconfig.json'
-                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config/mailconfig.json develop\\server-files\\packages\\TerraTex\\mailconfig.json'
+                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config\\ormconfig.dev.json develop\\server-files\\packages\\TerraTex\\ormconfig.json'
+                        bat 'cd D:\\TerraTex\\Spiele\\TerraTex-RageMP-V2 && copy config\\mailconfig.json develop\\server-files\\packages\\TerraTex\\mailconfig.json'
                     }
                 }
 
