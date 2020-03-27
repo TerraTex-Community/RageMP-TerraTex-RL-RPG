@@ -9,6 +9,10 @@ import {
 } from "typeorm";
 import {DbUser} from "./DbUser";
 
+export interface ItemInventoryData {
+    amount: number;
+}
+
 @Entity({
     name: "user_inventory"
 })
@@ -41,6 +45,12 @@ export class DbUserInventory extends BaseEntity {
         type: "float"
     })
     bank: number;
+
+    @Column({
+        default: "{}",
+        type: "json"
+    })
+    inventoryItems: {[itemClassName: string]: ItemInventoryData};
 
     @UpdateDateColumn({
         default: null,

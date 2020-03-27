@@ -1,2 +1,1 @@
 # TT-RageMP-Typescript
-
