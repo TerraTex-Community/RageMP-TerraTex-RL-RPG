@@ -8,10 +8,9 @@ import {
     JoinColumn
 } from "typeorm";
 import {DbUser} from "./DbUser";
+import {InventoryDef} from "../../Script/System/Inventory/Inventory";
 
-export interface ItemInventoryData {
-    amount: number;
-}
+
 
 @Entity({
     name: "user_inventory"
@@ -50,7 +49,7 @@ export class DbUserInventory extends BaseEntity {
         default: "{}",
         type: "json"
     })
-    inventoryItems: {[itemClassName: string]: ItemInventoryData};
+    inventoryItems: InventoryDef;
 
     @UpdateDateColumn({
         default: null,

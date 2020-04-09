@@ -12,6 +12,7 @@ import {loadAllPrivateVehicle} from "./Script/System/Vehicle/PrivateVehicles/loa
 import {setup, start, defaultClient} from "applicationinsights";
 import {startWebServer} from "./ApiServer/webserver";
 import {initVersionInstance} from "./Lib/Version";
+import {initInventorySystem} from "./Script/System/Inventory/InventorySystem";
 
 async function initGameMode(): Promise<void> {
     mp.events.delayInitialization = true;
@@ -29,6 +30,7 @@ async function initGameMode(): Promise<void> {
     }
     await initDb();
     await loadAllPrivateVehicle();
+    await initInventorySystem();
 
     mp.events.delayInitialization = false;
     startWebServer();
