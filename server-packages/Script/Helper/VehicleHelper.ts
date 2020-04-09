@@ -6,7 +6,7 @@ import {logger} from "../../Lib/Services/logging/logger";
 export class VehicleHelper {
 
     static async ensurePlayerInVehicle(player: Player, vehicle: Vehicle, seat: number = 0): Promise<void> {
-        await wait(1000);
+        // await wait(1000);
         while (player.vehicle !== vehicle) {
             player.putIntoVehicle(vehicle, seat);
             await wait(200);
