@@ -61,8 +61,8 @@ module.exports = function(grunt) {
             dlc: {
                 expand: true,
                 src: '**/*',
-                dest: './dist/client_packages/dlcpacks',
-                cwd: '../client-packages/dlcpacks'
+                dest: './dist/client_packages/game_resources',
+                cwd: '../client-packages/game_resources'
             },
             server: {
                 expand: true,

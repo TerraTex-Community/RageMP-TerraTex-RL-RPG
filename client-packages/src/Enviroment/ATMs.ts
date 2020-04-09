@@ -48,5 +48,6 @@ mp.events.add("browser_atm_payInPayOut", (type, amount, txt) => {
 
 
 mp.events.add("browser_atm_transfer", (amount, receiver, txt) => {
+    console.log(amount, receiver, txt);
     mp.events.callRemote("atm_transfer", parseFloat(amount), receiver, txt);
 });
