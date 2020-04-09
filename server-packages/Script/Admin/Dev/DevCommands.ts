@@ -14,6 +14,10 @@ mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => 
     VehicleHelper.ensurePlayerInVehicle(player, vehicle);
 });
 
+mp.events.addCommand('livery', (player: Player, text: string, id: string) => {
+    player.vehicle.livery = parseInt(id, 10);
+});
+
 mp.events.addCommand('giveweapons', ((player) => {
     if (!isAdmin(player, 4)) return;
 
