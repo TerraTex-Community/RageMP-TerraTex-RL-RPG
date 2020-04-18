@@ -154,9 +154,12 @@ $(document).ready(function()
                 if (value[0] === "/")
                 {
                     value = value.substr(1);
+                    parts = value.split(" ");
+
+                    value = value.replace(parts[0], parts[0].toLowerCase())
 
                     if (value.length > 0)
-                        mp.invoke("command", value.toLowerCase());
+                        mp.invoke("command", value);
                 }
                 else
                 {

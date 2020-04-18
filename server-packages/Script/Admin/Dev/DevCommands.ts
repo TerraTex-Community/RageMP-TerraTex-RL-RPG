@@ -49,19 +49,4 @@ mp.events.addCommand("changemoney", ((player, fullText, money) => {
     }
 }));
 
-mp.events.addCommand("giveitem", ((player, fullText, itemName) => {
-    if (isDevServer()) {
-        InventoryManager.addInventoryItem((player.customData.dbUser as DbUser).inventory.inventoryItems, "ItemFirstAidKit", 1);
-    }
-}));
-
-mp.events.addCommand("useitem", ((player, fullText, itemName) => {
-    if (isDevServer()) {
-        if (InventoryManager.hasInventoryItem((player.customData.dbUser as DbUser).inventory.inventoryItems, "ItemFirstAidKit")) {
-            Chat.sendChatAlertToPlayer(player, "danger", "Item not inventory.")
-        } else {
-            InventoryManager.useInventoryItem((player.customData.dbUser as DbUser).inventory.inventoryItems, "ItemFirstAidKit", player);
-        }
-    }
-}));
 

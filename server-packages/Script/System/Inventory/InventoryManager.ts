@@ -32,6 +32,7 @@ export class InventoryManager {
         }
 
         inventoryData[inventoryItemClassName].amount++;
+        console.log(JSON.stringify(inventoryData, null, 4));
     }
 
     /**

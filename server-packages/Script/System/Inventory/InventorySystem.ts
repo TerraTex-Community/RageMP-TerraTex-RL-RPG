@@ -10,4 +10,5 @@ export async function initInventorySystem(): Promise<void> {
         const itemClass = require(`./${item.replace(/packages.TerraTex.Script.System.Inventory./, "")}`);
         inventoryItemDefinitions[itemClass.default.name] = new itemClass.default();
     }
+    console.log(JSON.stringify(inventoryItemDefinitions, null, 4))
 }
