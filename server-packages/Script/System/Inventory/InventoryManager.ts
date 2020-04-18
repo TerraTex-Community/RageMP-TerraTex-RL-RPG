@@ -10,10 +10,8 @@ export class InventoryManager {
      */
     static hasInventoryItem(inventoryData: InventoryDef, inventoryItemClassName: string): boolean {
         if (!inventoryItemDefinitions[inventoryItemClassName]) throw new Error(`Item ${inventoryItemClassName} does not exist!`);
-        if (inventoryData.hasOwnProperty(inventoryItemClassName)) {
-            if (inventoryData[inventoryItemClassName].amount > 0) {
-                return true;
-            }
+        if (inventoryData.hasOwnProperty(inventoryItemClassName) && inventoryData[inventoryItemClassName].amount > 0) {
+            return true;
         }
         return false;
     }
