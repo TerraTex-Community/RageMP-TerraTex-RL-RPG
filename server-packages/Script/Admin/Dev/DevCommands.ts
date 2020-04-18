@@ -6,6 +6,8 @@ import {clientLogger} from "../../../Lib/Services/ClientConsole";
 import {changePlayerMoney} from "../../System/Money/money";
 import {MoneyCategory} from "../../System/Money/MoneyCategories";
 import {VehicleHelper} from "../../Helper/VehicleHelper";
+import {InventoryManager} from "../../System/Inventory/InventoryManager";
+import {DbUser} from "../../../DB/entities/DbUser";
 
 mp.events.addCommand('veh', (player: Player, text: string, vehModel: string) => {
     if (!isAdmin(player, 4)) return;
@@ -46,3 +48,20 @@ mp.events.addCommand("changemoney", ((player, fullText, money) => {
         changePlayerMoney(player, parseFloat(money), false, MoneyCategory.Other, {reason: "dev changemoney cmd"});
     }
 }));
+
+mp.events.addCommand("giveitem", ((player, fullText, itemName) => {
+    if (isDevServer()) {
+        InventoryManager.addInventoryItem((player.customData.dbUser as DbUser).inventory.inventoryItems, "ItemFirstAidKit", 1);
+    }
+}));
+
+mp.events.addCommand("useitem", ((player, fullText, itemName) => {
+    if (isDevServer()) {
+        if (InventoryManager.hasInventoryItem((player.customData.dbUser as DbUser).inventory.inventoryItems, "ItemFirstAidKit")) {
+            Chat.sendChatAlertToPlayer(player, "danger", "Item not inventory.")
+        } else {
+            InventoryManager.useInventoryItem((player.customData.dbUser as DbUser).inventory.inventoryItems, "ItemFirstAidKit", player);
+        }
+    }
+}));
+
