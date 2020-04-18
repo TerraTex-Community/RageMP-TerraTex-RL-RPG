@@ -18,7 +18,7 @@ createScriptedVehicle(mp.joaat("faggio"), new mp.Vector3(296.731171, -1179.04529
     autoRespawn: true,
     idleRespawn: true
 });
-createScriptedVehicle(mp.joaat("faggio2"), new mp.Vector3(298.578278, -1178.75635, 28.8814621), getBaseRookieVehOptions(136.83107), {
+createScriptedVehicle(mp.joaat("faggio"), new mp.Vector3(298.578278, -1178.75635, 28.8814621), getBaseRookieVehOptions(136.83107), {
     autoRespawn: true,
     idleRespawn: true
 });
@@ -31,7 +31,7 @@ createScriptedVehicle(mp.joaat("faggio"), new mp.Vector3(302.906158, -1178.44751
     autoRespawn: true,
     idleRespawn: true
 });
-createScriptedVehicle(mp.joaat("faggio2"), new mp.Vector3(303.970978, -1179.64014, 28.9428444), getBaseRookieVehOptions(130.697021), {
+createScriptedVehicle(mp.joaat("faggio3"), new mp.Vector3(303.970978, -1179.64014, 28.9428444), getBaseRookieVehOptions(130.697021), {
     autoRespawn: true,
     idleRespawn: true
 });
@@ -45,7 +45,7 @@ createScriptedVehicle(mp.joaat("faggio"), new mp.Vector3(304.280182, -1183.55994
     autoRespawn: true,
     idleRespawn: true
 });
-createScriptedVehicle(mp.joaat("faggio2"), new mp.Vector3(304.379578, -1185.31812, 28.8399849), getBaseRookieVehOptions(116.56395), {
+createScriptedVehicle(mp.joaat("faggio"), new mp.Vector3(304.379578, -1185.31812, 28.8399849), getBaseRookieVehOptions(116.56395), {
     autoRespawn: true,
     idleRespawn: true
 });

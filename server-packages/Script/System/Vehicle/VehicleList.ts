@@ -60,7 +60,7 @@ export const VEHICLE_LIST: VehicleListItem[] = [
     new VehicleListItem(6000, "enduro", VEHICLE_BUY_MODE.VEHICLE_SHOPS, VehicleCategory.Bike, [BIKE_LICENSE]),
     new VehicleListItem(12000, "esskey", VEHICLE_BUY_MODE.VEHICLE_SHOPS, VehicleCategory.Bike, [BIKE_LICENSE]),
     new VehicleListItem(3000, "faggio", VEHICLE_BUY_MODE.VEHICLE_SHOPS, VehicleCategory.Bike, []),
-    new VehicleListItem(3000, "faggio2", VEHICLE_BUY_MODE.VEHICLE_SHOPS, VehicleCategory.Bike, []),
+    new VehicleListItem(3000, "faggio2", VEHICLE_BUY_MODE.NOT_BUYABLE, VehicleCategory.Bike, []),
     new VehicleListItem(3000, "faggio3", VEHICLE_BUY_MODE.VEHICLE_SHOPS, VehicleCategory.Bike, []),
     new VehicleListItem(10000, "fcr", VEHICLE_BUY_MODE.VEHICLE_SHOPS, VehicleCategory.Bike, [BIKE_LICENSE]),
     new VehicleListItem(13000, "fcr2", VEHICLE_BUY_MODE.VEHICLE_SHOPS, VehicleCategory.Bike, [BIKE_LICENSE]),
